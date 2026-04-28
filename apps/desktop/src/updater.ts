@@ -15,7 +15,11 @@ export async function maybeRegisterAutoUpdater(): Promise<void> {
 
   try {
     const mod = await import('electron-updater');
-    const updater = (mod as unknown as { autoUpdater: { checkForUpdatesAndNotify: () => Promise<unknown>; logger?: unknown } }).autoUpdater;
+    const updater = (
+      mod as unknown as {
+        autoUpdater: { checkForUpdatesAndNotify: () => Promise<unknown>; logger?: unknown };
+      }
+    ).autoUpdater;
     if (!updater) return;
     void updater.checkForUpdatesAndNotify();
   } catch (err) {

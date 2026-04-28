@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Button } from '../primitives/Button';
 import {
   Dialog,
@@ -6,8 +6,8 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
   type DialogSize,
+  DialogTitle,
 } from '../primitives/Dialog';
 
 export interface InfoDialogProps {

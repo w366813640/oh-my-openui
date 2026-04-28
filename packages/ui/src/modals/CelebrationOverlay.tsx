@@ -1,5 +1,5 @@
 import { Asterisk } from '@oh/icons';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Button } from '../primitives/Button';
 import {
   Dialog,

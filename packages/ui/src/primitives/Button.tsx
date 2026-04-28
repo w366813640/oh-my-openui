@@ -1,6 +1,6 @@
+import { Asterisk } from '@oh/icons';
 import { Slot } from '@radix-ui/react-slot';
 import { type VariantProps, cva } from 'class-variance-authority';
-import { Asterisk } from '@oh/icons';
 import { type ButtonHTMLAttributes, forwardRef } from 'react';
 import { cn } from '../utils';
 

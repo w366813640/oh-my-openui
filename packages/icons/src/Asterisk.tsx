@@ -26,7 +26,7 @@ export function Asterisk({ size = 24, ...props }: AsteriskProps) {
           const angle = (i * 360) / 12;
           return (
             <path
-              key={i}
+              key={`ray-${angle}`}
               d="M11.4 2.2 C11.6 1.0 12.4 1.0 12.6 2.2 L13.2 11 C13.25 11.6 12.7 12.0 12.0 12.0 C11.3 12.0 10.75 11.6 10.8 11 Z"
               transform={`rotate(${angle} 12 12)`}
             />

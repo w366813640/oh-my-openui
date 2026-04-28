@@ -1,6 +1,6 @@
+import type { BundledLanguage, BundledTheme } from 'shiki';
 import { type HighlighterCore, createHighlighterCore } from 'shiki/core';
 import { createJavaScriptRegexEngine } from 'shiki/engine/javascript';
-import type { BundledLanguage, BundledTheme } from 'shiki';
 
 /**
  * Lazy, singleton Shiki highlighter — built on `shiki/core` + the JS regex

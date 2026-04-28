@@ -1,11 +1,6 @@
-import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { X } from '@oh/icons';
-import {
-  type ComponentPropsWithoutRef,
-  type ElementRef,
-  type ReactNode,
-  forwardRef,
-} from 'react';
+import * as DialogPrimitive from '@radix-ui/react-dialog';
+import { type ComponentPropsWithoutRef, type ElementRef, type ReactNode, forwardRef } from 'react';
 import { cn } from '../utils';
 
 export const Dialog = DialogPrimitive.Root;
@@ -41,7 +36,8 @@ const sizeClass: Record<DialogSize, string> = {
   xl: 'max-w-[920px]',
 };
 
-export interface DialogContentProps extends ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {
+export interface DialogContentProps
+  extends ComponentPropsWithoutRef<typeof DialogPrimitive.Content> {
   size?: DialogSize;
   hideCloseButton?: boolean;
 }
@@ -88,7 +84,10 @@ export const DialogContent = forwardRef<
   );
 });
 
-export function DialogHeader({ className, ...props }: { className?: string; children?: ReactNode }) {
+export function DialogHeader({
+  className,
+  ...props
+}: { className?: string; children?: ReactNode }) {
   return <div className={cn('mb-4 flex flex-col gap-1.5 pr-8', className)} {...props} />;
 }
 
@@ -116,7 +115,10 @@ export function DialogDescription({
   );
 }
 
-export function DialogFooter({ className, ...props }: { className?: string; children?: ReactNode }) {
+export function DialogFooter({
+  className,
+  ...props
+}: { className?: string; children?: ReactNode }) {
   return (
     <div
       className={cn('mt-6 flex flex-row items-center justify-end gap-2', className)}

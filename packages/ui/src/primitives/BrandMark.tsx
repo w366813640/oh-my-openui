@@ -1,6 +1,6 @@
 import { Asterisk } from '@oh/icons';
 import { motion, useReducedMotion } from 'framer-motion';
-import { type CSSProperties, type ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import { cn } from '../utils';
 
 export interface BrandMarkProps {
@@ -45,7 +45,7 @@ export function BrandMark({
     if (variant === 'streaming') {
       return {
         animate: { rotate: 360 },
-        transition: { duration: 1.4, ease: 'linear', repeat: Infinity },
+        transition: { duration: 1.4, ease: 'linear', repeat: Number.POSITIVE_INFINITY },
       };
     }
     if (variant === 'idle-pulse') {
@@ -57,7 +57,7 @@ export function BrandMark({
         transition: {
           duration: 6,
           ease: 'easeInOut',
-          repeat: Infinity,
+          repeat: Number.POSITIVE_INFINITY,
         },
       };
     }
@@ -91,7 +91,10 @@ export function BrandMark({
   return (
     <motion.span
       aria-hidden="true"
-      className={cn('inline-flex items-center justify-center text-[var(--color-asterisk)]', className)}
+      className={cn(
+        'inline-flex items-center justify-center text-[var(--color-asterisk)]',
+        className,
+      )}
       style={style}
       {...motionProps}
     >

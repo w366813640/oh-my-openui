@@ -1,5 +1,5 @@
 import { type ReactNode, createContext, useCallback, useContext, useMemo, useState } from 'react';
-import { auroraBrand, BrandProvider, builtInBrands } from './BrandProvider';
+import { BrandProvider, auroraBrand, builtInBrands } from './BrandProvider';
 import type { BrandTheme } from './types';
 
 /**
@@ -38,9 +38,7 @@ export function BrandSwitcherProvider({
     });
   }, [extraBrands]);
 
-  const [activeName, setActiveName] = useState<string>(
-    initialBrandName ?? auroraBrand.name,
-  );
+  const [activeName, setActiveName] = useState<string>(initialBrandName ?? auroraBrand.name);
 
   const brand = useMemo(
     () => brands.find((b) => b.name === activeName) ?? auroraBrand,

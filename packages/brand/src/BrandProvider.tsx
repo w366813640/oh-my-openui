@@ -1,10 +1,4 @@
-import {
-  type CSSProperties,
-  type ReactNode,
-  createContext,
-  useContext,
-  useMemo,
-} from 'react';
+import { type CSSProperties, type ReactNode, createContext, useContext, useMemo } from 'react';
 import { AuroraLogo } from './AuroraLogo';
 import type { BrandTheme } from './types';
 

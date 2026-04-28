@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { cn } from '../utils';
 
 export interface SettingsNavItem {
@@ -42,11 +42,13 @@ export function TwoPaneSettingsLayout({
 }: TwoPaneSettingsLayoutProps) {
   return (
     <div className={cn('flex flex-col w-full max-w-[960px] mx-auto px-6 py-8', className)}>
-      {(title || description || accessory) ? (
+      {title || description || accessory ? (
         <header className="flex items-start justify-between gap-4 mb-6">
           <div>
             {title ? (
-              <h1 className="text-[26px] leading-tight font-serif text-[var(--color-text)]">{title}</h1>
+              <h1 className="text-[26px] leading-tight font-serif text-[var(--color-text)]">
+                {title}
+              </h1>
             ) : null}
             {description ? (
               <p className="mt-1 text-[13.5px] text-[var(--color-text-muted)]">{description}</p>
@@ -75,7 +77,9 @@ export function TwoPaneSettingsLayout({
                         'bg-[var(--color-surface-muted)] text-[var(--color-text)] font-medium',
                     )}
                   >
-                    {item.icon ? <span className="[&_svg]:h-4 [&_svg]:w-4">{item.icon}</span> : null}
+                    {item.icon ? (
+                      <span className="[&_svg]:h-4 [&_svg]:w-4">{item.icon}</span>
+                    ) : null}
                     <span className="flex-1 text-left truncate">{item.label}</span>
                     {item.trailing}
                   </button>
@@ -135,12 +139,14 @@ export function SettingsRow({
   return (
     <div
       className={cn(
-        'flex items-center justify-between gap-4 py-3 first:pt-0 last:pb-0',
+        // Wrap when the trailing control is too wide for the available pane:
+        // label keeps a sensible min width, trailing slides under it and right-aligns.
+        'flex flex-wrap items-center justify-between gap-x-4 gap-y-3 py-3 first:pt-0 last:pb-0',
         'border-b border-[var(--color-border)] last:border-b-0',
         className,
       )}
     >
-      <div className="min-w-0">
+      <div className="min-w-0 flex-1 basis-[180px]">
         <div className="text-[13px] font-medium text-[var(--color-text)]">{label}</div>
         {description ? (
           <p className="text-[12.5px] text-[var(--color-text-muted)] mt-0.5 leading-snug">
@@ -148,7 +154,7 @@ export function SettingsRow({
           </p>
         ) : null}
       </div>
-      <div className="flex-shrink-0">{trailing}</div>
+      <div className="flex-shrink-0 ml-auto max-w-full">{trailing}</div>
     </div>
   );
 }

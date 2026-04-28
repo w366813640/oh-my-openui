@@ -5,7 +5,7 @@
  * via the `@theme inline` directive so utility classes resolve to our tokens.
  */
 
-@import '@oh/tokens/css';
+@import "@oh/tokens/css";
 
 @theme inline {
   --color-bg: var(--color-bg);
@@ -340,28 +340,28 @@
   background: transparent;
 }
 
-[data-theme='light'] .shiki-wrap pre.shiki {
+[data-theme="light"] .shiki-wrap pre.shiki {
   background: transparent !important;
 }
 
-[data-theme='dark'] .shiki-wrap pre.shiki {
+[data-theme="dark"] .shiki-wrap pre.shiki {
   background: transparent !important;
 }
 
-[data-theme='dark'] .shiki-wrap pre.shiki,
-[data-theme='dark'] .shiki-wrap pre.shiki span {
+[data-theme="dark"] .shiki-wrap pre.shiki,
+[data-theme="dark"] .shiki-wrap pre.shiki span {
   color: var(--shiki-dark, inherit) !important;
   background-color: var(--shiki-dark-bg, transparent) !important;
 }
 
 /* Line numbers gutter (rendered via ::before counter on each .line) */
-.shiki-wrap[data-line-numbers='true'] pre.shiki code {
+.shiki-wrap[data-line-numbers="true"] pre.shiki code {
   counter-reset: shiki-line;
 }
-.shiki-wrap[data-line-numbers='true'] pre.shiki code .line {
+.shiki-wrap[data-line-numbers="true"] pre.shiki code .line {
   counter-increment: shiki-line;
 }
-.shiki-wrap[data-line-numbers='true'] pre.shiki code .line::before {
+.shiki-wrap[data-line-numbers="true"] pre.shiki code .line::before {
   content: counter(shiki-line);
   display: inline-block;
   width: 2.25rem;

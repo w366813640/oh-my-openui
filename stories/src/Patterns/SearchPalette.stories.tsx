@@ -19,12 +19,48 @@ function Frame({ children }: { children: React.ReactNode }) {
 }
 
 const richItems: SearchPaletteItem[] = [
-  { id: 'r1', label: 'Productivity tools exploration', kind: 'chat', group: 'Starred', description: '5h ago' },
-  { id: 'r2', label: 'Generate a coding friend', kind: 'chat', group: 'Starred', description: 'Yesterday' },
-  { id: 'r3', label: 'Build a dev companion app', kind: 'chat', group: 'Recents', description: 'Mon' },
-  { id: 'r4', label: 'Fixing CSS Grid edge cases', kind: 'chat', group: 'Recents', description: 'Last week' },
-  { id: 'r5', label: 'Aurora dashboard mockups', kind: 'project', group: 'Projects', description: '3 chats' },
-  { id: 'r6', label: 'Internal tools', kind: 'project', group: 'Projects', description: '12 chats' },
+  {
+    id: 'r1',
+    label: 'Productivity tools exploration',
+    kind: 'chat',
+    group: 'Starred',
+    description: '5h ago',
+  },
+  {
+    id: 'r2',
+    label: 'Generate a coding friend',
+    kind: 'chat',
+    group: 'Starred',
+    description: 'Yesterday',
+  },
+  {
+    id: 'r3',
+    label: 'Build a dev companion app',
+    kind: 'chat',
+    group: 'Recents',
+    description: 'Mon',
+  },
+  {
+    id: 'r4',
+    label: 'Fixing CSS Grid edge cases',
+    kind: 'chat',
+    group: 'Recents',
+    description: 'Last week',
+  },
+  {
+    id: 'r5',
+    label: 'Aurora dashboard mockups',
+    kind: 'project',
+    group: 'Projects',
+    description: '3 chats',
+  },
+  {
+    id: 'r6',
+    label: 'Internal tools',
+    kind: 'project',
+    group: 'Projects',
+    description: '12 chats',
+  },
   { id: 'c1', label: 'New chat', kind: 'command', group: 'Commands', trailing: <Kbd>⌘N</Kbd> },
   { id: 'c2', label: 'Open settings', kind: 'command', group: 'Commands', trailing: <Kbd>⌘,</Kbd> },
   { id: 'c3', label: 'Toggle theme', kind: 'command', group: 'Commands', trailing: <Kbd>⌘⇧L</Kbd> },
@@ -55,7 +91,12 @@ export const EmptyState: Story = {
     const [open, setOpen] = useState(true);
     return (
       <Frame>
-        <SearchPalette open={open} onOpenChange={setOpen} items={[]} placeholder="Search anything…" />
+        <SearchPalette
+          open={open}
+          onOpenChange={setOpen}
+          items={[]}
+          placeholder="Search anything…"
+        />
       </Frame>
     );
   },

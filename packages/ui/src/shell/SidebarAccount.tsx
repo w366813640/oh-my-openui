@@ -7,7 +7,7 @@ import {
   Settings,
   Sparkles,
 } from '@oh/icons';
-import { type ComponentType, type ReactNode } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '../primitives/Avatar';
 import { Badge } from '../primitives/Badge';
 import {
@@ -99,9 +99,7 @@ export function SidebarAccount({
           {expanded ? (
             <>
               <span className="flex-1 min-w-0">
-                <span className="block truncate text-[13px] leading-tight font-medium">
-                  {name}
-                </span>
+                <span className="block truncate text-[13px] leading-tight font-medium">{name}</span>
                 {subtitle ? (
                   <span className="block truncate text-[11.5px] leading-tight text-[var(--color-text-muted)]">
                     {subtitle}
@@ -135,7 +133,8 @@ export function SidebarAccount({
         {actions.map((action, idx) => {
           const Icon = action.icon;
           const isDestructive = action.tone === 'destructive';
-          const showSeparatorBefore = isDestructive && idx > 0 && actions[idx - 1]?.tone !== 'destructive';
+          const showSeparatorBefore =
+            isDestructive && idx > 0 && actions[idx - 1]?.tone !== 'destructive';
           return (
             <div key={action.id}>
               {showSeparatorBefore ? <DropdownMenuSeparator /> : null}

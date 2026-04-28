@@ -26,11 +26,21 @@ export const All: Story = {
     const [c, setC] = useState(false);
     return (
       <div className="flex flex-wrap gap-2">
-        <Button variant="outline" size="sm" onClick={() => setA(true)}>Alert</Button>
-        <Button variant="outline" size="sm" onClick={() => setF(true)}>Form</Button>
-        <Button variant="outline" size="sm" onClick={() => setI(true)}>Info</Button>
-        <Button variant="outline" size="sm" onClick={() => setP(true)}>Picker</Button>
-        <Button variant="outline" size="sm" onClick={() => setC(true)}>Celebration</Button>
+        <Button variant="outline" size="sm" onClick={() => setA(true)}>
+          Alert
+        </Button>
+        <Button variant="outline" size="sm" onClick={() => setF(true)}>
+          Form
+        </Button>
+        <Button variant="outline" size="sm" onClick={() => setI(true)}>
+          Info
+        </Button>
+        <Button variant="outline" size="sm" onClick={() => setP(true)}>
+          Picker
+        </Button>
+        <Button variant="outline" size="sm" onClick={() => setC(true)}>
+          Celebration
+        </Button>
 
         <AlertDialog
           open={a}
@@ -82,10 +92,30 @@ export const All: Story = {
               id: 'apps',
               label: 'Apps',
               items: [
-                { id: 'note', title: 'Note app', description: 'Markdown surface', icon: <PenLine size={18} /> },
-                { id: 'flash', title: 'Flashcards', description: 'Spaced repetition', icon: <GraduationCap size={18} /> },
-                { id: 'code', title: 'Code playground', description: 'Editable sandbox', icon: <CodeIcon size={18} /> },
-                { id: 'gal', title: 'Gallery', description: 'Image grid', icon: <Sparkles size={18} /> },
+                {
+                  id: 'note',
+                  title: 'Note app',
+                  description: 'Markdown surface',
+                  icon: <PenLine size={18} />,
+                },
+                {
+                  id: 'flash',
+                  title: 'Flashcards',
+                  description: 'Spaced repetition',
+                  icon: <GraduationCap size={18} />,
+                },
+                {
+                  id: 'code',
+                  title: 'Code playground',
+                  description: 'Editable sandbox',
+                  icon: <CodeIcon size={18} />,
+                },
+                {
+                  id: 'gal',
+                  title: 'Gallery',
+                  description: 'Image grid',
+                  icon: <Sparkles size={18} />,
+                },
               ],
             },
           ]}

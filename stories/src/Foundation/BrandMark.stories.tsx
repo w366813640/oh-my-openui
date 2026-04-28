@@ -57,7 +57,9 @@ export const Interactive: Story = {
         onClick={() => alert('Brand click!')}
         ariaLabel="Open brand"
       />
-      <p className="mt-3 text-[12px] text-[var(--color-text-muted)]">Click me · keyboard accessible</p>
+      <p className="mt-3 text-[12px] text-[var(--color-text-muted)]">
+        Click me · keyboard accessible
+      </p>
     </div>
   ),
 };

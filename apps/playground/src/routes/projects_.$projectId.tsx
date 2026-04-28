@@ -12,12 +12,15 @@ import { createFileRoute, useNavigate, useParams } from '@tanstack/react-router'
 import { AppFrame } from '../components/AppFrame';
 import { mockChatHistory, mockModelOptions, mockProjects } from '../mocks/data';
 
-export const Route = createFileRoute('/projects/$projectId')({
+// Trailing-underscore (`projects_`) escapes the `routes/projects.tsx` layout so
+// `/projects/:id` mounts standalone instead of being treated as a nested child
+// of the projects-list page (which doesn't render an <Outlet />).
+export const Route = createFileRoute('/projects_/$projectId')({
   component: ProjectDetailPage,
 });
 
 function ProjectDetailPage() {
-  const { projectId } = useParams({ from: '/projects/$projectId' });
+  const { projectId } = useParams({ from: '/projects_/$projectId' });
   const navigate = useNavigate();
   const project = mockProjects.find((p) => p.id === projectId) ?? mockProjects[0]!;
 
@@ -30,11 +33,9 @@ function ProjectDetailPage() {
           title={project.title}
           description={project.description}
           actions={
-            <>
-              <IconButton size="md" label="Star">
-                <Star />
-              </IconButton>
-            </>
+            <IconButton size="md" label="Star">
+              <Star />
+            </IconButton>
           }
           composer={<Composer placeholder="How can I help you today?" models={mockModelOptions} />}
           sideRail={

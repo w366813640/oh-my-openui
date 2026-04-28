@@ -1,4 +1,4 @@
-import { Plus, Search, Trash2, FolderOpen } from '@oh/icons';
+import { FolderOpen, Plus, Search, Trash2 } from '@oh/icons';
 import { type ReactNode, useState } from 'react';
 import { Button } from '../primitives/Button';
 import { Input } from '../primitives/Input';
@@ -92,7 +92,7 @@ export function ListPageLayout({
         />
       </div>
 
-      {(meta || inSelectMode) ? (
+      {meta || inSelectMode ? (
         <div className="flex items-center justify-between text-[12.5px] text-[var(--color-text-muted)] mb-2 px-1">
           <div className="flex items-center gap-2">
             {selectable ? (
@@ -119,9 +119,9 @@ export function ListPageLayout({
           </div>
           {bulkActions && selectedIds.length > 0 ? (
             <div className="flex items-center gap-1">
-              {bulkActions.map((a, i) => (
+              {bulkActions.map((a) => (
                 <button
-                  key={i}
+                  key={a.label}
                   type="button"
                   onClick={a.onClick}
                   className={cn(

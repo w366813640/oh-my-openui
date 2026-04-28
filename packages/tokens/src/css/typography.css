@@ -1,9 +1,9 @@
 :root {
-  --font-serif: 'Source Serif 4 Variable', 'Source Serif 4', 'Source Serif Pro',
-    'Tiempos Headline', 'Iowan Old Style', 'Apple Garamond', Georgia, 'Times New Roman', serif;
-  --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', 'Roboto',
-    'Helvetica Neue', sans-serif;
-  --font-mono: 'JetBrains Mono Variable', 'JetBrains Mono', 'Fira Code', 'IBM Plex Mono', 'SF Mono',
+  --font-serif: "Source Serif 4 Variable", "Source Serif 4", "Source Serif Pro", "Tiempos Headline",
+    "Iowan Old Style", "Apple Garamond", Georgia, "Times New Roman", serif;
+  --font-sans: "Inter Variable", "Inter", system-ui, -apple-system, "Segoe UI", "Roboto",
+    "Helvetica Neue", sans-serif;
+  --font-mono: "JetBrains Mono Variable", "JetBrains Mono", "Fira Code", "IBM Plex Mono", "SF Mono",
     Menlo, Consolas, monospace;
 
   --text-2xs: 11px;

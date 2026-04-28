@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { AvatarInitials } from '../primitives/Avatar';
 import { cn } from '../utils';
 import type { UserMessageData } from './types';
@@ -26,11 +26,7 @@ export function UserMessage({ message, className, children }: UserMessageProps) 
                 className="inline-flex items-center gap-2 h-7 px-2 rounded-[8px] border border-[var(--color-border)] bg-[var(--color-surface-raised)] text-[12px]"
               >
                 {att.thumbUrl ? (
-                  <img
-                    src={att.thumbUrl}
-                    alt=""
-                    className="h-4 w-4 rounded-sm object-cover"
-                  />
+                  <img src={att.thumbUrl} alt="" className="h-4 w-4 rounded-sm object-cover" />
                 ) : (
                   <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-text-subtle)]" />
                 )}

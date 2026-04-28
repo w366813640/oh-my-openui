@@ -55,17 +55,10 @@ export function TitleBarControls({ height = 36, className, hidden }: TitleBarCon
 
   return (
     <div
-      className={cn(
-        'app-no-drag fixed top-0 right-0 z-[1010] flex items-stretch',
-        className,
-      )}
+      className={cn('app-no-drag fixed top-0 right-0 z-[1010] flex items-stretch', className)}
       style={{ height }}
     >
-      <ChromeButton
-        label="Minimize"
-        onClick={() => bridge?.minimize()}
-        disabled={!isElectron}
-      >
+      <ChromeButton label="Minimize" onClick={() => bridge?.minimize()} disabled={!isElectron}>
         <Minus size={14} />
       </ChromeButton>
       <ChromeButton
@@ -75,12 +68,7 @@ export function TitleBarControls({ height = 36, className, hidden }: TitleBarCon
       >
         {isMaximized ? <Maximize2 size={12} /> : <Square size={12} />}
       </ChromeButton>
-      <ChromeButton
-        label="Close"
-        danger
-        onClick={() => bridge?.close()}
-        disabled={!isElectron}
-      >
+      <ChromeButton label="Close" danger onClick={() => bridge?.close()} disabled={!isElectron}>
         <X size={14} />
       </ChromeButton>
     </div>

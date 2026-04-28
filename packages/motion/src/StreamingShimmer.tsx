@@ -1,5 +1,5 @@
 import { Asterisk } from '@oh/icons';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 export interface StreamingShimmerProps {
   /** Override the leading icon. */
@@ -31,19 +31,22 @@ export function StreamingShimmer({
         </div>
       ) : null}
       <div className="space-y-2">
-        {Array.from({ length: lines }).map((_, i) => (
-          <div
-            key={i}
-            className="h-3.5 rounded-md"
-            style={{
-              width: `${100 - i * 12}%`,
-              backgroundImage:
-                'linear-gradient(90deg, var(--color-surface-muted) 0%, var(--color-surface-sunken) 50%, var(--color-surface-muted) 100%)',
-              backgroundSize: '200% 100%',
-              animation: 'shimmer 2s linear infinite',
-            }}
-          />
-        ))}
+        {Array.from({ length: lines }).map((_, i) => {
+          const widthPct = 100 - i * 12;
+          return (
+            <div
+              key={`line-${widthPct}`}
+              className="h-3.5 rounded-md"
+              style={{
+                width: `${widthPct}%`,
+                backgroundImage:
+                  'linear-gradient(90deg, var(--color-surface-muted) 0%, var(--color-surface-sunken) 50%, var(--color-surface-muted) 100%)',
+                backgroundSize: '200% 100%',
+                animation: 'shimmer 2s linear infinite',
+              }}
+            />
+          );
+        })}
       </div>
     </div>
   );

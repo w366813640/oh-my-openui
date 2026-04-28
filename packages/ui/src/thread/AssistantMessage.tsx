@@ -1,6 +1,6 @@
 import { ChevronDown, Copy, RefreshCw, ThumbsDown, ThumbsUp } from '@oh/icons';
 import { motion } from 'framer-motion';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Markdown } from '../markdown';
 import { BrandMark } from '../primitives/BrandMark';
 import { IconButton } from '../primitives/IconButton';

@@ -5,9 +5,11 @@ export type BadgeTone = 'neutral' | 'accent' | 'project' | 'success' | 'warning'
 export type BadgeSize = 'sm' | 'md';
 
 const toneClasses: Record<BadgeTone, string> = {
-  neutral: 'bg-[var(--color-surface-muted)] text-[var(--color-text)] border border-[var(--color-border)]',
+  neutral:
+    'bg-[var(--color-surface-muted)] text-[var(--color-text)] border border-[var(--color-border)]',
   accent: 'bg-[var(--color-accent-soft)] text-[var(--color-accent)] border border-transparent',
-  project: 'bg-[#E6EEF8] text-[#3F6CB1] border border-[#D4E1F1] dark:bg-[#27313F] dark:text-[#9DB7DF] dark:border-[#34425A]',
+  project:
+    'bg-[#E6EEF8] text-[#3F6CB1] border border-[#D4E1F1] dark:bg-[#27313F] dark:text-[#9DB7DF] dark:border-[#34425A]',
   success: 'bg-[rgba(63,152,113,0.12)] text-[var(--color-success)] border border-transparent',
   warning: 'bg-[rgba(200,134,42,0.14)] text-[var(--color-warning)] border border-transparent',
   destructive:
@@ -70,7 +72,8 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(function Chip(
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] focus-visible:ring-offset-1 focus-visible:ring-offset-[var(--color-bg)]',
         toneClasses[tone],
         'hover:brightness-[0.97]',
-        active && 'border-[var(--color-accent)] text-[var(--color-accent)] bg-[var(--color-accent-soft)]',
+        active &&
+          'border-[var(--color-accent)] text-[var(--color-accent)] bg-[var(--color-accent-soft)]',
         className,
       )}
       {...props}

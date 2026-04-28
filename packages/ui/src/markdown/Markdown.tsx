@@ -28,7 +28,10 @@ const baseComponents: Components = {
     <h3 className="text-[16.5px] leading-snug font-semibold mt-5 mb-2 first:mt-0" {...props} />
   ),
   h4: (props) => (
-    <h4 className="text-[14px] font-semibold uppercase tracking-[0.04em] text-[var(--color-text-muted)] mt-5 mb-1.5" {...props} />
+    <h4
+      className="text-[14px] font-semibold uppercase tracking-[0.04em] text-[var(--color-text-muted)] mt-5 mb-1.5"
+      {...props}
+    />
   ),
   p: (props) => <p className="my-2.5 first:mt-0 last:mb-0 leading-[24px]" {...props} />,
   a: ({ href, ...props }) => (
@@ -44,8 +47,18 @@ const baseComponents: Components = {
       {...props}
     />
   ),
-  ul: (props) => <ul className="my-2.5 ml-5 list-disc space-y-1 marker:text-[var(--color-text-subtle)]" {...props} />,
-  ol: (props) => <ol className="my-2.5 ml-5 list-decimal space-y-1 marker:text-[var(--color-text-subtle)]" {...props} />,
+  ul: (props) => (
+    <ul
+      className="my-2.5 ml-5 list-disc space-y-1 marker:text-[var(--color-text-subtle)]"
+      {...props}
+    />
+  ),
+  ol: (props) => (
+    <ol
+      className="my-2.5 ml-5 list-decimal space-y-1 marker:text-[var(--color-text-subtle)]"
+      {...props}
+    />
+  ),
   li: (props) => <li className="leading-[22px] pl-0.5" {...props} />,
   blockquote: (props) => (
     <blockquote
@@ -92,32 +105,17 @@ const baseComponents: Components = {
         </code>
       );
     }
-    return (
-      <CodeBlock
-        code={String(children).replace(/\n$/, '')}
-        language={match?.[1]}
-      />
-    );
+    return <CodeBlock code={String(children).replace(/\n$/, '')} language={match?.[1]} />;
   },
   pre: ({ children }) => <>{children}</>,
 };
 
-export const Markdown = memo(function Markdown({
-  children,
-  className,
-  components,
-}: MarkdownProps) {
+export const Markdown = memo(function Markdown({ children, className, components }: MarkdownProps) {
   return (
     <div
-      className={cn(
-        'markdown-body text-[15px] leading-[24px] text-[var(--color-text)]',
-        className,
-      )}
+      className={cn('markdown-body text-[15px] leading-[24px] text-[var(--color-text)]', className)}
     >
-      <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
-        components={{ ...baseComponents, ...components }}
-      >
+      <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ ...baseComponents, ...components }}>
         {children}
       </ReactMarkdown>
     </div>

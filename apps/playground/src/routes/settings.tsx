@@ -77,158 +77,158 @@ function SettingsContent() {
 
   return (
     <MainArea maxWidth={null}>
-        <TwoPaneSettingsLayout
-          title={t('settings.title')}
-          items={items}
-          activeId={active}
-          onSelect={setActive}
-        >
-          {active === 'profile' ? <ProfilePanel /> : null}
-          {active === 'account' ? <AccountPanel /> : null}
-          {active === 'connectors' ? <ConnectorsPanel /> : null}
-          {active === 'appearance' ? (
-            <div className="flex flex-col gap-6">
-              <SettingsSection
-                title={t('settings.appearance.brand')}
-                description={`Currently active: ${brand.name}. Click a swatch to swap accent colors instantly.`}
-              >
-                <SettingsRow
-                  label="Active brand"
-                  description="The selected brand theme drives accent / asterisk / soft fill colors across the entire app."
-                  trailing={<BrandSwitcher variant="swatches" />}
-                />
-                <SettingsRow
-                  label="Brand picker variant"
-                  description="Pill version, useful inside narrow settings panels."
-                  trailing={<BrandSwitcher variant="pills" />}
-                />
-              </SettingsSection>
-
-              <SettingsSection
-                title={`${t('settings.appearance.theme')} & ${t('language')}`}
-                description="Choose between light, dark, or follow your operating system. Pick a UI language for the entire app."
-              >
-                <SettingsRow
-                  label={t('language')}
-                  trailing={
-                    <div className="inline-flex rounded-[10px] border border-[var(--color-border)] p-0.5 bg-[var(--color-surface)]">
-                      {localeOptions.map((opt) => {
-                        const active = locale === opt.id;
-                        return (
-                          <button
-                            key={opt.id}
-                            type="button"
-                            onClick={() => setLocale(opt.id)}
-                            className={[
-                              'inline-flex items-center gap-1.5 h-7 px-3 rounded-[8px]',
-                              'text-[12.5px] transition-colors duration-[140ms]',
-                              active
-                                ? 'bg-[var(--color-surface-raised)] text-[var(--color-text)] shadow-[var(--shadow-card)]'
-                                : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]',
-                            ].join(' ')}
-                          >
-                            <Languages size={13} />
-                            {opt.label}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  }
-                />
-                <SettingsRow
-                  label="Mode"
-                  trailing={
-                    <div className="inline-flex rounded-[10px] border border-[var(--color-border)] p-0.5 bg-[var(--color-surface)]">
-                      {(
-                        [
-                          { id: 'light', icon: Sun },
-                          { id: 'dark', icon: Moon },
-                          { id: 'system', icon: Monitor },
-                        ] as const
-                      ).map(({ id, icon: Icon }) => {
-                        const active = mode === id;
-                        return (
-                          <button
-                            key={id}
-                            type="button"
-                            onClick={() => setMode(id)}
-                            className={[
-                              'inline-flex items-center gap-1.5 h-7 px-2.5 rounded-[8px]',
-                              'text-[12.5px] capitalize transition-colors duration-[140ms]',
-                              active
-                                ? 'bg-[var(--color-surface-raised)] text-[var(--color-text)] shadow-[var(--shadow-card)]'
-                                : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]',
-                            ].join(' ')}
-                          >
-                            <Icon size={13} />
-                            {id}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  }
-                />
-              </SettingsSection>
-
-              <SettingsSection
-                title={t('settings.appearance.motion')}
-                description="Reduce or accent the interface animation pulse to match your taste."
-              >
-                <SettingsRow
-                  label={t('settings.appearance.reduceMotion')}
-                  description="Minimize transitions and shrink animation distance. Forces compatibility with OS-level reduced motion when enabled."
-                  trailing={<Switch checked={reduceMotion} onCheckedChange={setReduceMotion} />}
-                />
-                <SettingsRow
-                  label={t('settings.appearance.animatedIcons')}
-                  description="Spin the brand asterisk while the assistant is thinking."
-                  trailing={<Switch checked={hapticIcons} onCheckedChange={setHapticIcons} />}
-                />
-              </SettingsSection>
-
-              <SettingsSection title="Notifications & telemetry">
-                <SettingsRow
-                  label="Desktop notifications"
-                  description="Get a toast pop-up when a long response finishes."
-                  trailing={<Switch checked={notif} onCheckedChange={setNotif} />}
-                />
-                <SettingsRow
-                  label="Anonymous analytics"
-                  description="Send aggregate, non-identifying usage stats to help improve the scaffolding."
-                  trailing={<Switch checked={analytics} onCheckedChange={setAnalytics} />}
-                />
-              </SettingsSection>
-            </div>
-          ) : null}
-          {active === 'privacy' ? (
+      <TwoPaneSettingsLayout
+        title={t('settings.title')}
+        items={items}
+        activeId={active}
+        onSelect={setActive}
+      >
+        {active === 'profile' ? <ProfilePanel /> : null}
+        {active === 'account' ? <AccountPanel /> : null}
+        {active === 'connectors' ? <ConnectorsPanel /> : null}
+        {active === 'appearance' ? (
+          <div className="flex flex-col gap-6">
             <SettingsSection
-              title="Privacy"
-              description="Plug-in placeholder — wire your own privacy controls into this slot."
+              title={t('settings.appearance.brand')}
+              description={`Currently active: ${brand.name}. Click a swatch to swap accent colors instantly.`}
             >
               <SettingsRow
-                label="Local-only history"
-                description="Never sync chat history beyond this device."
-                trailing={<Switch />}
+                label="Active brand"
+                description="The selected brand theme drives accent / asterisk / soft fill colors across the entire app."
+                trailing={<BrandSwitcher variant="swatches" />}
               />
               <SettingsRow
-                label="Auto-purge after 30 days"
-                description="Automatically clear stored conversations after a month."
-                trailing={<Switch defaultChecked />}
+                label="Brand picker variant"
+                description="Pill version, useful inside narrow settings panels."
+                trailing={<BrandSwitcher variant="pills" />}
               />
             </SettingsSection>
-          ) : null}
-          {active === 'features' ? (
+
             <SettingsSection
-              title="Features"
-              description="Beta toggles for experimental UI surfaces."
+              title={`${t('settings.appearance.theme')} & ${t('language')}`}
+              description="Choose between light, dark, or follow your operating system. Pick a UI language for the entire app."
             >
-              <SettingsRow label="Artifact pane v2" trailing={<Switch defaultChecked />} />
-              <SettingsRow label="Streaming markdown preview" trailing={<Switch />} />
-              <SettingsRow label="Inline code diff renderer" trailing={<Switch />} />
+              <SettingsRow
+                label={t('language')}
+                trailing={
+                  <div className="inline-flex rounded-[10px] border border-[var(--color-border)] p-0.5 bg-[var(--color-surface)]">
+                    {localeOptions.map((opt) => {
+                      const active = locale === opt.id;
+                      return (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          onClick={() => setLocale(opt.id)}
+                          className={[
+                            'inline-flex items-center gap-1.5 h-7 px-3 rounded-[8px]',
+                            'text-[12.5px] transition-colors duration-[140ms]',
+                            active
+                              ? 'bg-[var(--color-surface-raised)] text-[var(--color-text)] shadow-[var(--shadow-card)]'
+                              : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]',
+                          ].join(' ')}
+                        >
+                          <Languages size={13} />
+                          {opt.label}
+                        </button>
+                      );
+                    })}
+                  </div>
+                }
+              />
+              <SettingsRow
+                label="Mode"
+                trailing={
+                  <div className="inline-flex rounded-[10px] border border-[var(--color-border)] p-0.5 bg-[var(--color-surface)]">
+                    {(
+                      [
+                        { id: 'light', icon: Sun },
+                        { id: 'dark', icon: Moon },
+                        { id: 'system', icon: Monitor },
+                      ] as const
+                    ).map(({ id, icon: Icon }) => {
+                      const active = mode === id;
+                      return (
+                        <button
+                          key={id}
+                          type="button"
+                          onClick={() => setMode(id)}
+                          className={[
+                            'inline-flex items-center gap-1.5 h-7 px-2.5 rounded-[8px]',
+                            'text-[12.5px] capitalize transition-colors duration-[140ms]',
+                            active
+                              ? 'bg-[var(--color-surface-raised)] text-[var(--color-text)] shadow-[var(--shadow-card)]'
+                              : 'text-[var(--color-text-muted)] hover:text-[var(--color-text)]',
+                          ].join(' ')}
+                        >
+                          <Icon size={13} />
+                          {id}
+                        </button>
+                      );
+                    })}
+                  </div>
+                }
+              />
             </SettingsSection>
-          ) : null}
-        </TwoPaneSettingsLayout>
-      </MainArea>
+
+            <SettingsSection
+              title={t('settings.appearance.motion')}
+              description="Reduce or accent the interface animation pulse to match your taste."
+            >
+              <SettingsRow
+                label={t('settings.appearance.reduceMotion')}
+                description="Minimize transitions and shrink animation distance. Forces compatibility with OS-level reduced motion when enabled."
+                trailing={<Switch checked={reduceMotion} onCheckedChange={setReduceMotion} />}
+              />
+              <SettingsRow
+                label={t('settings.appearance.animatedIcons')}
+                description="Spin the brand asterisk while the assistant is thinking."
+                trailing={<Switch checked={hapticIcons} onCheckedChange={setHapticIcons} />}
+              />
+            </SettingsSection>
+
+            <SettingsSection title="Notifications & telemetry">
+              <SettingsRow
+                label="Desktop notifications"
+                description="Get a toast pop-up when a long response finishes."
+                trailing={<Switch checked={notif} onCheckedChange={setNotif} />}
+              />
+              <SettingsRow
+                label="Anonymous analytics"
+                description="Send aggregate, non-identifying usage stats to help improve the scaffolding."
+                trailing={<Switch checked={analytics} onCheckedChange={setAnalytics} />}
+              />
+            </SettingsSection>
+          </div>
+        ) : null}
+        {active === 'privacy' ? (
+          <SettingsSection
+            title="Privacy"
+            description="Plug-in placeholder — wire your own privacy controls into this slot."
+          >
+            <SettingsRow
+              label="Local-only history"
+              description="Never sync chat history beyond this device."
+              trailing={<Switch />}
+            />
+            <SettingsRow
+              label="Auto-purge after 30 days"
+              description="Automatically clear stored conversations after a month."
+              trailing={<Switch defaultChecked />}
+            />
+          </SettingsSection>
+        ) : null}
+        {active === 'features' ? (
+          <SettingsSection
+            title="Features"
+            description="Beta toggles for experimental UI surfaces."
+          >
+            <SettingsRow label="Artifact pane v2" trailing={<Switch defaultChecked />} />
+            <SettingsRow label="Streaming markdown preview" trailing={<Switch />} />
+            <SettingsRow label="Inline code diff renderer" trailing={<Switch />} />
+          </SettingsSection>
+        ) : null}
+      </TwoPaneSettingsLayout>
+    </MainArea>
   );
 }
 

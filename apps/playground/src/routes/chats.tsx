@@ -29,7 +29,12 @@ function ChatsPage() {
           selectedIds={selected}
           onSelectedIdsChange={setSelected}
           bulkActions={[
-            { label: 'Delete', icon: <Trash2 size={14} />, onClick: () => setSelected([]), destructive: true },
+            {
+              label: 'Delete',
+              icon: <Trash2 size={14} />,
+              onClick: () => setSelected([]),
+              destructive: true,
+            },
           ]}
         />
       </MainArea>

@@ -1,5 +1,5 @@
-import * as ToastPrimitive from '@radix-ui/react-toast';
 import { X } from '@oh/icons';
+import * as ToastPrimitive from '@radix-ui/react-toast';
 import {
   type ComponentPropsWithoutRef,
   type ElementRef,
@@ -33,8 +33,7 @@ export const ToastViewport = forwardRef<
 
 export type ToastTone = 'neutral' | 'success' | 'warning' | 'destructive';
 
-export interface ToastRootProps
-  extends ComponentPropsWithoutRef<typeof ToastPrimitive.Root> {
+export interface ToastRootProps extends ComponentPropsWithoutRef<typeof ToastPrimitive.Root> {
   tone?: ToastTone;
 }
 

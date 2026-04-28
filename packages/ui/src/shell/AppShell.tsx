@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { cn } from '../utils';
 
 export interface AppShellProps {
@@ -31,7 +31,12 @@ export function AppShell({
   const sidebarWidth = sidebarExpanded ? 240 : 48;
 
   return (
-    <div className={cn('relative flex h-full w-full bg-[var(--color-bg)] text-[var(--color-text)] overflow-hidden', className)}>
+    <div
+      className={cn(
+        'relative flex h-full w-full bg-[var(--color-bg)] text-[var(--color-text)] overflow-hidden',
+        className,
+      )}
+    >
       {/* Drag region — invisible strip across the top so the user can drag the window from anywhere along the very top edge. */}
       <div
         className="app-drag fixed inset-x-0 top-0 z-[1000] pointer-events-none"

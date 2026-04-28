@@ -6,8 +6,8 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
   type DialogSize,
+  DialogTitle,
 } from '../primitives/Dialog';
 
 export interface FormDialogProps {
@@ -18,7 +18,12 @@ export interface FormDialogProps {
   size?: DialogSize;
   cancelLabel?: string;
   submitLabel?: string;
-  /** Return false / throw to keep the dialog open. Return void / true to close. */
+  /**
+   * Return false / throw to keep the dialog open. Return void / true to close.
+   * `void` in the union is intentional — handlers commonly omit a return value
+   * and the dialog should treat that as "close".
+   */
+  // biome-ignore lint/suspicious/noConfusingVoidType: see jsdoc above
   onSubmit: (formData: FormData) => boolean | void | Promise<boolean | void>;
   children: ReactNode;
 }
@@ -61,12 +66,7 @@ export function FormDialog({
           </DialogHeader>
           <div className="flex flex-col gap-4">{children}</div>
           <DialogFooter>
-            <Button
-              type="button"
-              variant="outline"
-              size="md"
-              onClick={() => onOpenChange(false)}
-            >
+            <Button type="button" variant="outline" size="md" onClick={() => onOpenChange(false)}>
               {cancelLabel}
             </Button>
             <Button type="submit" variant="primary" size="md" loading={submitting}>

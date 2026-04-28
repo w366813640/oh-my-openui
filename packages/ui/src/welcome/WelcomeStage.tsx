@@ -40,8 +40,7 @@ export function WelcomeStage({
       >
         {items.map((child, idx) => (
           <motion.div
-            // biome-ignore lint/suspicious/noArrayIndexKey: stage children are stable by position
-            key={isValidElement(child) && child.key ? child.key : idx}
+            key={isValidElement(child) && child.key ? child.key : `stage-${idx}`}
             variants={{
               hidden: { opacity: 0, y: 10 },
               visible: {

@@ -36,7 +36,9 @@ function MotionPage() {
                   key={name}
                   className="rounded-[14px] border border-[var(--color-border)] bg-[var(--color-surface)] p-5"
                 >
-                  <div className="text-[12px] font-mono text-[var(--color-text-muted)] mb-3">{name}</div>
+                  <div className="text-[12px] font-mono text-[var(--color-text-muted)] mb-3">
+                    {name}
+                  </div>
                   <motion.div
                     key={`${name}-${tick}`}
                     initial={{ x: 0, scale: 0.9, opacity: 0 }}

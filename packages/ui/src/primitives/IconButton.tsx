@@ -16,7 +16,8 @@ const sizeMap = {
 };
 
 const variantMap = {
-  ghost: 'bg-transparent hover:bg-[var(--color-surface-muted)] active:bg-[var(--color-surface-sunken)]',
+  ghost:
+    'bg-transparent hover:bg-[var(--color-surface-muted)] active:bg-[var(--color-surface-sunken)]',
   soft: 'bg-[var(--color-surface-muted)] hover:bg-[var(--color-surface-sunken)]',
   outline:
     'bg-transparent border border-[var(--color-border)] hover:bg-[var(--color-surface-muted)] hover:border-[var(--color-border-strong)]',

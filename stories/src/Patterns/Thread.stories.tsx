@@ -1,4 +1,4 @@
-import { MessageList, ThreadDisclaimer, type Message } from '@oh/ui';
+import { type Message, MessageList, ThreadDisclaimer } from '@oh/ui';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta: Meta = { title: 'Patterns/MessageList' };

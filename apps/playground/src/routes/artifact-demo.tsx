@@ -9,8 +9,8 @@ import {
   ThreadDisclaimer,
   useArtifactPane,
 } from '@oh/ui';
-import { createFileRoute } from '@tanstack/react-router';
 import type { Message } from '@oh/ui';
+import { createFileRoute } from '@tanstack/react-router';
 import { useMemo } from 'react';
 import { AppFrame, PageTopbar } from '../components/AppFrame';
 import { mockMessages, mockModelOptions } from '../mocks/data';
@@ -49,8 +49,8 @@ function ArtifactDemo() {
                   Live Artifact Preview
                 </h2>
                 <p className="text-[13px] text-[var(--color-text-muted)] max-w-[320px] mx-auto leading-relaxed">
-                  Render any embeddable preview here — React component, HTML iframe,
-                  Markdown document, or interactive sandbox.
+                  Render any embeddable preview here — React component, HTML iframe, Markdown
+                  document, or interactive sandbox.
                 </p>
               </div>
             </div>
@@ -124,10 +124,7 @@ export function CodingPet(props: PetProps) {
         </div>
 
         <div className="sticky bottom-0 left-0 right-0 mx-auto w-full max-w-[680px] pb-4 pt-2 bg-gradient-to-t from-[var(--color-bg)] via-[var(--color-bg)]/85 to-transparent">
-          <Composer
-            placeholder="Reply to assistant..."
-            models={mockModelOptions}
-          />
+          <Composer placeholder="Reply to assistant..." models={mockModelOptions} />
         </div>
       </MainArea>
     </AppFrame>

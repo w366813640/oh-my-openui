@@ -22,7 +22,10 @@ function Demo({ initiallyExpanded = true }: { initiallyExpanded?: boolean }) {
   return (
     <div className="flex h-[600px] border border-[var(--color-border)] rounded-[12px] overflow-hidden">
       <div
-        style={{ width: expanded ? 240 : 48, transition: 'width 240ms cubic-bezier(0.34,1.56,0.64,1)' }}
+        style={{
+          width: expanded ? 240 : 48,
+          transition: 'width 240ms cubic-bezier(0.34,1.56,0.64,1)',
+        }}
         className="border-r border-[var(--color-border)] bg-[var(--color-bg)] flex-shrink-0"
       >
         <Sidebar expanded={expanded}>

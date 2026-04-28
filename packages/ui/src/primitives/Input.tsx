@@ -46,9 +46,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
     <textarea
       ref={ref}
       rows={rows}
-      style={
-        autoGrow ? ({ fieldSizing: 'content', ...style } as React.CSSProperties) : style
-      }
+      style={autoGrow ? ({ fieldSizing: 'content', ...style } as React.CSSProperties) : style}
       className={cn(
         'block w-full bg-transparent text-[var(--color-text)] resize-none',
         'placeholder:text-[var(--color-text-subtle)]',

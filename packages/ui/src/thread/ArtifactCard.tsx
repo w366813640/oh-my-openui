@@ -1,5 +1,5 @@
 import { Sparkles } from '@oh/icons';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { cn } from '../utils';
 
 export interface ArtifactCardProps {

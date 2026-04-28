@@ -1,11 +1,4 @@
-import {
-  CodeIcon,
-  FileIcon,
-  FileText,
-  ImageIcon,
-  Paperclip,
-  X,
-} from '@oh/icons';
+import { CodeIcon, FileIcon, FileText, ImageIcon, Paperclip, X } from '@oh/icons';
 import { cn } from '../utils';
 import type { ComposerAttachment } from './types';
 
@@ -37,11 +30,7 @@ export function AttachmentChip({ attachment, onRemove }: AttachmentChipProps) {
       )}
     >
       {attachment.thumbUrl ? (
-        <img
-          src={attachment.thumbUrl}
-          alt=""
-          className="h-5 w-5 rounded-[4px] object-cover"
-        />
+        <img src={attachment.thumbUrl} alt="" className="h-5 w-5 rounded-[4px] object-cover" />
       ) : (
         <Icon size={14} className="text-[var(--color-text-muted)]" />
       )}

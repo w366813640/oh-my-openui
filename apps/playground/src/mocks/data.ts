@@ -32,13 +32,18 @@ export const mockProjects = [
   {
     id: 'p2',
     title: 'UI Scaffolding Notes',
-    description: 'A scratch space for cataloguing component patterns, design tokens, and motion presets.',
+    description:
+      'A scratch space for cataloguing component patterns, design tokens, and motion presets.',
     chatCount: 4,
   },
 ];
 
 export const mockChatHistory = [
-  { id: 'c1', title: 'Dev a buddy to reflect your coding habits today', meta: 'Last message 0 seconds ago' },
+  {
+    id: 'c1',
+    title: 'Dev a buddy to reflect your coding habits today',
+    meta: 'Last message 0 seconds ago',
+  },
   { id: 'c2', title: 'Create a coding buddy', meta: 'Last message 2 minutes ago' },
   { id: 'c3', title: 'Build your digital coding pet', meta: 'Last message 2 minutes ago' },
   { id: 'c4', title: 'Coding habits digital pet', meta: 'Last message 2 minutes ago' },
@@ -78,7 +83,8 @@ onEvent('focus.tick', ({ minutes }) => {
     id: 'm3',
     role: 'user',
     initials: 'SL',
-    content: 'Make it personal — track focus duration, debugging time, and coffee breaks. Mood shifts based on positive habits.',
+    content:
+      'Make it personal — track focus duration, debugging time, and coffee breaks. Mood shifts based on positive habits.',
   },
   {
     id: 'm4',
@@ -104,7 +110,23 @@ Open the artifact on the right to inspect the full source.`,
 ];
 
 export const mockModelOptions = [
-  { id: 'sonnet', label: 'Sonnet 4', description: 'Smart, efficient model for everyday use', group: 'Recommended' },
-  { id: 'opus', label: 'Opus 4.7', description: 'Powerful, large model for complex challenges', badge: 'New', group: 'Recommended' },
-  { id: 'haiku', label: 'Haiku 3.5', description: 'Fast, lightweight model for quick replies', group: 'More models' },
+  {
+    id: 'sonnet',
+    label: 'Sonnet 4',
+    description: 'Smart, efficient model for everyday use',
+    group: 'Recommended',
+  },
+  {
+    id: 'opus',
+    label: 'Opus 4.7',
+    description: 'Powerful, large model for complex challenges',
+    badge: 'New',
+    group: 'Recommended',
+  },
+  {
+    id: 'haiku',
+    label: 'Haiku 3.5',
+    description: 'Fast, lightweight model for quick replies',
+    group: 'More models',
+  },
 ];

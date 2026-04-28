@@ -72,10 +72,12 @@ export const FreePlan: Story = {
         expanded
         name="Jamie Chen"
         subtitle="Free plan"
-        actions={actions.filter((a) => a.id !== 'upgrade').concat([
-          { id: 'upgrade', label: 'Upgrade to Pro', icon: Sparkles },
-          { id: 'logout', label: 'Log out', icon: LogOut, tone: 'destructive' },
-        ])}
+        actions={actions
+          .filter((a) => a.id !== 'upgrade')
+          .concat([
+            { id: 'upgrade', label: 'Upgrade to Pro', icon: Sparkles },
+            { id: 'logout', label: 'Log out', icon: LogOut, tone: 'destructive' },
+          ])}
       />
     </Wrap>
   ),

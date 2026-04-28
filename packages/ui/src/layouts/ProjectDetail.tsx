@@ -1,5 +1,5 @@
 import { ArrowLeft, MoreHorizontal, Plus, Star } from '@oh/icons';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { IconButton } from '../primitives/IconButton';
 import { cn } from '../utils';
 

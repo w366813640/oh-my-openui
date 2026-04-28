@@ -1,18 +1,10 @@
-import {
-  Asterisk,
-  Layout,
-  MessageSquare,
-  FolderOpen,
-  Plus,
-  Search,
-  Sparkles,
-} from '@oh/icons';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Asterisk, FolderOpen, Layout, MessageSquare, Plus, Search, Sparkles } from '@oh/icons';
+import { AnimatePresence, motion } from 'framer-motion';
 import {
   type ComponentType,
+  type MouseEvent,
   type ReactNode,
   type SVGProps,
-  type MouseEvent,
   createElement,
   forwardRef,
   isValidElement,
@@ -20,7 +12,9 @@ import {
 import { Tooltipped } from '../primitives/Tooltip';
 import { cn } from '../utils';
 
-export type SidebarIconComponent = ComponentType<SVGProps<SVGSVGElement> & { size?: number | string }>;
+export type SidebarIconComponent = ComponentType<
+  SVGProps<SVGSVGElement> & { size?: number | string }
+>;
 
 export interface SidebarProps {
   expanded?: boolean;
@@ -47,11 +41,12 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(function Sidebar
   );
 });
 
-export function SidebarHeader({ children, className }: { children: ReactNode; className?: string }) {
+export function SidebarHeader({
+  children,
+  className,
+}: { children: ReactNode; className?: string }) {
   return (
-    <div
-      className={cn('app-no-drag flex flex-col gap-1 px-2 pt-2 pb-1', className)}
-    >
+    <div className={cn('app-no-drag flex flex-col gap-1 px-2 pt-2 pb-1', className)}>
       {children}
     </div>
   );
@@ -67,7 +62,10 @@ export function SidebarBody({ children, className }: { children: ReactNode; clas
   );
 }
 
-export function SidebarFooter({ children, className }: { children: ReactNode; className?: string }) {
+export function SidebarFooter({
+  children,
+  className,
+}: { children: ReactNode; className?: string }) {
   return (
     <div className={cn('app-no-drag border-t border-[var(--color-border)] px-2 py-2', className)}>
       {children}
@@ -156,7 +154,8 @@ export function SidebarPrimaryAction({
             className={cn(
               'inline-flex items-center justify-center h-7 w-7 rounded-full',
               'bg-[var(--color-accent)] text-[var(--color-accent-foreground)]',
-              active && 'ring-2 ring-[var(--color-accent)] ring-offset-1 ring-offset-[var(--color-bg)]',
+              active &&
+                'ring-2 ring-[var(--color-accent)] ring-offset-1 ring-offset-[var(--color-bg)]',
             )}
           >
             {icon}
@@ -226,7 +225,10 @@ export function SidebarNavItem({
           transition={{ type: 'spring', stiffness: 360, damping: 30 }}
         />
       ) : null}
-      <motion.span layout="position" className="inline-flex items-center justify-center h-4 w-4 shrink-0">
+      <motion.span
+        layout="position"
+        className="inline-flex items-center justify-center h-4 w-4 shrink-0"
+      >
         {iconNode}
       </motion.span>
       <AnimatePresence initial={false}>

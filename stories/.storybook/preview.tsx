@@ -1,4 +1,4 @@
-import { auroraBrand, BrandProvider } from '@oh/brand';
+import { BrandProvider, auroraBrand } from '@oh/brand';
 import {
   I18nProvider,
   ModalStackProvider,
@@ -6,8 +6,8 @@ import {
   ToastProvider,
   TooltipProvider,
 } from '@oh/ui';
-import type { Decorator, Preview } from '@storybook/react';
 import { withThemeByDataAttribute } from '@storybook/addon-themes';
+import type { Decorator, Preview } from '@storybook/react';
 import '../src/preview.css';
 
 const withProviders: Decorator = (Story) => (

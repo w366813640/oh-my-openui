@@ -1,5 +1,5 @@
+import { fontSize, lightColors, radius, shadow } from '@oh/tokens';
 import { MainArea } from '@oh/ui';
-import { lightColors, radius, fontSize, shadow } from '@oh/tokens';
 import { createFileRoute } from '@tanstack/react-router';
 import { AppFrame, PlaygroundNav } from '../components/AppFrame';
 
@@ -98,7 +98,9 @@ function Swatch({ name, value }: { name: string; value: string }) {
       />
       <div className="min-w-0">
         <div className="text-[12px] font-medium truncate">{name}</div>
-        <div className="text-[11px] text-[var(--color-text-muted)] font-mono uppercase truncate">{value}</div>
+        <div className="text-[11px] text-[var(--color-text-muted)] font-mono uppercase truncate">
+          {value}
+        </div>
       </div>
     </div>
   );

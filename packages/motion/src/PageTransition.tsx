@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { durations, easings } from './springs';
 
 export interface PageTransitionProps {

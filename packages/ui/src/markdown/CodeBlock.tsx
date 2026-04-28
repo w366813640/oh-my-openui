@@ -74,7 +74,9 @@ export function CodeBlock({
           {filename ? (
             <>
               {language ? <span className="text-[var(--color-text-subtle)]">·</span> : null}
-              <span className="text-[12px] text-[var(--color-text-muted)] truncate">{filename}</span>
+              <span className="text-[12px] text-[var(--color-text-muted)] truncate">
+                {filename}
+              </span>
             </>
           ) : null}
         </div>
