@@ -1,0 +1,31 @@
+:root {
+  --shadow-none: none;
+  --shadow-xs: 0 1px 2px rgba(53, 41, 28, 0.05);
+  --shadow-card: 0 1px 2px rgba(53, 41, 28, 0.04);
+  --shadow-composer: 0 1px 0 rgba(53, 41, 28, 0.04), 0 8px 24px -12px rgba(53, 41, 28, 0.1);
+  /* Focused composer adds an outer accent halo + lift. */
+  --shadow-composer-focus: 0 0 0 3px rgba(201, 111, 74, 0.12),
+    0 1px 0 rgba(53, 41, 28, 0.06), 0 16px 36px -12px rgba(201, 111, 74, 0.18);
+  --shadow-popover: 0 8px 28px -8px rgba(53, 41, 28, 0.18), 0 2px 6px rgba(53, 41, 28, 0.06);
+  --shadow-modal: 0 24px 64px -16px rgba(53, 41, 28, 0.28), 0 8px 16px -8px rgba(53, 41, 28, 0.1);
+}
+
+[data-theme='dark'] {
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-composer: 0 1px 0 rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.5);
+  --shadow-composer-focus: 0 0 0 3px rgba(217, 130, 95, 0.18),
+    0 1px 0 rgba(0, 0, 0, 0.35), 0 16px 36px -10px rgba(217, 130, 95, 0.22);
+  --shadow-popover: 0 8px 28px -8px rgba(0, 0, 0, 0.55), 0 2px 6px rgba(0, 0, 0, 0.3);
+  --shadow-modal: 0 24px 64px -16px rgba(0, 0, 0, 0.7), 0 8px 16px -8px rgba(0, 0, 0, 0.4);
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme='system'] {
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-composer: 0 1px 0 rgba(0, 0, 0, 0.3), 0 8px 24px -12px rgba(0, 0, 0, 0.5);
+    --shadow-composer-focus: 0 0 0 3px rgba(217, 130, 95, 0.18),
+      0 1px 0 rgba(0, 0, 0, 0.35), 0 16px 36px -10px rgba(217, 130, 95, 0.22);
+    --shadow-popover: 0 8px 28px -8px rgba(0, 0, 0, 0.55), 0 2px 6px rgba(0, 0, 0, 0.3);
+    --shadow-modal: 0 24px 64px -16px rgba(0, 0, 0, 0.7), 0 8px 16px -8px rgba(0, 0, 0, 0.4);
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "oh-my-open-ui",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A 1:1 visual/UX/motion replica of Claude Desktop Windows UI, packaged as a reusable Electron + React UI scaffolding (no LLM business logic).",
+  "packageManager": "pnpm@9.15.9",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "typecheck": "turbo run typecheck",
+    "playground": "pnpm --filter @oh/playground dev",
+    "desktop:dev": "pnpm --filter @oh/desktop dev",
+    "desktop:build": "pnpm --filter @oh/desktop build",
+    "storybook": "pnpm --filter @oh/stories dev"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "1.9.4",
+    "turbo": "2.3.3",
+    "typescript": "5.6.3"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "name": "@oh/stories",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build": "storybook build -o storybook-static"
+  },
+  "dependencies": {
+    "@oh/brand": "workspace:*",
+    "@oh/icons": "workspace:*",
+    "@oh/motion": "workspace:*",
+    "@oh/tokens": "workspace:*",
+    "@oh/ui": "workspace:*",
+    "@fontsource-variable/inter": "^5.1.1",
+    "@fontsource-variable/jetbrains-mono": "^5.1.1",
+    "@fontsource-variable/source-serif-4": "^5.1.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@storybook/addon-essentials": "^8.4.7",
+    "@storybook/addon-themes": "^8.4.7",
+    "@storybook/blocks": "^8.4.7",
+    "@storybook/react": "^8.4.7",
+    "@storybook/react-vite": "^8.4.7",
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "storybook": "^8.4.7",
+    "tailwindcss": "^4.0.0",
+    "typescript": "5.6.3",
+    "vite": "^6.0.5"
+  }
+}

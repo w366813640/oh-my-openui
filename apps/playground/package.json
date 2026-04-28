@@ -1,0 +1,36 @@
+{
+  "name": "@oh/playground",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview --port 5173",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@oh/brand": "workspace:*",
+    "@oh/icons": "workspace:*",
+    "@oh/motion": "workspace:*",
+    "@oh/tokens": "workspace:*",
+    "@oh/ui": "workspace:*",
+    "@fontsource-variable/inter": "^5.1.1",
+    "@fontsource-variable/jetbrains-mono": "^5.1.1",
+    "@fontsource-variable/source-serif-4": "^5.1.1",
+    "@tanstack/react-router": "^1.91.0",
+    "framer-motion": "^11.15.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@tanstack/router-vite-plugin": "^1.91.0",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4.0.0",
+    "typescript": "5.6.3",
+    "vite": "^6.0.5"
+  }
+}

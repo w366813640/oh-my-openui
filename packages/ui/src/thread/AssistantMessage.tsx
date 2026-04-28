@@ -1,0 +1,145 @@
+import { ChevronDown, Copy, RefreshCw, ThumbsDown, ThumbsUp } from '@oh/icons';
+import { motion } from 'framer-motion';
+import { type ReactNode } from 'react';
+import { Markdown } from '../markdown';
+import { BrandMark } from '../primitives/BrandMark';
+import { IconButton } from '../primitives/IconButton';
+import { Tooltipped } from '../primitives/Tooltip';
+import { cn } from '../utils';
+import { ArtifactCard } from './ArtifactCard';
+import type { AssistantMessageData } from './types';
+
+export interface AssistantMessageProps {
+  message: AssistantMessageData;
+  className?: string;
+  children?: ReactNode;
+  onCopy?: (id: string) => void;
+  onRetry?: (id: string) => void;
+  onFeedback?: (id: string, kind: 'up' | 'down') => void;
+  /** Hide the action toolbar entirely. */
+  hideActions?: boolean;
+}
+
+export function AssistantMessage({
+  message,
+  className,
+  children,
+  onCopy,
+  onRetry,
+  onFeedback,
+  hideActions,
+}: AssistantMessageProps) {
+  const streaming = message.streaming;
+  const stringContent = typeof message.content === 'string' ? message.content : null;
+  return (
+    <div className={cn('group', className)} data-message-role="assistant">
+      <div className="text-[15px] leading-[24px] text-[var(--color-text)] break-words">
+        {children ? (
+          <div className="whitespace-pre-wrap">{children}</div>
+        ) : stringContent ? (
+          <Markdown>{stringContent}</Markdown>
+        ) : (
+          <div className="whitespace-pre-wrap">{message.content}</div>
+        )}
+        {streaming ? (
+          <span className="inline-block w-[3px] h-[18px] -mb-[3px] bg-[var(--color-accent)] align-middle ml-0.5 animate-[blink_1s_steps(2)_infinite]" />
+        ) : null}
+      </div>
+
+      {message.artifact ? (
+        <div className="mt-3">
+          <ArtifactCard
+            title={message.artifact.title}
+            subtitle={message.artifact.subtitle}
+            icon={message.artifact.icon}
+            onOpen={message.artifact.onOpen}
+          />
+        </div>
+      ) : null}
+
+      {!hideActions ? (
+        <AssistantActions
+          message={message}
+          onCopy={onCopy}
+          onRetry={onRetry}
+          onFeedback={onFeedback}
+        />
+      ) : null}
+    </div>
+  );
+}
+
+function AssistantActions({
+  message,
+  onCopy,
+  onRetry,
+  onFeedback,
+}: {
+  message: AssistantMessageData;
+  onCopy?: (id: string) => void;
+  onRetry?: (id: string) => void;
+  onFeedback?: (id: string, kind: 'up' | 'down') => void;
+}) {
+  /**
+   * Hover/focus reveal — siblings stagger in from y:6 with a soft spring.
+   * Implemented as a CSS-driven group-hover container so we don't need to
+   * mount an `AnimatePresence` per message (cheap on long threads).
+   */
+  return (
+    <div className="mt-3 flex items-center justify-between">
+      <BrandMark size={18} motion="hover" />
+
+      <motion.div
+        className={cn(
+          'flex items-center gap-0.5',
+          'opacity-0 translate-y-1 pointer-events-none',
+          'group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto',
+          'focus-within:opacity-100 focus-within:translate-y-0 focus-within:pointer-events-auto',
+          'transition-[opacity,transform] duration-[180ms] ease-[var(--ease-spring)]',
+        )}
+      >
+        <Tooltipped label="Copy">
+          <IconButton size="sm" label="Copy" onClick={() => onCopy?.(message.id)}>
+            <Copy />
+          </IconButton>
+        </Tooltipped>
+        <Tooltipped label="Helpful">
+          <IconButton
+            size="sm"
+            label="Helpful"
+            active={message.feedback === 'up'}
+            onClick={() => onFeedback?.(message.id, 'up')}
+          >
+            <ThumbsUp />
+          </IconButton>
+        </Tooltipped>
+        <Tooltipped label="Not helpful">
+          <IconButton
+            size="sm"
+            label="Not helpful"
+            active={message.feedback === 'down'}
+            onClick={() => onFeedback?.(message.id, 'down')}
+          >
+            <ThumbsDown />
+          </IconButton>
+        </Tooltipped>
+
+        {/* Retry split-button */}
+        <button
+          type="button"
+          onClick={() => onRetry?.(message.id)}
+          className={cn(
+            'inline-flex items-center gap-1 h-7 pl-2 pr-1.5 rounded-[8px]',
+            'text-[12px] text-[var(--color-text-muted)]',
+            'hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-text)]',
+            'transition-colors duration-[120ms]',
+          )}
+        >
+          <RefreshCw size={12} />
+          <span>Retry</span>
+          <ChevronDown size={11} className="opacity-60" />
+        </button>
+      </motion.div>
+    </div>
+  );
+}

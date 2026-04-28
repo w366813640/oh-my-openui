@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noImplicitOverride": true,
+    "noUncheckedIndexedAccess": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "verbatimModuleSyntax": false,
+    "useDefineForClassFields": true,
+    "baseUrl": ".",
+    "paths": {
+      "@oh/ui": ["packages/ui/src/index.ts"],
+      "@oh/ui/*": ["packages/ui/src/*"],
+      "@oh/tokens": ["packages/tokens/src/index.ts"],
+      "@oh/tokens/*": ["packages/tokens/src/*"],
+      "@oh/motion": ["packages/motion/src/index.ts"],
+      "@oh/motion/*": ["packages/motion/src/*"],
+      "@oh/icons": ["packages/icons/src/index.ts"],
+      "@oh/icons/*": ["packages/icons/src/*"],
+      "@oh/brand": ["packages/brand/src/index.ts"],
+      "@oh/brand/*": ["packages/brand/src/*"]
+    }
+  }
+}

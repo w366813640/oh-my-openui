@@ -1,0 +1,29 @@
+/* Variable-axis font subsets — keeps weights flexible at minimal size. */
+@import '@fontsource-variable/source-serif-4';
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/jetbrains-mono';
+
+@import 'tailwindcss';
+@import '@oh/ui/styles.css';
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Disable text selection for window chrome / app shell */
+.app-no-select {
+  user-select: none;
+  -webkit-user-select: none;
+}

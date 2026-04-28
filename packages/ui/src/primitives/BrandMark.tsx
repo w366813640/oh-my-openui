@@ -1,0 +1,101 @@
+import { Asterisk } from '@oh/icons';
+import { motion, useReducedMotion } from 'framer-motion';
+import { type CSSProperties, type ReactNode } from 'react';
+import { cn } from '../utils';
+
+export interface BrandMarkProps {
+  size?: number;
+  /** Replace the default asterisk glyph. */
+  glyph?: ReactNode;
+  /**
+   * Animation strategy:
+   *  - `none`     : static
+   *  - `hover`    : tilt + pop on hover (default)
+   *  - `idle-pulse`: slow ambient breathe-rotate (for hero placement)
+   *  - `streaming`: continuous spin (use during async work)
+   */
+  motion?: 'none' | 'hover' | 'idle-pulse' | 'streaming';
+  className?: string;
+  style?: CSSProperties;
+  /** Render as a button when an onClick is provided. */
+  onClick?: () => void;
+  ariaLabel?: string;
+}
+
+/**
+ * Animated wrapper around the brand asterisk. Pure visual layer — no business
+ * logic — so it can be used by any consumer to give the brand mark a subtle
+ * feeling of life.
+ */
+export function BrandMark({
+  size = 22,
+  glyph,
+  motion: variant = 'hover',
+  className,
+  style,
+  onClick,
+  ariaLabel = 'Brand',
+}: BrandMarkProps) {
+  const reduced = useReducedMotion();
+
+  const inner = glyph ?? <Asterisk size={size} />;
+
+  const motionProps: Record<string, unknown> = (() => {
+    if (reduced || variant === 'none') return {};
+    if (variant === 'streaming') {
+      return {
+        animate: { rotate: 360 },
+        transition: { duration: 1.4, ease: 'linear', repeat: Infinity },
+      };
+    }
+    if (variant === 'idle-pulse') {
+      return {
+        animate: {
+          rotate: [0, 6, 0, -6, 0],
+          scale: [1, 1.05, 1, 1.02, 1],
+        },
+        transition: {
+          duration: 6,
+          ease: 'easeInOut',
+          repeat: Infinity,
+        },
+      };
+    }
+    /* hover */
+    return {
+      whileHover: { rotate: 12, scale: 1.08 },
+      whileTap: { rotate: -8, scale: 0.92 },
+      transition: { type: 'spring', stiffness: 360, damping: 18 },
+    };
+  })();
+
+  if (onClick) {
+    return (
+      <motion.button
+        type="button"
+        onClick={onClick}
+        aria-label={ariaLabel}
+        className={cn(
+          'inline-flex items-center justify-center text-[var(--color-asterisk)]',
+          'rounded-[8px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
+          className,
+        )}
+        style={style}
+        {...motionProps}
+      >
+        {inner}
+      </motion.button>
+    );
+  }
+
+  return (
+    <motion.span
+      aria-hidden="true"
+      className={cn('inline-flex items-center justify-center text-[var(--color-asterisk)]', className)}
+      style={style}
+      {...motionProps}
+    >
+      {inner}
+    </motion.span>
+  );
+}

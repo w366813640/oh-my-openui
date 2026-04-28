@@ -1,0 +1,56 @@
+appId: com.ohmyopenui.desktop
+productName: oh-my-open-ui
+copyright: Copyright © ${author}
+directories:
+  output: release
+  buildResources: build-resources
+
+files:
+  - dist/main/**/*
+  - "package.json"
+  - "!**/*.map"
+  - "!**/{.DS_Store,.gitignore,.editorconfig}"
+
+extraResources:
+  - from: ../playground/dist
+    to: app/renderer
+    filter: ["**/*"]
+
+asar: true
+
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+  artifactName: ${productName}-Setup-${version}-${arch}.${ext}
+  # Comment out if no .ico provided yet — electron-builder will use a default.
+  # icon: build-resources/icon.ico
+
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: oh-my-open-ui
+  # Uncomment when you ship a custom installer sidebar asset (164×314 BMP):
+  # installerSidebar: build-resources/installerSidebar.bmp
+  # Uncomment when you ship a custom installer header icon (.ico):
+  # installerHeaderIcon: build-resources/installerHeaderIcon.ico
+  # Uncomment to bring in the customInstall macro:
+  # include: build-resources/installer.nsh
+
+# Disable auto-update publishing by default. Set OH_AUTO_UPDATE=1 + configure
+# the publish provider (github / s3 / generic) to enable signed updates.
+publish: null
+
+mac:
+  target:
+    - dmg
+  category: public.app-category.productivity
+
+linux:
+  target:
+    - AppImage
+  category: Utility
