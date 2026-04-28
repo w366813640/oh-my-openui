@@ -43,6 +43,16 @@ export const Route = createFileRoute('/settings')({
 });
 
 function SettingsPage() {
+  // All theme / i18n / brand hooks must be inside <AppFrame>'s providers,
+  // so we delegate the actual content to a child component.
+  return (
+    <AppFrame>
+      <SettingsContent />
+    </AppFrame>
+  );
+}
+
+function SettingsContent() {
   const [active, setActive] = useState('appearance');
   const { mode, setMode } = useTheme();
   const { t, locale, setLocale } = useI18n();
@@ -66,8 +76,7 @@ function SettingsPage() {
   ];
 
   return (
-    <AppFrame>
-      <MainArea maxWidth={null}>
+    <MainArea maxWidth={null}>
         <TwoPaneSettingsLayout
           title={t('settings.title')}
           items={items}
@@ -220,7 +229,6 @@ function SettingsPage() {
           ) : null}
         </TwoPaneSettingsLayout>
       </MainArea>
-    </AppFrame>
   );
 }
 
