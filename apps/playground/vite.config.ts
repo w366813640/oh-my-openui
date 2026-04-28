@@ -35,5 +35,33 @@ export default defineConfig({
     emptyOutDir: true,
     sourcemap: true,
     target: 'chrome120',
+    // Shiki language grammars genuinely cross 500 kB (especially `cpp`); the
+    // warning is noise as long as we keep them dynamic + isolated.
+    chunkSizeWarningLimit: 800,
+    rollupOptions: {
+      output: {
+        // Hand-pick a few vendor chunks so the main bundle stays interactive
+        // quickly. Shiki / markdown stay in their own splits because they're
+        // already lazy-imported via `import()`; Rollup fingerprints them per-language.
+        manualChunks(id) {
+          if (!id.includes('node_modules')) return undefined;
+          // React core stays in the main entry — splitting it just adds a waterfall.
+          if (id.includes('framer-motion')) return 'vendor-motion';
+          if (id.includes('@radix-ui')) return 'vendor-radix';
+          if (id.includes('lucide-react')) return 'vendor-icons';
+          if (id.includes('@tanstack')) return 'vendor-router';
+          if (
+            id.includes('react-markdown') ||
+            id.includes('remark-gfm') ||
+            id.includes('mdast-util') ||
+            id.includes('micromark') ||
+            id.includes('hast-util') ||
+            id.includes('unist-util')
+          )
+            return 'vendor-markdown';
+          return undefined;
+        },
+      },
+    },
   },
 });

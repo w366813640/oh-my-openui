@@ -1,4 +1,5 @@
 import { ChevronDown, Copy, RefreshCw, ThumbsDown, ThumbsUp } from '@oh/icons';
+import { StreamingShimmer } from '@oh/motion';
 import { motion } from 'framer-motion';
 import type { ReactNode } from 'react';
 import { Markdown } from '../markdown';
@@ -8,6 +9,13 @@ import { Tooltipped } from '../primitives/Tooltip';
 import { cn } from '../utils';
 import { ArtifactCard } from './ArtifactCard';
 import type { AssistantMessageData } from './types';
+
+function isContentEmpty(content: ReactNode, children: ReactNode): boolean {
+  if (children) return false;
+  if (typeof content === 'string') return content.trim().length === 0;
+  if (content == null || content === false) return true;
+  return false;
+}
 
 export interface AssistantMessageProps {
   message: AssistantMessageData;
@@ -31,6 +39,25 @@ export function AssistantMessage({
 }: AssistantMessageProps) {
   const streaming = message.streaming;
   const stringContent = typeof message.content === 'string' ? message.content : null;
+  const empty = isContentEmpty(message.content, children);
+
+  // Pre-token state: a streaming message that hasn't produced any visible
+  // content yet shows the brand-mark + shimmering line skeleton instead of an
+  // empty cursor, mirroring how Claude buys time before tokens arrive.
+  if (streaming && empty) {
+    return (
+      <div className={cn('group', className)} data-message-role="assistant">
+        <StreamingShimmer lines={3} />
+        {!hideActions ? (
+          <div className="mt-3 flex items-center justify-between">
+            <BrandMark size={18} motion="streaming" />
+            <span className="text-[12px] text-[var(--color-text-subtle)]">Generating…</span>
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+
   return (
     <div className={cn('group', className)} data-message-role="assistant">
       <div className="text-[15px] leading-[24px] text-[var(--color-text)] break-words">

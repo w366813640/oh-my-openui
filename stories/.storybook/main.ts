@@ -5,9 +5,11 @@ const repoRoot = path.resolve(__dirname, '../..');
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(ts|tsx|mdx)'],
-  addons: ['@storybook/addon-essentials', '@storybook/addon-themes'],
+  // Storybook 9 split addon-essentials: controls / actions / viewport / backgrounds /
+  // toolbars / measure / outline are now built into the core, only docs and themes
+  // remain opt-in addons.
+  addons: ['@storybook/addon-docs', '@storybook/addon-themes'],
   framework: { name: '@storybook/react-vite', options: {} },
-  docs: {},
   typescript: {
     reactDocgen: 'react-docgen',
   },
