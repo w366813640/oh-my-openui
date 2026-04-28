@@ -7,6 +7,24 @@
 
 @import "@oh/tokens/css";
 
+/* Re-bind Tailwind v4's `dark:` variant so it follows our explicit
+ * data-theme="dark" attribute (which the theme provider toggles on <html>)
+ * and the [data-theme="system"] + OS-prefers-dark combo. Without this, a
+ * user who chose dark in-app while the OS is light would not get any
+ * dark: utility classes — which silently breaks Button/Tooltip/etc. */
+@custom-variant dark {
+  &:where([data-theme="dark"] *),
+  &:where([data-theme="dark"]) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where([data-theme="system"] *),
+    &:where([data-theme="system"]) {
+      @slot;
+    }
+  }
+}
+
 @theme inline {
   --color-bg: var(--color-bg);
   --color-surface: var(--color-surface);

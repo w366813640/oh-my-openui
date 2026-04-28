@@ -20,6 +20,39 @@ export interface UserMessageData extends MessageBase {
   attachments?: { id: string; name: string; thumbUrl?: string }[];
 }
 
+/**
+ * A citation reference. The `id` is the marker shown inline (e.g. "1");
+ * the rest is rendered in the citations strip beneath the body.
+ */
+export interface MessageCitation {
+  id: string;
+  title: string;
+  /** Optional URL — if set, the chip becomes a link with an external icon. */
+  url?: string;
+  /** Source domain or label, e.g. "anthropic.com" or "Internal · §3.2". */
+  source?: string;
+  /** Optional 1-line snippet shown on hover / on the expanded card. */
+  snippet?: string;
+  /** Favicon / source icon node, optional — defaults to a generic globe. */
+  icon?: ReactNode;
+}
+
+/** A file attachment card; either a generated file or an inline reference. */
+export interface MessageAttachment {
+  id: string;
+  name: string;
+  /** Mime type or short kind label, e.g. "PDF · 2 pages" or "image/png". */
+  kind?: string;
+  /** Human readable size, e.g. "184 KB". */
+  size?: string;
+  /** Optional thumbnail URL for image attachments. */
+  thumbUrl?: string;
+  /** Click handler — open in artifact pane, download, or whatever you wire up. */
+  onOpen?: () => void;
+  /** Optional icon override. Defaults to a paperclip / file glyph by `kind`. */
+  icon?: ReactNode;
+}
+
 export interface AssistantMessageData extends MessageBase {
   role: 'assistant';
   /** Whether this message is currently streaming/generating. */
@@ -53,6 +86,14 @@ export interface AssistantMessageData extends MessageBase {
     /** Open the disclosure by default. */
     defaultOpen?: boolean;
   };
+  /**
+   * Footnote-style citations. Render as small numbered chips beneath the body,
+   * with a hover popover that shows source/title/snippet. Inline `[N]` markers
+   * inside `content` are linked to these by id.
+   */
+  citations?: MessageCitation[];
+  /** Inline file attachment cards rendered beneath the body. */
+  attachments?: MessageAttachment[];
 }
 
 export type Message = UserMessageData | AssistantMessageData;

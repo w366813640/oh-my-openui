@@ -8,6 +8,8 @@ import { IconButton } from '../primitives/IconButton';
 import { Tooltipped } from '../primitives/Tooltip';
 import { cn } from '../utils';
 import { ArtifactCard } from './ArtifactCard';
+import { Attachments } from './Attachments';
+import { Citations } from './Citations';
 import { ThinkingTrace } from './ThinkingTrace';
 import type { AssistantMessageData } from './types';
 
@@ -99,6 +101,14 @@ export function AssistantMessage({
             onOpen={message.artifact.onOpen}
           />
         </div>
+      ) : null}
+
+      {message.attachments && message.attachments.length > 0 ? (
+        <Attachments attachments={message.attachments} />
+      ) : null}
+
+      {message.citations && message.citations.length > 0 ? (
+        <Citations citations={message.citations} />
       ) : null}
 
       {!hideActions ? (

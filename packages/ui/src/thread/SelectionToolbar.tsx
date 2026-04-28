@@ -148,8 +148,12 @@ export function SelectionToolbar({
             aria-label="Selection actions"
             className={cn(
               'inline-flex items-center gap-0.5 px-1 py-1 rounded-[10px]',
+              // Inverted floating capsule — dark in light theme, light in
+              // dark theme — so it always reads as "lifted chrome" against
+              // the page surface beneath it.
               'bg-[#1B1A18] text-white shadow-[0_8px_24px_rgba(0,0,0,0.32)]',
               'border border-white/5',
+              'dark:bg-[#F1ECE2] dark:text-[#1F1E1B] dark:border-black/10',
             )}
           >
             {actions.map((a) => (
@@ -160,8 +164,10 @@ export function SelectionToolbar({
                   className={cn(
                     'inline-flex items-center justify-center h-7 w-7 rounded-[6px]',
                     'text-white/85 hover:text-white hover:bg-white/10',
+                    'dark:text-[#1F1E1B]/80 dark:hover:text-[#1F1E1B] dark:hover:bg-black/5',
                     'transition-colors duration-[120ms]',
                     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40',
+                    'dark:focus-visible:ring-black/30',
                   )}
                 >
                   {a.icon}
@@ -169,14 +175,15 @@ export function SelectionToolbar({
               </Tooltipped>
             ))}
           </div>
-          {/* Caret */}
+          {/* Caret — inverts with the capsule. The dark caret is rendered
+           * via a CSS variable so the same triangle works in both themes. */}
           <div
             aria-hidden="true"
-            className="mx-auto h-0 w-0"
+            className="mx-auto h-0 w-0 [--caret:#1B1A18] dark:[--caret:#F1ECE2]"
             style={{
               borderLeft: '6px solid transparent',
               borderRight: '6px solid transparent',
-              borderTop: '6px solid #1B1A18',
+              borderTop: '6px solid var(--caret)',
               marginTop: -1,
             }}
           />

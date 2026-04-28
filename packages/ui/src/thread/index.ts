@@ -1,5 +1,7 @@
 export * from './ArtifactCard';
 export * from './AssistantMessage';
+export * from './Attachments';
+export * from './Citations';
 export * from './MessageList';
 export * from './SelectionToolbar';
 export * from './ThinkingTrace';

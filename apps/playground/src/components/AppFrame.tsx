@@ -53,8 +53,13 @@ export function AppFrame({
   children: ReactNode;
   artifact?: ReactNode;
 }) {
+  // Note: do NOT pass `defaultMode` to <ThemeProvider> here. Each route
+  // mounts its own <AppFrame>, so a hard-coded default would clobber the
+  // user's persisted theme on every client-side navigation. Letting
+  // ThemeProvider fall through to readStoredTheme() (localStorage) keeps
+  // the choice sticky across routes and HMR reloads.
   return (
-    <ThemeProvider defaultMode="light">
+    <ThemeProvider>
       <I18nProvider initialLocale="en">
         <BrandSwitcherProvider initialBrandName="Aurora">
           <TooltipProvider delayDuration={150}>

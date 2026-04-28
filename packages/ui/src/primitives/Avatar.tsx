@@ -92,7 +92,7 @@ export function AvatarInitials({
   const toneClasses = {
     neutral: 'bg-[var(--color-surface-sunken)] text-[var(--color-text)]',
     accent: 'bg-[var(--color-accent)] text-[var(--color-accent-foreground)]',
-    dark: 'bg-[#1B1A18] text-white',
+    dark: 'bg-[#1B1A18] text-white dark:bg-[#F1ECE2] dark:text-[#1F1E1B]',
   } as const;
   return (
     <Avatar size={size} status={status} className={cn(toneClasses[tone], className)}>

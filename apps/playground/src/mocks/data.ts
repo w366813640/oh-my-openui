@@ -106,6 +106,45 @@ Open the artifact on the right to inspect the full source.`,
       title: 'Digital Coding Pet',
       subtitle: 'Interactive artifact · React + TS',
     },
+    attachments: [
+      {
+        id: 'att-1',
+        name: 'CodingPet.tsx',
+        kind: 'TypeScript · 96 lines',
+        size: '3.4 KB',
+      },
+      {
+        id: 'att-2',
+        name: 'pet-states.png',
+        kind: 'image/png',
+        size: '184 KB',
+      },
+    ],
+    citations: [
+      {
+        id: '1',
+        title: 'Self-Determination Theory and Daily Habits',
+        source: 'Deci & Ryan · 2000',
+        snippet:
+          'Intrinsic motivation persists when feedback loops are tightly coupled to autonomous behaviors — a useful frame for habit-tracking UIs.',
+        url: 'https://example.com/sdt',
+      },
+      {
+        id: '2',
+        title: 'Tamagotchi UX retrospective',
+        source: 'designdiary.io',
+        snippet:
+          'Pet-state animations need to read in under 200ms or the user perceives the response as broken — keep transition windows tight.',
+        url: 'https://example.com/tamagotchi',
+      },
+      {
+        id: '3',
+        title: 'Internal · Mood-as-pure-function notes',
+        source: 'team wiki',
+        snippet:
+          'Validated that "stressed" must take precedence over "wired" — caffeinated stress reads as worse than caffeinated focus.',
+      },
+    ],
   },
 ];
 
