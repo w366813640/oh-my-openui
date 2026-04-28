@@ -13,7 +13,9 @@ import {
   type ReactNode,
   type SVGProps,
   type MouseEvent,
+  createElement,
   forwardRef,
+  isValidElement,
 } from 'react';
 import { Tooltipped } from '../primitives/Tooltip';
 import { cn } from '../utils';
@@ -187,11 +189,14 @@ export function SidebarNavItem({
   trailing,
   className,
 }: SidebarNavItemProps) {
-  const iconNode =
-    typeof icon === 'function' ? (() => {
-      const I = icon as SidebarIconComponent;
-      return <I size={16} />;
-    })() : (icon as ReactNode);
+  // Accept three shapes: an already-built ReactElement, a plain function
+  // component, or a forwardRef component (which `typeof === 'object'`, hence
+  // the explicit `isValidElement` + factory fallback below).
+  const iconNode = isValidElement(icon)
+    ? icon
+    : icon
+      ? createElement(icon as ComponentType<{ size?: number }>, { size: 16 })
+      : null;
 
   const content = (
     <motion.button
