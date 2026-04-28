@@ -108,9 +108,15 @@
     color: var(--color-text);
   }
 
-  /* Subtle, "appears on hover" scrollbar — Claude desktop feels invisible until
-   * the mouse is near the edge. We keep the track totally transparent and use
-   * a very low-opacity warm thumb that strengthens on hover/active. */
+  /* Three-stage scrollbar — Claude desktop feels invisible until you hover the
+   * scrollable region, then the thumb fades in; hovering the thumb itself
+   * makes it solid; active drag goes a step warmer.
+   *
+   *  idle           : nearly invisible (8% border)
+   *  region:hover   : visible at low contrast (45% border)
+   *  thumb:hover    : strong (90% border-strong)
+   *  thumb:active   : solid text-subtle
+   */
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -122,30 +128,50 @@
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: color-mix(in srgb, var(--color-border) 60%, transparent);
+    background: color-mix(in srgb, var(--color-border) 8%, transparent);
     border-radius: 999px;
     border: 3px solid transparent;
     background-clip: content-box;
-    transition: background-color 120ms ease;
+    transition: background-color 160ms var(--ease-standard, ease-out);
+  }
+  /* When the user is anywhere over the scrollable region the thumb wakes up. */
+  *:hover::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--color-border) 45%, transparent);
+    background-clip: content-box;
   }
   ::-webkit-scrollbar-thumb:hover {
     background: color-mix(in srgb, var(--color-border-strong) 90%, transparent);
     background-clip: content-box;
-    border: 3px solid transparent;
   }
   ::-webkit-scrollbar-thumb:active {
     background: var(--color-text-subtle);
     background-clip: content-box;
-    border: 3px solid transparent;
   }
 
-  /* Firefox */
+  /* Firefox: same idle / hover progression, with `auto` on the region's hover. */
   * {
     scrollbar-width: thin;
-    scrollbar-color: color-mix(in srgb, var(--color-border) 70%, transparent) transparent;
+    scrollbar-color: color-mix(in srgb, var(--color-border) 12%, transparent) transparent;
+  }
+  *:hover {
+    scrollbar-color: color-mix(in srgb, var(--color-border) 55%, transparent) transparent;
   }
 
+  /* Layered focus ring — sharp 1px keyline + soft outer halo.
+   * Outline alone reads too thin on dark surfaces, while a thick outline
+   * looks office-y. Box-shadow lets us combine both layers without affecting
+   * layout, and the keyline stays crisp on rounded shapes. */
   *:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 1px var(--color-ring), 0 0 0 4px
+      color-mix(in srgb, var(--color-ring) 22%, transparent);
+  }
+  /* Native form controls keep their outline so we don't lose accessibility
+   * cues on platforms where box-shadow is overridden by the host. */
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    box-shadow: none;
     outline: 2px solid var(--color-ring);
     outline-offset: 1px;
     border-radius: var(--radius-xs);

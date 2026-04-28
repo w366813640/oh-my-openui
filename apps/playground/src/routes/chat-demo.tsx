@@ -1,12 +1,15 @@
-import { MessageSquare, RefreshCw, Share, Sparkles, Wrench } from '@oh/icons';
+import { CodeIcon, MessageSquare, RefreshCw, Share, Sparkles, Wrench } from '@oh/icons';
 import {
+  ArtifactPane,
   Button,
+  CodeBlock,
   Composer,
   MainArea,
   type Message,
   MessageList,
   SelectionToolbar,
   ThreadDisclaimer,
+  useArtifactPane,
   useToast,
 } from '@oh/ui';
 import { createFileRoute } from '@tanstack/react-router';
@@ -17,6 +20,71 @@ import { mockMessages, mockModelOptions } from '../mocks/data';
 export const Route = createFileRoute('/chat-demo')({
   component: ChatDemo,
 });
+
+const PET_SOURCE = `import { useEffect, useState } from 'react';
+import { Avatar, Stats } from './internal';
+
+interface PetProps {
+  focus: number;   // minutes of uninterrupted coding
+  debug: number;   // minutes of debugging
+  coffee: number;  // cups today
+}
+
+function computeMood({ focus, debug, coffee }: PetProps) {
+  const stress = Math.min(1, debug / 90);
+  const energy = Math.min(1, focus / 240);
+  const caffeine = Math.min(1, coffee / 4);
+  if (energy > 0.6 && stress < 0.3) return 'happy';
+  if (stress > 0.6) return 'stressed';
+  if (caffeine > 0.8) return 'wired';
+  return 'neutral';
+}
+
+export function CodingPet(props: PetProps) {
+  const [mood, setMood] = useState(() => computeMood(props));
+  useEffect(() => {
+    setMood(computeMood(props));
+  }, [props.focus, props.debug, props.coffee]);
+
+  return (
+    <div className="rounded-2xl p-4 bg-amber-50 shadow-sm">
+      <Avatar mood={mood} />
+      <Stats focus={props.focus} debug={props.debug} coffee={props.coffee} />
+    </div>
+  );
+}`;
+
+function ArtifactPreview() {
+  return (
+    <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-[#5577B8]/15 via-[var(--color-surface)] to-[var(--color-surface-raised)]">
+      <div className="text-center px-8">
+        <Sparkles size={48} className="mx-auto mb-4 text-[var(--color-info)]" />
+        <h2 className="text-[22px] font-serif text-[var(--color-text)] mb-2">
+          Coding habits digital pet
+        </h2>
+        <p className="text-[13px] text-[var(--color-text-muted)] max-w-[320px] mx-auto leading-relaxed">
+          A live React component that derives mood from your daily focus / debug / coffee balance.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function ArtifactCode() {
+  return (
+    <div className="p-4 h-full">
+      <CodeBlock language="tsx" filename="CodingPet.tsx" maxHeight={1000} code={PET_SOURCE} />
+    </div>
+  );
+}
+
+const THINKING_STEPS = [
+  'Read the brief and the user\u2019s constraint: a small habit-tracking pet.',
+  'Picked a React component because the user already showed RN-shaped APIs.',
+  'Sketched mood as a pure function of focus, debug minutes, and coffee count.',
+  'Validated that "stressed" must take precedence over "wired" to feel honest.',
+  'Drafted the artifact code and trimmed it to fit a single readable file.',
+];
 
 /**
  * Build a typewriter token list (split by whitespace, keep separators) so a
@@ -38,20 +106,64 @@ interface StreamState {
 }
 
 function ChatDemo() {
+  // Lift the pane state to the AppFrame layer so the right-hand ArtifactPane
+  // is part of the shell grid (not nested in the message column).
+  const pane = useArtifactPane(false);
   return (
-    <AppFrame>
-      <ChatDemoContent />
+    <AppFrame
+      artifact={
+        <ArtifactPane
+          open={pane.open}
+          onOpenChange={pane.setOpen}
+          title="Digital Coding Pet"
+          publishLabel="Publish"
+          onPublish={() => console.log('publish')}
+          onCopy={() => console.log('copy')}
+          onRefresh={() => console.log('refresh')}
+          preview={<ArtifactPreview />}
+          code={<ArtifactCode />}
+        />
+      }
+    >
+      <ChatDemoContent paneOpen={pane.open} onOpenPane={pane.show} onClosePane={pane.hide} />
     </AppFrame>
   );
 }
 
-function ChatDemoContent() {
+function ChatDemoContent({
+  paneOpen,
+  onOpenPane,
+  onClosePane,
+}: {
+  paneOpen: boolean;
+  onOpenPane: () => void;
+  onClosePane: () => void;
+}) {
   const threadRef = useRef<HTMLDivElement>(null);
   const { show } = useToast();
 
-  // Locally clone the seed messages so we can mutate the assistant body during
-  // a "replay streaming" session without touching the shared mock fixture.
-  const [messages, setMessages] = useState<Message[]>(() => mockMessages.map((m) => ({ ...m })));
+  // Locally clone the seed messages and wire each assistant artifact card to
+  // open the right-hand pane. Cloning prevents mutating the shared fixture
+  // during a "replay streaming" session.
+  const [messages, setMessages] = useState<Message[]>(() =>
+    mockMessages.map((m) => {
+      if (m.role === 'assistant' && m.artifact) {
+        return { ...m, artifact: { ...m.artifact, onOpen: onOpenPane } };
+      }
+      return { ...m };
+    }),
+  );
+
+  // Re-bind the artifact handler whenever it changes (rare, but cheap).
+  useEffect(() => {
+    setMessages((prev) =>
+      prev.map((m) =>
+        m.role === 'assistant' && m.artifact
+          ? { ...m, artifact: { ...m.artifact, onOpen: onOpenPane } }
+          : m,
+      ),
+    );
+  }, [onOpenPane]);
   const [stream, setStream] = useState<StreamState>({
     index: -1,
     fed: [],
@@ -67,15 +179,50 @@ function ChatDemoContent() {
   }, [messages]);
 
   // Drive the typewriter: every 28ms, push another token into the active
-  // assistant body. A short "thinking" pause precedes the first token to
-  // showcase the StreamingShimmer pre-token state.
+  // assistant body. A short "thinking" pause precedes the first token, during
+  // which we stream a few reasoning steps into ThinkingTrace, then resolve the
+  // trace ("Thought for Ns") before the body reveal begins.
   useEffect(() => {
     if (stream.index < 0) return;
     if (stream.thinking) {
+      const startedAt = Date.now();
+      const steps = THINKING_STEPS;
+      // Reveal a thinking step every 220ms.
+      const stepInterval = 220;
+      const totalThinkMs = steps.length * stepInterval + 240;
       const t = setTimeout(() => {
+        const elapsed = Date.now() - startedAt;
+        setMessages((prev) =>
+          prev.map((m, i) =>
+            i === stream.index && m.role === 'assistant'
+              ? {
+                  ...m,
+                  thinking: { active: false, steps, durationMs: elapsed },
+                }
+              : m,
+          ),
+        );
         setStream((s) => ({ ...s, thinking: false }));
-      }, 720);
-      return () => clearTimeout(t);
+      }, totalThinkMs);
+
+      // Stream individual steps into the trace as they "arrive".
+      let revealed = 0;
+      const stepTimer = setInterval(() => {
+        revealed += 1;
+        const visible = steps.slice(0, revealed);
+        setMessages((prev) =>
+          prev.map((m, i) =>
+            i === stream.index && m.role === 'assistant'
+              ? { ...m, thinking: { active: true, steps: visible, defaultOpen: true } }
+              : m,
+          ),
+        );
+        if (revealed >= steps.length) clearInterval(stepTimer);
+      }, stepInterval);
+      return () => {
+        clearTimeout(t);
+        clearInterval(stepTimer);
+      };
     }
     if (stream.fed.length >= stream.total.length) {
       setMessages((prev) =>
@@ -116,7 +263,12 @@ function ChatDemoContent() {
     setMessages((prev) =>
       prev.map((m, i) =>
         i === lastAssistantIdx && m.role === 'assistant'
-          ? { ...m, content: '', streaming: true }
+          ? {
+              ...m,
+              content: '',
+              streaming: true,
+              thinking: { active: true, steps: [], defaultOpen: true },
+            }
           : m,
       ),
     );
@@ -134,6 +286,14 @@ function ChatDemoContent() {
               <Button variant="outline" size="sm" onClick={handleReplay} disabled={isStreaming}>
                 <RefreshCw size={12} />
                 {isStreaming ? 'Streaming…' : 'Replay streaming'}
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={paneOpen ? onClosePane : onOpenPane}
+                aria-pressed={paneOpen}
+              >
+                <CodeIcon size={12} /> {paneOpen ? 'Close artifact' : 'Open artifact'}
               </Button>
               <Button variant="outline" size="sm">
                 <Share size={12} /> Share

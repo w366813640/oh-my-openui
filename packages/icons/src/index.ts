@@ -72,4 +72,5 @@ export {
   Bell,
   Lock,
   Filter,
+  Brain,
 } from 'lucide-react';

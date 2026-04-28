@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { BrowserWindow, app, ipcMain, nativeTheme, shell } from 'electron';
+import { type SplashHandle, showSplash } from './splash';
 import { maybeRegisterAutoUpdater } from './updater';
 
 const isDev = !app.isPackaged;
@@ -8,6 +9,7 @@ const RENDERER_DEV_URL = process.env.RENDERER_DEV_URL ?? 'http://localhost:5173'
 const baseDir = __dirname;
 
 let mainWindow: BrowserWindow | null = null;
+let splash: SplashHandle | null = null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -32,7 +34,31 @@ function createWindow() {
     },
   });
 
-  mainWindow.once('ready-to-show', () => mainWindow?.show());
+  // Defer showing the main window until BOTH ready-to-show AND
+  // did-finish-load fire. ready-to-show only guarantees the first paint;
+  // waiting for did-finish-load avoids the brief blank-window flash that
+  // otherwise appears before the React shell mounts.
+  let readyToShow = false;
+  let finishedLoading = false;
+  const tryShow = () => {
+    if (!readyToShow || !finishedLoading || !mainWindow) return;
+    mainWindow.show();
+    if (splash) splash.close();
+  };
+  mainWindow.once('ready-to-show', () => {
+    readyToShow = true;
+    tryShow();
+  });
+  mainWindow.webContents.once('did-finish-load', () => {
+    finishedLoading = true;
+    tryShow();
+  });
+  // Hard fallback so we never strand the user behind a splash if the
+  // renderer takes >5s (network blip, AV scan, cold disk).
+  setTimeout(() => {
+    if (mainWindow && !mainWindow.isVisible()) mainWindow.show();
+    if (splash) splash.close();
+  }, 5000);
 
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     if (url.startsWith('http')) shell.openExternal(url);
@@ -84,6 +110,10 @@ if (process.platform === 'win32') {
 
 app.whenReady().then(() => {
   registerIpc();
+  // Show the splash first so the user gets immediate visual feedback while
+  // the renderer's bundle parses. createWindow() then opens the main window
+  // hidden and brings it forward once it's painted.
+  splash = showSplash();
   createWindow();
   void maybeRegisterAutoUpdater();
 

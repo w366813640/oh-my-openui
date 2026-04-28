@@ -35,6 +35,24 @@ export interface AssistantMessageData extends MessageBase {
     onOpen?: () => void;
     icon?: ReactNode;
   };
+  /**
+   * Optional reasoning trace, mirroring Claude's "extended thinking" disclosure.
+   * - While `streaming` and `thinking.active` is true, a pulsing "Thinking…" pill
+   *   appears with the steps streaming in.
+   * - Once tokens arrive (or `active` flips false), it collapses into a pill
+   *   that reads "Thought for Ns" — click to expand the full reasoning.
+   * `steps` are short markdown-friendly lines; `durationMs` is the total time.
+   */
+  thinking?: {
+    /** Whether the model is still actively thinking (vs. finished). */
+    active?: boolean;
+    /** Reasoning steps; each rendered as a paragraph in the disclosure. */
+    steps?: string[];
+    /** Total thinking time in ms, used to label the collapsed pill. */
+    durationMs?: number;
+    /** Open the disclosure by default. */
+    defaultOpen?: boolean;
+  };
 }
 
 export type Message = UserMessageData | AssistantMessageData;

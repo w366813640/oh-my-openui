@@ -8,6 +8,7 @@ import { IconButton } from '../primitives/IconButton';
 import { Tooltipped } from '../primitives/Tooltip';
 import { cn } from '../utils';
 import { ArtifactCard } from './ArtifactCard';
+import { ThinkingTrace } from './ThinkingTrace';
 import type { AssistantMessageData } from './types';
 
 function isContentEmpty(content: ReactNode, children: ReactNode): boolean {
@@ -47,6 +48,14 @@ export function AssistantMessage({
   if (streaming && empty) {
     return (
       <div className={cn('group', className)} data-message-role="assistant">
+        {message.thinking ? (
+          <ThinkingTrace
+            active={message.thinking.active}
+            steps={message.thinking.steps}
+            durationMs={message.thinking.durationMs}
+            defaultOpen={message.thinking.defaultOpen}
+          />
+        ) : null}
         <StreamingShimmer lines={3} />
         {!hideActions ? (
           <div className="mt-3 flex items-center justify-between">
@@ -60,6 +69,14 @@ export function AssistantMessage({
 
   return (
     <div className={cn('group', className)} data-message-role="assistant">
+      {message.thinking ? (
+        <ThinkingTrace
+          active={message.thinking.active}
+          steps={message.thinking.steps}
+          durationMs={message.thinking.durationMs}
+          defaultOpen={message.thinking.defaultOpen}
+        />
+      ) : null}
       <div className="text-[15px] leading-[24px] text-[var(--color-text)] break-words">
         {children ? (
           <div className="whitespace-pre-wrap">{children}</div>
