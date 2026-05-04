@@ -65,6 +65,8 @@
   --radius-xl: var(--radius-xl);
   --radius-2xl: var(--radius-2xl);
 
+  --shadow-none: var(--shadow-none);
+  --shadow-xs: var(--shadow-xs);
   --shadow-card: var(--shadow-card);
   --shadow-composer: var(--shadow-composer);
   --shadow-composer-focus: var(--shadow-composer-focus);
@@ -116,14 +118,44 @@
     font-family: var(--font-sans);
     font-size: var(--text-base);
     line-height: var(--text-base--line-height);
+    font-kerning: normal;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  button {
+    color: inherit;
+  }
+
+  button:disabled,
+  input:disabled,
+  textarea:disabled,
+  select:disabled,
+  [aria-disabled="true"] {
+    cursor: not-allowed;
+    opacity: 0.58;
+  }
+
+  ::placeholder {
+    color: color-mix(in srgb, var(--color-text-muted) 74%, transparent);
+  }
+
   ::selection {
     background-color: var(--color-accent-soft);
     color: var(--color-text);
+  }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--color-border);
   }
 
   /* Three-stage scrollbar — Claude desktop feels invisible until you hover the
@@ -189,8 +221,8 @@
   input:focus-visible,
   textarea:focus-visible,
   select:focus-visible {
-    box-shadow: none;
-    outline: 2px solid var(--color-ring);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-ring) 18%, transparent);
+    outline: 1px solid var(--color-ring);
     outline-offset: 1px;
     border-radius: var(--radius-xs);
   }
@@ -201,6 +233,17 @@
   }
   .app-no-drag {
     -webkit-app-region: no-drag;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 1ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 1ms !important;
+    }
   }
 }
 
