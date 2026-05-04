@@ -38,35 +38,35 @@ function ModalsPage() {
     <AppFrame>
       <MainArea topbar={<PlaygroundNav />} maxWidth={null}>
         <div className="mx-auto w-full max-w-[680px] py-12">
-          <h1 className="text-[26px] font-serif mb-2">Modal templates</h1>
+          <h1 className="text-[26px] font-serif mb-2">Workflow dialogs</h1>
           <p className="text-[13.5px] text-[var(--color-text-muted)] mb-8">
-            Five reusable templates: alert, form, info, picker, celebration.
+            Connector recovery, project editing, feedback, template picking, and upgrade moments.
           </p>
 
-          <div className="grid grid-cols-2 gap-3">
-            <ModalCard title="Alert dialog (destructive)">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <ModalCard title="Recover connector sync">
               <Button variant="outline" size="md" onClick={() => setAlert(true)}>
-                Open alert
+                Disconnect Drive
               </Button>
             </ModalCard>
-            <ModalCard title="Form dialog">
+            <ModalCard title="Edit project brief">
               <Button variant="outline" size="md" onClick={() => setForm(true)}>
-                Open form
+                Edit details
               </Button>
             </ModalCard>
-            <ModalCard title="Info dialog with content">
+            <ModalCard title="Send product feedback">
               <Button variant="outline" size="md" onClick={() => setInfo(true)}>
-                Open info
+                Send feedback
               </Button>
             </ModalCard>
-            <ModalCard title="Picker dialog (tabs)">
+            <ModalCard title="Start from a template">
               <Button variant="outline" size="md" onClick={() => setPicker(true)}>
-                Open picker
+                Pick template
               </Button>
             </ModalCard>
-            <ModalCard title="Celebration overlay">
+            <ModalCard title="Upgrade confirmation">
               <Button variant="outline" size="md" onClick={() => setCeleb(true)}>
-                Open celebration
+                Show success
               </Button>
             </ModalCard>
           </div>

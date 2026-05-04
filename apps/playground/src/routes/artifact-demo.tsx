@@ -42,16 +42,64 @@ function ArtifactDemo() {
           onCopy={() => console.log('copy')}
           onRefresh={() => console.log('refresh')}
           preview={
-            <div className="h-full w-full flex items-center justify-center bg-gradient-to-br from-[#5577B8]/15 via-[var(--color-surface)] to-[var(--color-surface-raised)]">
-              <div className="text-center px-8">
-                <Sparkles size={48} className="mx-auto mb-4 text-[var(--color-info)]" />
-                <h2 className="text-[22px] font-serif text-[var(--color-text)] mb-2">
-                  Live Artifact Preview
-                </h2>
-                <p className="text-[13px] text-[var(--color-text-muted)] max-w-[320px] mx-auto leading-relaxed">
-                  Render any embeddable preview here — React component, HTML iframe, Markdown
-                  document, or interactive sandbox.
-                </p>
+            <div className="h-full w-full overflow-auto bg-[var(--color-surface-sunken)] p-5">
+              <div className="mx-auto flex w-full max-w-[560px] flex-col gap-4">
+                <section className="rounded-[16px] border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-[var(--shadow-card)]">
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <p className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-subtle)]">
+                        Artifact preview
+                      </p>
+                      <h2 className="mt-1 text-[24px] font-serif text-[var(--color-text)]">
+                        Coding habits pet
+                      </h2>
+                      <p className="mt-1 max-w-[360px] text-[13px] leading-relaxed text-[var(--color-text-muted)]">
+                        A live React surface with success, empty, and connector error states.
+                      </p>
+                    </div>
+                    <span className="inline-flex h-12 w-12 items-center justify-center rounded-[14px] bg-[var(--color-accent-soft)] text-[var(--color-accent)]">
+                      <Sparkles size={24} />
+                    </span>
+                  </div>
+
+                  <div className="mt-5 grid grid-cols-3 gap-2">
+                    {[
+                      ['Focus', '142m', 'happy'],
+                      ['Debug', '28m', 'low'],
+                      ['Coffee', '2 cups', 'steady'],
+                    ].map(([label, value, meta]) => (
+                      <div
+                        key={label}
+                        className="rounded-[12px] border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-3"
+                      >
+                        <div className="text-[11px] text-[var(--color-text-subtle)]">{label}</div>
+                        <div className="mt-1 text-[16px] font-semibold text-[var(--color-text)]">
+                          {value}
+                        </div>
+                        <div className="text-[11px] text-[var(--color-text-muted)]">{meta}</div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+
+                <section className="grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-[14px] border border-dashed border-[var(--color-border-strong)] bg-[var(--color-surface)] p-4">
+                    <h3 className="text-[13px] font-semibold text-[var(--color-text)]">
+                      Empty state
+                    </h3>
+                    <p className="mt-1 text-[12.5px] leading-relaxed text-[var(--color-text-muted)]">
+                      No activity yet. Start a focus session to wake the pet.
+                    </p>
+                  </div>
+                  <div className="rounded-[14px] border border-[rgba(200,134,42,0.32)] bg-[rgba(200,134,42,0.10)] p-4">
+                    <h3 className="text-[13px] font-semibold text-[var(--color-text)]">
+                      Connector paused
+                    </h3>
+                    <p className="mt-1 text-[12.5px] leading-relaxed text-[var(--color-text-muted)]">
+                      GitHub sync failed. Local editor events are still feeding the model.
+                    </p>
+                  </div>
+                </section>
               </div>
             </div>
           }
@@ -74,10 +122,11 @@ function computeMood({ focus, debug, coffee }: PetProps) {
   const stress = Math.min(1, debug / 90);
   const energy = Math.min(1, focus / 240);
   const caffeine = Math.min(1, coffee / 4);
+  if (energy < 0.15 && stress < 0.2) return 'resting';
   if (energy > 0.6 && stress < 0.3) return 'happy';
   if (stress > 0.6) return 'stressed';
   if (caffeine > 0.8) return 'wired';
-  return 'neutral';
+  return 'resting';
 }
 
 export function CodingPet(props: PetProps) {
@@ -87,9 +136,12 @@ export function CodingPet(props: PetProps) {
   }, [props.focus, props.debug, props.coffee]);
 
   return (
-    <div className="rounded-2xl p-4 bg-amber-50 shadow-sm">
+    <div className="rounded-2xl border bg-amber-50 p-4 shadow-sm">
       <Avatar mood={mood} />
       <Stats focus={props.focus} debug={props.debug} coffee={props.coffee} />
+      {props.focus === 0 ? (
+        <p>No activity yet - start a focus session to wake the pet.</p>
+      ) : null}
     </div>
   );
 }`}
