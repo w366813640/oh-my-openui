@@ -30,7 +30,7 @@ export function MessageList({
   footer,
 }: MessageListProps) {
   return (
-    <div className={cn('flex flex-col gap-8 py-8', className)}>
+    <div className={cn('flex flex-col gap-7 py-8 max-[640px]:gap-6', className)}>
       {messages.map((m) => {
         if (renderMessage) return renderMessage(m);
         if (m.role === 'user') {

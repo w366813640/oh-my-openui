@@ -39,9 +39,9 @@ export interface ToastRootProps extends ComponentPropsWithoutRef<typeof ToastPri
 
 const toneClasses: Record<ToastTone, string> = {
   neutral: 'border-[var(--color-border)] bg-[var(--color-surface-raised)]',
-  success: 'border-[var(--color-success)]/30 bg-[var(--color-surface-raised)]',
-  warning: 'border-[var(--color-warning)]/30 bg-[var(--color-surface-raised)]',
-  destructive: 'border-[var(--color-destructive)]/30 bg-[var(--color-surface-raised)]',
+  success: 'border-[var(--color-success)]/40 bg-[var(--color-surface-raised)]',
+  warning: 'border-[var(--color-warning)]/40 bg-[var(--color-surface-raised)]',
+  destructive: 'border-[var(--color-destructive)]/40 bg-[var(--color-surface-raised)]',
 };
 
 export const ToastRoot = forwardRef<ElementRef<typeof ToastPrimitive.Root>, ToastRootProps>(
@@ -50,8 +50,8 @@ export const ToastRoot = forwardRef<ElementRef<typeof ToastPrimitive.Root>, Toas
       <ToastPrimitive.Root
         ref={ref}
         className={cn(
-          'group pointer-events-auto relative flex w-full items-start gap-3 rounded-[12px] border p-3.5 pr-8',
-          'shadow-[var(--shadow-popover)] backdrop-blur-[2px]',
+          'group pointer-events-auto relative flex w-full items-start gap-3 rounded-[13px] border p-3.5 pr-8',
+          'shadow-[var(--shadow-popover)] backdrop-blur-[3px]',
           'origin-bottom-right',
           /* Open: spring-in from the right (the viewport corner) */
           'data-[state=open]:animate-[toast-in_280ms_var(--ease-spring)_forwards]',
@@ -104,7 +104,7 @@ export const ToastClose = forwardRef<
       ref={ref}
       className={cn(
         'absolute right-2 top-2 inline-flex h-6 w-6 items-center justify-center rounded-[6px] text-[var(--color-text-muted)]',
-        'hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-text)]',
+        'border border-transparent hover:border-[var(--color-border)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-text)]',
         className,
       )}
       aria-label="Close"

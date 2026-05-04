@@ -39,7 +39,7 @@ export function UserMessage({ message, className, children }: UserMessageProps) 
         <div
           className={cn(
             'inline-block px-3.5 py-2.5 rounded-[14px] max-w-full',
-            'bg-[var(--color-user-bg)] text-[var(--color-user)]',
+            'border border-[var(--color-border)] bg-[var(--color-user-bg)] text-[var(--color-user)] shadow-[var(--shadow-xs)]',
             'text-[15px] leading-[22px] font-sans',
             'whitespace-pre-wrap break-words',
           )}

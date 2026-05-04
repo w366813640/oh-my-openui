@@ -34,7 +34,10 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(function Sidebar
     <div
       ref={ref}
       data-expanded={expanded ? 'true' : 'false'}
-      className={cn('group/sidebar flex h-full flex-col select-none', className)}
+      className={cn(
+        'group/sidebar flex h-full flex-col select-none bg-[var(--color-surface-sunken)]',
+        className,
+      )}
     >
       {children}
     </div>
@@ -46,7 +49,7 @@ export function SidebarHeader({
   className,
 }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cn('app-no-drag flex flex-col gap-1 px-2 pt-2 pb-1', className)}>
+    <div className={cn('app-no-drag flex flex-col gap-1.5 px-2 pt-2 pb-1.5', className)}>
       {children}
     </div>
   );
@@ -55,7 +58,7 @@ export function SidebarHeader({
 export function SidebarBody({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <div
-      className={cn('flex-1 overflow-y-auto overflow-x-hidden px-2 py-2 app-no-drag', className)}
+      className={cn('app-no-drag flex-1 overflow-y-auto overflow-x-hidden px-2 py-2', className)}
     >
       {children}
     </div>
@@ -67,7 +70,12 @@ export function SidebarFooter({
   className,
 }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cn('app-no-drag border-t border-[var(--color-border)] px-2 py-2', className)}>
+    <div
+      className={cn(
+        'app-no-drag border-t border-[var(--color-border)] bg-[var(--color-surface-sunken)] px-2 py-2',
+        className,
+      )}
+    >
       {children}
     </div>
   );
@@ -86,8 +94,8 @@ export function SidebarBrand({
   name?: ReactNode;
 }) {
   return (
-    <div className="flex items-center h-8 px-1.5 gap-2 mb-1">
-      <span className="text-[var(--color-asterisk)] inline-flex items-center justify-center h-7 w-7">
+    <div className="flex h-8 items-center gap-2 px-1.5 mb-1">
+      <span className="inline-flex h-7 w-7 items-center justify-center rounded-[9px] text-[var(--color-asterisk)]">
         {logo ?? <Asterisk size={20} />}
       </span>
       <AnimatePresence initial={false}>
@@ -128,12 +136,12 @@ export function SidebarPrimaryAction({
       <button
         type="button"
         onClick={onClick}
-        className={cn(
-          'group relative flex items-center w-full h-8 rounded-[8px]',
-          'transition-[background-color,color] duration-[120ms]',
+          className={cn(
+          'group relative flex h-8 w-full items-center rounded-[9px]',
+          'transition-[background-color,color,box-shadow,transform] duration-[140ms]',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
           expanded
-            ? 'px-2 gap-2 text-[13px] font-medium text-[var(--color-accent)] hover:bg-[var(--color-accent-soft)]'
+            ? 'gap-2 px-2 text-[13px] font-medium text-[var(--color-accent)] hover:bg-[var(--color-accent-soft)] hover:shadow-[var(--shadow-xs)]'
             : 'justify-center text-[var(--color-accent-foreground)]',
         )}
       >
@@ -142,7 +150,7 @@ export function SidebarPrimaryAction({
             <span
               className={cn(
                 'inline-flex items-center justify-center h-6 w-6 rounded-full',
-                'bg-[var(--color-accent)] text-[var(--color-accent-foreground)]',
+                'bg-[var(--color-accent)] text-[var(--color-accent-foreground)] shadow-[var(--shadow-xs)]',
               )}
             >
               {icon}
@@ -153,7 +161,7 @@ export function SidebarPrimaryAction({
           <span
             className={cn(
               'inline-flex items-center justify-center h-7 w-7 rounded-full',
-              'bg-[var(--color-accent)] text-[var(--color-accent-foreground)]',
+              'bg-[var(--color-accent)] text-[var(--color-accent-foreground)] shadow-[var(--shadow-xs)]',
               active &&
                 'ring-2 ring-[var(--color-accent)] ring-offset-1 ring-offset-[var(--color-bg)]',
             )}
@@ -204,12 +212,13 @@ export function SidebarNavItem({
       layout
       transition={{ type: 'spring', stiffness: 320, damping: 30, mass: 0.8 }}
       className={cn(
-        'group/item relative flex items-center w-full rounded-[8px]',
+        'group/item relative flex w-full items-center rounded-[9px]',
         'text-[var(--color-text-muted)] hover:text-[var(--color-text)]',
-        'transition-colors duration-[100ms]',
+        'transition-[background-color,color,box-shadow] duration-[120ms]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
         expanded ? 'h-8 px-2 gap-2 text-[13px]' : 'h-8 w-8 mx-auto justify-center',
-        active && 'bg-[var(--color-surface-muted)] text-[var(--color-text)]',
+        active &&
+          'bg-[var(--color-surface-muted)] text-[var(--color-text)] shadow-[inset_0_0_0_1px_var(--color-border)]',
         !active && 'hover:bg-[var(--color-surface-muted)]',
         className,
       )}
@@ -227,7 +236,10 @@ export function SidebarNavItem({
       ) : null}
       <motion.span
         layout="position"
-        className="inline-flex items-center justify-center h-4 w-4 shrink-0"
+        className={cn(
+          'inline-flex h-4 w-4 shrink-0 items-center justify-center',
+          active && 'text-[var(--color-accent)]',
+        )}
       >
         {iconNode}
       </motion.span>
@@ -275,7 +287,7 @@ export function SidebarSectionLabel({
   return (
     <div
       className={cn(
-        'px-2 pt-3 pb-1 text-[10px] uppercase tracking-[0.06em] font-semibold text-[var(--color-text-subtle)]',
+        'px-2 pt-3 pb-1 text-[10px] font-semibold uppercase tracking-[0.06em] text-[var(--color-text-subtle)]',
         className,
       )}
     >
@@ -303,11 +315,12 @@ export function SidebarLinkItem({
       type="button"
       onClick={onClick}
       className={cn(
-        'group/link relative flex items-center w-full h-7 rounded-[7px] px-2',
+        'group/link relative flex h-7 w-full items-center rounded-[8px] px-2',
         'text-[12.5px] text-[var(--color-text-muted)] hover:text-[var(--color-text)]',
-        'hover:bg-[var(--color-surface-muted)] transition-colors duration-[100ms]',
+        'transition-[background-color,color,box-shadow] duration-[120ms] hover:bg-[var(--color-surface-muted)]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
-        active && 'bg-[var(--color-surface-muted)] text-[var(--color-text)]',
+        active &&
+          'bg-[var(--color-surface-muted)] text-[var(--color-text)] shadow-[inset_0_0_0_1px_var(--color-border)]',
       )}
     >
       <span className="flex-1 text-left truncate">{label}</span>

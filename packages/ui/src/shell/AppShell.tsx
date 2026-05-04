@@ -45,7 +45,7 @@ export function AppShell({
 
       {/* Sidebar column */}
       <aside
-        className="relative z-20 flex-shrink-0 border-r border-[var(--color-border)] bg-[var(--color-bg)]"
+        className="relative z-20 flex-shrink-0 border-r border-[var(--color-border)] bg-[var(--color-surface-sunken)]"
         style={{
           width: sidebarWidth,
           paddingTop: titlebarHeight,
@@ -66,7 +66,10 @@ export function AppShell({
       {/* Optional artifact pane */}
       {artifact ? (
         <aside
-          className="relative z-10 flex-shrink-0 border-l border-[var(--color-border)] bg-[var(--color-bg)] overflow-hidden"
+          className={cn(
+            'relative z-10 flex-shrink-0 border-l border-[var(--color-border)] bg-[var(--color-bg)] overflow-hidden',
+            'max-[900px]:absolute max-[900px]:inset-y-0 max-[900px]:right-0 max-[900px]:z-30 max-[900px]:shadow-[var(--shadow-modal)]',
+          )}
           style={{ paddingTop: titlebarHeight }}
         >
           {artifact}

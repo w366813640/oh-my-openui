@@ -22,14 +22,14 @@ export function ArtifactCard({ title, subtitle, icon, onOpen, className }: Artif
       className={cn(
         'group/artifact w-full text-left',
         'flex items-center gap-3 px-3 py-2.5 rounded-[12px]',
-        'border border-[var(--color-border)] bg-[var(--color-surface-raised)]',
-        'transition-all duration-[140ms] ease-[var(--ease-standard)]',
-        'hover:border-[var(--color-border-strong)] hover:shadow-[var(--shadow-card)]',
+        'border border-[var(--color-border)] bg-[var(--color-surface-raised)] shadow-[var(--shadow-xs)]',
+        'transition-[background-color,border-color,box-shadow,transform] duration-[160ms] ease-[var(--ease-standard)]',
+        'hover:-translate-y-px hover:border-[var(--color-border-strong)] hover:shadow-[var(--shadow-card)]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
         className,
       )}
     >
-      <div className="flex-shrink-0 inline-flex items-center justify-center h-9 w-9 rounded-[10px] bg-[var(--color-surface-muted)] text-[var(--color-text-muted)] group-hover/artifact:text-[var(--color-text)] transition-colors">
+      <div className="inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-[10px] bg-[var(--color-accent-soft)] text-[var(--color-accent)] transition-colors group-hover/artifact:bg-[var(--color-surface-muted)] group-hover/artifact:text-[var(--color-text)]">
         {icon ?? <Sparkles size={18} />}
       </div>
       <div className="flex-1 min-w-0">

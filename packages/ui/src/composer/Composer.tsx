@@ -309,10 +309,11 @@ export const Composer = forwardRef<ComposerHandle, ComposerHostProps>(function C
         data-focused={focused ? 'true' : 'false'}
         data-dragover={dragOver ? 'true' : 'false'}
         className={cn(
-          'relative w-full bg-[var(--color-surface)] rounded-[20px]',
+          'relative w-full rounded-[20px] bg-[var(--color-surface-raised)]',
           'border border-[var(--color-border)]',
           'shadow-[var(--shadow-composer)]',
-          'transition-[box-shadow,border-color,transform] duration-[200ms] ease-[var(--ease-spring)]',
+          'transition-[box-shadow,border-color,background-color,transform] duration-[200ms] ease-[var(--ease-spring)]',
+          'hover:border-[var(--color-border-strong)]',
           /* On focus: lift slightly + accent border + accent halo shadow. */
           'data-[focused=true]:shadow-[var(--shadow-composer-focus)]',
           'data-[focused=true]:border-[var(--color-accent)]/45',
@@ -361,7 +362,7 @@ export const Composer = forwardRef<ComposerHandle, ComposerHostProps>(function C
         ) : null}
 
         {/* Text input area */}
-        <div className="relative px-4 pt-3.5 pb-2">
+        <div className="relative px-4 pt-3.5 pb-2.5">
           <Textarea
             ref={textareaRef}
             value={value}
@@ -398,7 +399,7 @@ export const Composer = forwardRef<ComposerHandle, ComposerHostProps>(function C
         </div>
 
         {/* Bottom toolbar */}
-        <div className="flex items-center gap-1 px-2 pb-2">
+        <div className="mx-2 flex items-center gap-1 border-t border-[var(--color-border)] px-0 pt-2 pb-2">
           {/* Left: + menu */}
           <ComposerPlusMenu onPickFiles={() => fileInputRef.current?.click()} />
 
@@ -447,11 +448,11 @@ export const Composer = forwardRef<ComposerHandle, ComposerHostProps>(function C
             whileTap={{ scale: 0.92 }}
             className={cn(
               'relative inline-flex items-center justify-center h-8 w-8 rounded-full ml-1',
-              'transition-colors duration-[140ms]',
+              'transition-[background-color,color,box-shadow,opacity] duration-[140ms]',
               sending && onStop
-                ? 'bg-[var(--color-text)] text-[var(--color-bg)]'
+                ? 'bg-[var(--color-text)] text-[var(--color-bg)] shadow-[var(--shadow-xs)]'
                 : canSubmit
-                  ? 'bg-[var(--color-accent)] text-[var(--color-accent-foreground)] hover:bg-[var(--color-accent-hover)]'
+                  ? 'bg-[var(--color-accent)] text-[var(--color-accent-foreground)] shadow-[var(--shadow-xs)] hover:bg-[var(--color-accent-hover)]'
                   : 'bg-[var(--color-accent-soft)] text-[var(--color-accent)] opacity-70 cursor-not-allowed',
             )}
           >
@@ -604,10 +605,11 @@ function QuickActionButton({
         onClick={onClick}
         className={cn(
           'inline-flex items-center gap-1.5 h-8 px-3 rounded-[10px]',
-          'bg-[var(--color-surface)] border border-[var(--color-border)]',
+          'bg-[var(--color-surface-raised)] border border-[var(--color-border)] shadow-[var(--shadow-xs)]',
           'text-[12.5px] text-[var(--color-text)] font-medium',
-          'transition-colors duration-[120ms]',
+          'transition-[background-color,border-color,box-shadow,transform] duration-[140ms]',
           'hover:bg-[var(--color-surface-muted)] hover:border-[var(--color-border-strong)]',
+          'hover:-translate-y-px',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
         )}
       >

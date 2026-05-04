@@ -185,8 +185,8 @@ function AssistantActions({
           className={cn(
             'inline-flex items-center gap-1 h-7 pl-2 pr-1.5 rounded-[8px]',
             'text-[12px] text-[var(--color-text-muted)]',
-            'hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-text)]',
-            'transition-colors duration-[120ms]',
+            'border border-transparent hover:border-[var(--color-border)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-text)]',
+            'transition-[background-color,border-color,color] duration-[120ms]',
           )}
         >
           <RefreshCw size={12} />

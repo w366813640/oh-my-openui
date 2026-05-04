@@ -25,20 +25,32 @@ export function SidebarStateProvider({
   children: ReactNode;
   defaultExpanded?: boolean;
 }) {
-  const [expanded, setExpandedState] = useState<boolean>(() => {
+  const [preferredExpanded, setPreferredExpandedState] = useState<boolean>(() => {
     if (typeof window === 'undefined') return defaultExpanded;
     const saved = window.localStorage.getItem(STORAGE_KEY);
     if (saved === null) return defaultExpanded;
     return saved === 'true';
   });
+  const [narrowViewport, setNarrowViewport] = useState(false);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    window.localStorage.setItem(STORAGE_KEY, String(expanded));
-  }, [expanded]);
+    const media = window.matchMedia('(max-width: 760px)');
+    const sync = () => setNarrowViewport(media.matches);
+    sync();
+    media.addEventListener('change', sync);
+    return () => media.removeEventListener('change', sync);
+  }, []);
 
-  const setExpanded = useCallback((value: boolean) => setExpandedState(value), []);
-  const toggle = useCallback(() => setExpandedState((prev) => !prev), []);
+  const expanded = !narrowViewport && preferredExpanded;
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    window.localStorage.setItem(STORAGE_KEY, String(preferredExpanded));
+  }, [preferredExpanded]);
+
+  const setExpanded = useCallback((value: boolean) => setPreferredExpandedState(value), []);
+  const toggle = useCallback(() => setPreferredExpandedState((prev) => !prev), []);
 
   const value = useMemo(() => ({ expanded, setExpanded, toggle }), [expanded, setExpanded, toggle]);
 

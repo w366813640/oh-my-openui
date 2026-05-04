@@ -16,7 +16,7 @@ export const DialogOverlay = forwardRef<
     <DialogPrimitive.Overlay
       ref={ref}
       className={cn(
-        'fixed inset-0 z-[400] bg-[var(--color-overlay)] backdrop-blur-[2px]',
+        'fixed inset-0 z-[400] bg-[var(--color-overlay)] backdrop-blur-[3px]',
         'data-[state=open]:animate-[fade-in_var(--duration-base)_var(--ease-standard)]',
         'data-[state=closed]:animate-[fade-in_var(--duration-fast)_var(--ease-standard)_reverse]',
         className,
@@ -56,7 +56,7 @@ export const DialogContent = forwardRef<
           'w-[calc(100%-2rem)]',
           sizeClass[size],
           'bg-[var(--color-surface-raised)] border border-[var(--color-border)]',
-          'shadow-[var(--shadow-modal)] rounded-[14px]',
+          'shadow-[var(--shadow-modal)] rounded-[16px]',
           'p-6 outline-none',
           'data-[state=open]:animate-[pop-in_var(--duration-medium)_var(--ease-spring)]',
           'data-[state=closed]:animate-[pop-in_var(--duration-fast)_var(--ease-standard)_reverse]',
@@ -69,8 +69,8 @@ export const DialogContent = forwardRef<
           <DialogPrimitive.Close
             className={cn(
               'absolute right-4 top-4 inline-flex h-7 w-7 items-center justify-center',
-              'rounded-[8px] text-[var(--color-text-muted)]',
-              'hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-text)]',
+              'rounded-[8px] border border-transparent text-[var(--color-text-muted)]',
+              'hover:border-[var(--color-border)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-text)]',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
               'transition-colors duration-[120ms]',
             )}

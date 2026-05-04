@@ -17,8 +17,9 @@ const sizeMap = {
 
 const variantMap = {
   ghost:
-    'bg-transparent hover:bg-[var(--color-surface-muted)] active:bg-[var(--color-surface-sunken)]',
-  soft: 'bg-[var(--color-surface-muted)] hover:bg-[var(--color-surface-sunken)]',
+    'border border-transparent bg-transparent hover:border-[var(--color-border)] hover:bg-[var(--color-surface-muted)] active:bg-[var(--color-surface-sunken)]',
+  soft:
+    'border border-transparent bg-[var(--color-surface-muted)] hover:border-[var(--color-border)] hover:bg-[var(--color-surface-sunken)]',
   outline:
     'bg-transparent border border-[var(--color-border)] hover:bg-[var(--color-surface-muted)] hover:border-[var(--color-border-strong)]',
 };
@@ -35,7 +36,7 @@ export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(functio
       title={label}
       className={cn(
         'inline-flex items-center justify-center text-[var(--color-text-muted)]',
-        'transition-colors duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]',
+        'transition-[background-color,border-color,color,box-shadow] duration-[120ms] ease-[cubic-bezier(0.2,0,0,1)]',
         'hover:text-[var(--color-text)]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] focus-visible:ring-offset-1 focus-visible:ring-offset-[var(--color-bg)]',
         'disabled:opacity-40 disabled:pointer-events-none',

@@ -73,6 +73,9 @@ export function ArtifactPane({
   });
   const [dragging, setDragging] = useState(false);
   const [hoverHandle, setHoverHandle] = useState(false);
+  const [viewportWidth, setViewportWidth] = useState<number | null>(() =>
+    typeof window === 'undefined' ? null : window.innerWidth,
+  );
   const dragStateRef = useRef<{ startX: number; startWidth: number } | null>(null);
 
   // Persist width on change.
@@ -84,6 +87,17 @@ export function ArtifactPane({
       /* storage unavailable */
     }
   }, [persistKey, width]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const onResize = () => setViewportWidth(window.innerWidth);
+    onResize();
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  const effectiveWidth =
+    viewportWidth != null && viewportWidth <= 900 ? Math.max(0, viewportWidth - 48) : width;
 
   const handlePointerDown = useCallback(
     (e: PointerEvent<HTMLDivElement>) => {
@@ -148,8 +162,8 @@ export function ArtifactPane({
           animate={{ x: 0 }}
           exit={{ x: '100%' }}
           transition={{ type: 'spring', stiffness: 280, damping: 32, mass: 0.9 }}
-          style={{ width }}
-          className="relative h-full border-l border-[var(--color-border)] bg-[var(--color-surface)] flex-shrink-0 flex flex-col overflow-hidden"
+          style={{ width: effectiveWidth }}
+          className="relative h-full flex-shrink-0 flex flex-col overflow-hidden border-l border-[var(--color-border)] bg-[var(--color-surface-sunken)]"
         >
           {/* Drag handle: a 6px hit-zone with a 1.5px morphing accent bar */}
           <div
@@ -215,6 +229,7 @@ export function ArtifactPane({
             defaultTab={defaultTab}
             preview={preview}
             code={code}
+            compact={effectiveWidth < 560}
           />
         </motion.aside>
       ) : null}
@@ -232,6 +247,7 @@ function ArtifactToolbar({
   defaultTab,
   preview,
   code,
+  compact,
 }: {
   title?: ReactNode;
   publishLabel?: string;
@@ -242,6 +258,7 @@ function ArtifactToolbar({
   defaultTab: 'preview' | 'code';
   preview: ReactNode;
   code: ReactNode;
+  compact?: boolean;
 }) {
   const [tab, setTab] = useState<'preview' | 'code'>(defaultTab);
 
@@ -251,8 +268,8 @@ function ArtifactToolbar({
       onValueChange={(v) => setTab(v as 'preview' | 'code')}
       className="flex flex-col flex-1 min-h-0"
     >
-      <header className="flex items-center justify-between gap-2 h-12 px-3 border-b border-[var(--color-border)]">
-        <div className="flex items-center gap-2 min-w-0">
+      <header className="relative flex h-12 items-center justify-between gap-2 border-b border-[var(--color-border)] bg-[var(--color-surface)]/95 px-3 backdrop-blur-md">
+        <div className="flex min-w-0 items-center gap-2">
           <TabsList variant="pill" className="h-8">
             <TabsTrigger value="preview" className="gap-1.5 px-2.5">
               <Eye size={14} />
@@ -263,32 +280,39 @@ function ArtifactToolbar({
               <span className="hidden sm:inline">Code</span>
             </TabsTrigger>
           </TabsList>
+          {compact ? (
+            <IconButton label="Close" size="sm" onClick={onClose} className="shrink-0">
+              <X />
+            </IconButton>
+          ) : null}
           {title ? (
-            <span className="ml-2 text-[12.5px] text-[var(--color-text-muted)] truncate">
+            <span className="ml-2 hidden truncate text-[12.5px] text-[var(--color-text-muted)] min-[520px]:block">
               {title}
             </span>
           ) : null}
         </div>
 
-        <div className="flex items-center gap-1">
-          {onRefresh ? (
+        <div className={cn('flex shrink-0 items-center gap-1', compact && 'hidden')}>
+          {onRefresh && !compact ? (
             <IconButton label="Refresh" size="sm" onClick={onRefresh}>
               <RefreshCw />
             </IconButton>
           ) : null}
-          {onCopy ? (
+          {onCopy && !compact ? (
             <IconButton label="Copy" size="sm" onClick={onCopy}>
               <Copy />
             </IconButton>
           ) : null}
-          {onPublish ? (
+          {onPublish && !compact ? (
             <Button variant="primary" size="sm" onClick={onPublish}>
               {publishLabel}
             </Button>
           ) : null}
-          <IconButton label="Close" size="sm" onClick={onClose}>
-            <X />
-          </IconButton>
+          {!compact ? (
+            <IconButton label="Close" size="sm" onClick={onClose}>
+              <X />
+            </IconButton>
+          ) : null}
         </div>
       </header>
 
@@ -302,7 +326,7 @@ function ArtifactToolbar({
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: tab === 'code' ? -12 : 12 }}
             transition={{ duration: 0.2, ease: [0.2, 0, 0, 1] }}
-            className="absolute inset-0 overflow-auto"
+            className="absolute inset-0 overflow-auto bg-[var(--color-surface-raised)]"
           >
             {tab === 'preview' ? preview : code}
           </motion.div>

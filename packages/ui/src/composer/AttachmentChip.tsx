@@ -25,7 +25,7 @@ export function AttachmentChip({ attachment, onRemove }: AttachmentChipProps) {
     <div
       className={cn(
         'inline-flex items-center gap-2 max-w-[220px] h-8 pl-2 pr-1.5 rounded-[10px]',
-        'border border-[var(--color-border)] bg-[var(--color-surface-raised)]',
+        'border border-[var(--color-border)] bg-[var(--color-surface-raised)] shadow-[var(--shadow-xs)]',
         'text-[12px] text-[var(--color-text)]',
       )}
     >

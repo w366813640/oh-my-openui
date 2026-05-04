@@ -60,11 +60,11 @@ export function CodeBlock({
     <div
       className={cn(
         'group/code my-3 rounded-[12px] border border-[var(--color-border)]',
-        'bg-[var(--color-surface-raised)] overflow-hidden',
+        'bg-[var(--color-surface-raised)] shadow-[var(--shadow-xs)] overflow-hidden',
         className,
       )}
     >
-      <header className="flex items-center justify-between gap-2 h-8 pl-3 pr-1.5 border-b border-[var(--color-border)] bg-[var(--color-surface)]">
+      <header className="flex h-8 items-center justify-between gap-2 border-b border-[var(--color-border)] bg-[var(--color-surface)] pl-3 pr-1.5">
         <div className="flex items-center gap-2 min-w-0">
           {language ? (
             <span className="text-[10.5px] uppercase tracking-[0.06em] font-mono text-[var(--color-text-muted)]">
@@ -85,8 +85,8 @@ export function CodeBlock({
           onClick={handleCopy}
           className={cn(
             'inline-flex items-center gap-1 h-6 px-2 rounded-[6px] text-[11px]',
-            'text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-surface-muted)]',
-            'transition-colors duration-[120ms]',
+            'border border-transparent text-[var(--color-text-muted)] hover:border-[var(--color-border)] hover:bg-[var(--color-surface-muted)] hover:text-[var(--color-text)]',
+            'transition-[background-color,border-color,color] duration-[120ms]',
           )}
           aria-label="Copy code"
         >

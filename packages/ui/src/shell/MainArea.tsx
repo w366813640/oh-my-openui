@@ -14,13 +14,13 @@ export function MainArea({ topbar, children, className, maxWidth = 720 }: MainAr
   return (
     <div className={cn('flex flex-1 min-h-0 flex-col', className)}>
       {topbar ? (
-        <div className="app-no-drag sticky top-0 z-[20] bg-[var(--color-bg)]/85 backdrop-blur-md">
-          <div className="flex items-center h-14 px-5">{topbar}</div>
+        <div className="app-no-drag sticky top-0 z-[20] border-b border-transparent bg-[var(--color-bg)]/88 backdrop-blur-md">
+          <div className="flex min-h-14 items-center px-5 py-2 max-[640px]:px-3">{topbar}</div>
         </div>
       ) : null}
       <div className="flex-1 min-h-0 overflow-y-auto">
         <div
-          className={cn('mx-auto px-6', maxWidth ? '' : 'max-w-full')}
+          className={cn('mx-auto px-6 max-[640px]:px-4', maxWidth ? '' : 'max-w-full')}
           style={maxWidth ? { maxWidth } : undefined}
         >
           {children}

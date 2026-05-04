@@ -68,10 +68,10 @@ export const Chip = forwardRef<HTMLButtonElement, ChipProps>(function Chip(
       type="button"
       className={cn(
         'inline-flex items-center gap-1.5 h-7 px-2.5 text-[12px] font-medium rounded-full border',
-        'transition-colors duration-[120ms]',
+        'transition-[background-color,border-color,color,box-shadow] duration-[120ms]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] focus-visible:ring-offset-1 focus-visible:ring-offset-[var(--color-bg)]',
         toneClasses[tone],
-        'hover:brightness-[0.97]',
+        'hover:border-[var(--color-border-strong)] hover:shadow-[var(--shadow-xs)]',
         active &&
           'border-[var(--color-accent)] text-[var(--color-accent)] bg-[var(--color-accent-soft)]',
         className,
