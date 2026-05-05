@@ -1,8 +1,7 @@
-import { BrandSwitcher } from '@oh/brand';
 import { Asterisk, Calendar, CodeIcon, Coffee, GraduationCap, HardDrive, PenLine } from '@oh/icons';
 import { Composer, Greeting, MainArea, WelcomeStage } from '@oh/ui';
 import { createFileRoute } from '@tanstack/react-router';
-import { AppFrame, PlaygroundNav } from '../components/AppFrame';
+import { AppFrame } from '../components/AppFrame';
 import { mockModelOptions, mockUser } from '../mocks/data';
 
 export const Route = createFileRoute('/')({
@@ -12,7 +11,7 @@ export const Route = createFileRoute('/')({
 function HomePage() {
   return (
     <AppFrame>
-      <MainArea topbar={<PlaygroundNav />} maxWidth={null}>
+      <MainArea maxWidth={null}>
         <WelcomeStage>
           <Greeting name={mockUser.name} size="xl" recency="returning" />
           <Composer
@@ -36,12 +35,6 @@ function HomePage() {
             onSubmit={(p) => console.log('submit', p)}
             onQuickActionClick={(id) => console.log('quick', id)}
           />
-          <div className="flex flex-col items-center gap-2 pt-2">
-            <span className="text-[11px] uppercase tracking-[0.06em] text-[var(--color-text-subtle)]">
-              Try a brand palette
-            </span>
-            <BrandSwitcher />
-          </div>
         </WelcomeStage>
       </MainArea>
     </AppFrame>

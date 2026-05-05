@@ -16,9 +16,9 @@ export interface GreetingProps extends GreetingContext {
 }
 
 const sizeClasses = {
-  md: 'text-[24px] leading-tight',
-  lg: 'text-[30px] leading-tight',
-  xl: 'text-[34px] leading-tight',
+  md: 'text-[24px] leading-tight max-[480px]:text-[22px]',
+  lg: 'text-[30px] leading-tight max-[480px]:text-[26px]',
+  xl: 'text-[34px] leading-tight max-[480px]:text-[28px]',
 };
 
 const asteriskSizes = {
@@ -50,7 +50,7 @@ export function Greeting({
   return (
     <h1
       className={cn(
-        'flex items-center justify-center gap-2.5 font-serif text-[var(--color-text)]',
+        'flex min-w-0 flex-wrap items-center justify-center gap-2.5 px-3 text-center font-serif text-[var(--color-text)] max-[480px]:flex-col max-[480px]:gap-1.5',
         sizeClasses[size],
         className,
       )}
@@ -58,7 +58,9 @@ export function Greeting({
       {showAsterisk ? (
         <BrandMark size={asteriskSizes[size]} motion="idle-pulse" className={asteriskClassName} />
       ) : null}
-      <span>{text ?? greeting.text}</span>
+      <span className="min-w-0 max-w-full whitespace-normal break-words max-[480px]:block max-[480px]:w-full max-[480px]:max-w-[240px]">
+        {text ?? greeting.text}
+      </span>
     </h1>
   );
 }
