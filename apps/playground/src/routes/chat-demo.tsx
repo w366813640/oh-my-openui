@@ -14,6 +14,7 @@ import {
 } from '@oh/ui';
 import { createFileRoute } from '@tanstack/react-router';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { ArtifactPreviewSurface } from '../components/ArtifactPreviewSurface';
 import { AppFrame, PageTopbar } from '../components/AppFrame';
 import { mockMessages, mockModelOptions } from '../mocks/data';
 
@@ -60,64 +61,10 @@ export function CodingPet(props: PetProps) {
 
 function ArtifactPreview() {
   return (
-    <div className="h-full w-full overflow-auto bg-[var(--color-surface-sunken)] p-5">
-      <div className="mx-auto flex w-full max-w-[560px] flex-col gap-4">
-        <section className="rounded-[16px] border border-[var(--color-border)] bg-[var(--color-surface)] p-5 shadow-[var(--shadow-card)]">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="text-[11px] uppercase tracking-[0.08em] text-[var(--color-text-subtle)]">
-                Today
-              </p>
-              <h2 className="mt-1 text-[24px] font-serif text-[var(--color-text)]">
-                Coding habits pet
-              </h2>
-              <p className="mt-1 max-w-[360px] text-[13px] leading-relaxed text-[var(--color-text-muted)]">
-                Mood is calibrated from focus streaks, debug load, and recovery breaks.
-              </p>
-            </div>
-            <span className="inline-flex h-12 w-12 items-center justify-center rounded-[14px] bg-[var(--color-accent-soft)] text-[var(--color-accent)]">
-              <Sparkles size={24} />
-            </span>
-          </div>
-
-          <div className="mt-5 grid grid-cols-3 gap-2">
-            {[
-              ['Focus', '142m', 'happy'],
-              ['Debug', '28m', 'low'],
-              ['Coffee', '2 cups', 'steady'],
-            ].map(([label, value, meta]) => (
-              <div
-                key={label}
-                className="rounded-[12px] border border-[var(--color-border)] bg-[var(--color-surface-muted)] p-3"
-              >
-                <div className="text-[11px] text-[var(--color-text-subtle)]">{label}</div>
-                <div className="mt-1 text-[16px] font-semibold text-[var(--color-text)]">
-                  {value}
-                </div>
-                <div className="text-[11px] text-[var(--color-text-muted)]">{meta}</div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section className="grid gap-3 sm:grid-cols-2">
-          <div className="rounded-[14px] border border-dashed border-[var(--color-border-strong)] bg-[var(--color-surface)] p-4">
-            <h3 className="text-[13px] font-semibold text-[var(--color-text)]">Empty state</h3>
-            <p className="mt-1 text-[12.5px] leading-relaxed text-[var(--color-text-muted)]">
-              No activity yet. Start a focus session to wake the pet.
-            </p>
-          </div>
-          <div className="rounded-[14px] border border-[rgba(200,134,42,0.32)] bg-[rgba(200,134,42,0.10)] p-4">
-            <h3 className="text-[13px] font-semibold text-[var(--color-text)]">
-              Connector paused
-            </h3>
-            <p className="mt-1 text-[12.5px] leading-relaxed text-[var(--color-text-muted)]">
-              GitHub sync failed. Local editor events are still feeding the model.
-            </p>
-          </div>
-        </section>
-      </div>
-    </div>
+    <ArtifactPreviewSurface
+      eyebrow="Today"
+      description="Mood is calibrated from focus streaks, debug load, and recovery breaks."
+    />
   );
 }
 
