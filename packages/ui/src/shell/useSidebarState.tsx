@@ -8,7 +8,7 @@ import {
   useState,
 } from 'react';
 
-const STORAGE_KEY = 'oh-ui-sidebar-expanded';
+const STORAGE_KEY = 'oh-ui-sidebar-expanded-v2';
 
 interface SidebarStateContextValue {
   expanded: boolean;
@@ -20,7 +20,7 @@ const Ctx = createContext<SidebarStateContextValue | null>(null);
 
 export function SidebarStateProvider({
   children,
-  defaultExpanded = true,
+  defaultExpanded = false,
 }: {
   children: ReactNode;
   defaultExpanded?: boolean;

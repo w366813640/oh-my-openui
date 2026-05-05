@@ -94,7 +94,7 @@ export function SidebarBrand({
   name?: ReactNode;
 }) {
   return (
-    <div className="flex h-8 items-center gap-2 px-1.5 mb-1">
+    <div className="flex h-8 items-center gap-2 overflow-hidden px-1.5 mb-1">
       <span className="inline-flex h-7 w-7 items-center justify-center rounded-[9px] text-[var(--color-asterisk)]">
         {logo ?? <Asterisk size={20} />}
       </span>
@@ -223,7 +223,7 @@ export function SidebarNavItem({
         className,
       )}
     >
-      {active ? (
+      {active && expanded ? (
         <motion.span
           layoutId="sidebar-nav-active-bar"
           aria-hidden="true"
@@ -320,7 +320,7 @@ export function SidebarLinkItem({
         'transition-[background-color,color,box-shadow] duration-[120ms] hover:bg-[var(--color-surface-muted)]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
         active &&
-          'bg-[var(--color-surface-muted)] text-[var(--color-text)] shadow-[inset_0_0_0_1px_var(--color-border)]',
+          'bg-[var(--color-surface-muted)] text-[var(--color-text)]',
       )}
     >
       <span className="flex-1 text-left truncate">{label}</span>

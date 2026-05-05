@@ -87,7 +87,7 @@ export function SidebarAccount({
             'app-no-drag group flex items-center w-full rounded-[10px] px-1.5 py-1 gap-2',
             'text-left text-[13px] text-[var(--color-text)]',
             'transition-[background-color,box-shadow] duration-[120ms]',
-            'hover:bg-[var(--color-surface-muted)] hover:shadow-[inset_0_0_0_1px_var(--color-border)]',
+            'hover:bg-[var(--color-surface-muted)]',
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
             !expanded && 'justify-center',
             className,

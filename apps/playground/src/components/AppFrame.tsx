@@ -65,7 +65,7 @@ export function AppFrame({
           <TooltipProvider delayDuration={150}>
             <ToastProvider>
               <ModalStackProvider>
-                <SidebarStateProvider defaultExpanded>
+                <SidebarStateProvider defaultExpanded={false}>
                   <FrameShell artifact={artifact}>{children}</FrameShell>
                 </SidebarStateProvider>
               </ModalStackProvider>
@@ -164,8 +164,8 @@ function AppSidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
   return (
     <Sidebar expanded={expanded}>
       <SidebarHeader>
-        <div className="flex items-center justify-between">
-          <SidebarBrand expanded={expanded} logo={brand.logo} name={brand.name} />
+        <div className={expanded ? 'flex items-center justify-between' : 'flex h-8 items-center justify-center'}>
+          {expanded ? <SidebarBrand expanded={expanded} logo={brand.logo} name={brand.name} /> : null}
           <button
             type="button"
             onClick={toggle}
