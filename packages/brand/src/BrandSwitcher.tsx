@@ -134,7 +134,7 @@ export function BrandSwitcher({ className, variant = 'swatches' }: BrandSwitcher
             className={[
               'group/swatch relative inline-flex items-center justify-center',
               'h-9 w-9 rounded-full transition-transform duration-[160ms] ease-[var(--ease-spring)]',
-              'hover:scale-110 active:scale-95',
+              'hover:scale-105 active:scale-[0.97]',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg)]',
             ].join(' ')}
           >

@@ -10,11 +10,11 @@ export const fadeIn: Variants = {
 
 /** Spring-pop — modals, popovers, dropdowns. */
 export const popIn: Variants = {
-  hidden: { opacity: 0, scale: 0.96 },
+  hidden: { opacity: 0, scale: 0.98 },
   visible: { opacity: 1, scale: 1, transition: springs.gentle },
   exit: {
     opacity: 0,
-    scale: 0.96,
+    scale: 0.98,
     transition: { duration: durations.fast, ease: easings.standard },
   },
 };
@@ -43,11 +43,11 @@ export const slideFromBottom: Variants = {
 
 /** Scale in — small chips, badges. */
 export const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.92 },
+  hidden: { opacity: 0, scale: 0.96 },
   visible: { opacity: 1, scale: 1, transition: springs.snappy },
   exit: {
     opacity: 0,
-    scale: 0.92,
+    scale: 0.96,
     transition: { duration: durations.fast, ease: easings.standard },
   },
 };

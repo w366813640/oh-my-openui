@@ -51,8 +51,8 @@ export function BrandMark({
     if (variant === 'idle-pulse') {
       return {
         animate: {
-          rotate: [0, 6, 0, -6, 0],
-          scale: [1, 1.05, 1, 1.02, 1],
+          rotate: [0, 4, 0, -4, 0],
+          scale: [1, 1.025, 1, 1.012, 1],
         },
         transition: {
           duration: 6,
@@ -63,9 +63,9 @@ export function BrandMark({
     }
     /* hover */
     return {
-      whileHover: { rotate: 12, scale: 1.08 },
-      whileTap: { rotate: -8, scale: 0.92 },
-      transition: { type: 'spring', stiffness: 360, damping: 18 },
+      whileHover: { rotate: 6, scale: 1.04 },
+      whileTap: { rotate: -4, scale: 0.96 },
+      transition: { type: 'spring', stiffness: 280, damping: 28 },
     };
   })();
 

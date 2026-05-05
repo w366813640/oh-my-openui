@@ -9,10 +9,10 @@ import type { Transition } from 'framer-motion';
  * - `silky`   — long sweeps (sidebar collapse, artifact width drag)
  */
 export const springs = {
-  gentle: { type: 'spring', stiffness: 220, damping: 26, mass: 0.9 },
-  snappy: { type: 'spring', stiffness: 380, damping: 30, mass: 0.7 },
-  bouncy: { type: 'spring', stiffness: 320, damping: 18, mass: 1.0 },
-  silky: { type: 'spring', stiffness: 180, damping: 28, mass: 1.0 },
+  gentle: { type: 'spring', stiffness: 190, damping: 30, mass: 0.9 },
+  snappy: { type: 'spring', stiffness: 280, damping: 32, mass: 0.75 },
+  bouncy: { type: 'spring', stiffness: 260, damping: 24, mass: 1.0 },
+  silky: { type: 'spring', stiffness: 160, damping: 30, mass: 1.0 },
 } as const satisfies Record<string, Transition>;
 
 export type SpringName = keyof typeof springs;

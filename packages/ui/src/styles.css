@@ -268,11 +268,11 @@
 @keyframes pop-in {
   0% {
     opacity: 0;
-    transform: scale(0.94) translateY(4px);
+    transform: scale(0.98) translateY(3px);
   }
   60% {
     opacity: 1;
-    transform: scale(1.01) translateY(0);
+    transform: scale(1) translateY(0);
   }
   100% {
     opacity: 1;
@@ -314,7 +314,7 @@
 @keyframes tooltip-in {
   0% {
     opacity: 0;
-    transform: scale(0.94) translateY(2px);
+    transform: scale(0.98) translateY(2px);
   }
   100% {
     opacity: 1;
@@ -336,11 +336,11 @@
 @keyframes toast-in {
   0% {
     opacity: 0;
-    transform: translateX(20px) translateY(8px) scale(0.96);
+    transform: translateX(18px) translateY(6px) scale(0.98);
   }
   60% {
     opacity: 1;
-    transform: translateX(0) translateY(0) scale(1.01);
+    transform: translateX(0) translateY(0) scale(1);
   }
   100% {
     opacity: 1;
@@ -373,11 +373,11 @@
 @keyframes menu-in {
   0% {
     opacity: 0;
-    transform: scale(0.94) translateY(-2px);
+    transform: scale(0.98) translateY(-1px);
   }
   60% {
     opacity: 1;
-    transform: scale(1.005) translateY(0);
+    transform: scale(1) translateY(0);
   }
   100% {
     opacity: 1;
