@@ -13,3 +13,4 @@ out
 .env.*.local
 coverage
 storybook-static
+.codex-review/

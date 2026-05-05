@@ -11,12 +11,12 @@ import { BrowserWindow, nativeTheme } from 'electron';
  */
 
 function inlineSplashHtml(dark: boolean): string {
-  const bg = dark ? '#1F1E1B' : '#F7F3EA';
-  const surface = dark ? '#2A2825' : '#FFFAF2';
-  const border = dark ? '#34312B' : '#DDD4C7';
-  const text = dark ? '#F1ECE2' : '#2B2926';
-  const muted = dark ? '#A39C90' : '#7A7368';
-  const accent = dark ? '#D9825F' : '#C96F4A';
+  const bg = dark ? '#252623' : '#FBF9F5';
+  const surface = dark ? '#30302E' : '#FFFFFF';
+  const border = dark ? '#42423D' : '#DFDDD6';
+  const text = dark ? '#F3F0E8' : '#262522';
+  const muted = dark ? '#C5BFB4' : '#6F6A62';
+  const accent = dark ? '#D97757' : '#C96442';
 
   return `<!doctype html>
 <html lang="en">
@@ -46,7 +46,7 @@ function inlineSplashHtml(dark: boolean): string {
       width: 44px; height: 44px;
       animation: spin 1.6s linear infinite;
       transform-origin: 50% 50%;
-      filter: drop-shadow(0 4px 10px rgba(${dark ? '217,130,95' : '201,111,74'}, 0.30));
+      filter: drop-shadow(0 4px 10px rgba(${dark ? '217,119,87' : '201,100,66'}, 0.30));
     }
     .mark path { fill: ${accent}; }
     .label { color: ${muted}; letter-spacing: 0.04em; text-transform: uppercase; font-size: 11px; }

@@ -14,6 +14,7 @@ brand:
 | [`storybook.md`](./storybook.md) | Storybook 9 conventions, story locations, viewing, building. |
 | [`testing.md`](./testing.md) | Manual test plan and the playground smoke routes. |
 | [`WORK_LOG.md`](./WORK_LOG.md) | Append-only progress log per polish round; resume-next-time cheat sheet. |
+| [`audits/`](./audits) | Visual QA notes and screenshot review records, including Claude reference parity passes. |
 
 If you only want to ship — read [`architecture.md`](./architecture.md) and
 [`brand.md`](./brand.md), then jump into Storybook for live component reference.

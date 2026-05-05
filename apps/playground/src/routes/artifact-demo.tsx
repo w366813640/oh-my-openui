@@ -106,7 +106,7 @@ export function CodingPet(props: PetProps) {
         }
         maxWidth={null}
       >
-        <div className="mx-auto w-full max-w-[680px] pb-32">
+        <div className="mx-auto w-full max-w-[680px] pb-44">
           <MessageList
             messages={enriched}
             onCopy={(id) => console.log('copy', id)}

@@ -10,44 +10,66 @@ or theme switch is a single attribute change on `<html>`.
 
 ## Color
 
-The palette is **warm, knowledge-tool, low-saturation**. Light is the default;
-dark steps up about one hue tick warmer at every surface depth so it never
-goes muddy.
+The palette is **Claude-web-reference aligned, warm, low-saturation, and quiet**.
+Light mode is the primary target for parity work. Dark mode keeps the same
+terracotta identity but uses a compact neutral ramp so the app feels like a
+native dim workspace rather than a blue-black developer theme.
+
+The current reference set is:
+
+```
+Reference/Screenshot_Claude web Oct 2025/
+```
+
+The dominant light samples are `#FBF9F5` for the canvas, `#F5F4ED` for the
+rail/sidebar layer, `#EFEEE5` for the user bubble, `#FFFFFF` for raised
+surfaces, `#C96442` for the brand accent, and `#E4B0A0` for the send control.
 
 ### Semantic surfaces (light → dark)
 
 | Token | Light | Dark | Used for |
 | --- | --- | --- | --- |
-| `--color-bg` | `#F7F3EA` | `#1D1B17` | Page background. |
-| `--color-surface` | `#FFFAF2` | `#25231F` | Cards, sidebar body. |
-| `--color-surface-muted` | `#EFE8DC` | `#2E2B25` | Hover states, secondary chips. |
-| `--color-surface-raised` | `#FFFFFF` | `#36332C` | Composer, modal, popovers. |
-| `--color-surface-sunken` | `#EBE3D5` | `#161412` | Code wells, sidebar bottom. |
+| `--color-bg` | `#FBF9F5` | `#252623` | Page background and collapsed icon rail. |
+| `--color-surface` | `#FFFFFF` | `#30302E` | Cards, modal bodies, artifact toolbar. |
+| `--color-surface-muted` | `#EFEEE6` | `#383834` | Selected rows, hover fills, secondary chips. |
+| `--color-surface-raised` | `#FFFFFF` | `#30302E` | Composer, popovers, code blocks. |
+| `--color-surface-sunken` | `#F5F4ED` | `#1C1C1A` | Expanded sidebar, deep wells. |
 
 ### Text
 
 | Token | Light | Dark | Contrast vs `bg` |
 | --- | --- | --- | --- |
-| `--color-text` | `#2B2926` | `#F1ECE2` | 13.7:1 / 14.2:1 |
-| `--color-text-muted` | `#7B746B` | `#B8AF9F` | 5.0:1 / 6.7:1 |
-| `--color-text-subtle` | `#A8A096` | `#877E70` | 3.4:1 / 4.3:1 |
+| `--color-text` | `#262522` | `#F3F0E8` | Primary copy. |
+| `--color-text-muted` | `#6F6A62` | `#C5BFB4` | Labels, toolbar text, metadata. |
+| `--color-text-subtle` | `#918C83` | `#9A948A` | Section labels, disabled copy, hints. |
 
-### Brand accent (warm terracotta)
+### Brand accent and send tint
 
 | Token | Light | Dark | Notes |
 | --- | --- | --- | --- |
-| `--color-accent` | `#C96F4A` | `#DB8460` | Send button, active rail, brand asterisk. |
-| `--color-accent-hover` | `#B85F3D` | `#E9946F` | Hover overlay only. |
-| `--color-accent-soft` | `#F7E7D9` | `#3F2C22` | Tinted surfaces (Research chip on, selection). |
-| `--color-ring` | `rgba(201,111,74,0.45)` | `rgba(219,132,96,0.55)` | Focus halos. |
+| `--color-accent` | `#C96442` | `#D97757` | Brand asterisk, primary nav accent, selected artifact icon. |
+| `--color-accent-hover` | `#B85A3A` | `#E08A6D` | Hover overlay only. |
+| `--color-accent-soft` | `#F3DFD3` | `#46322A` | Research chip active, plan badge, subtle accent fills. |
+| `--color-accent-send` | `#E4B0A0` | `#DCA08F` | Composer send button. Kept separate from the brand accent to match Claude's softer peach send affordance. |
+| `--color-accent-send-hover` | `#DDA08E` | `#E3AE9E` | Send button hover. |
+| `--color-ring` | `rgba(201,100,66,0.42)` | `rgba(217,119,87,0.58)` | Focus halos. |
 
 ### Status
 
-`--color-destructive` `#D14343 / #E16868` · `--color-success` `#3F9871 / #5BAE85`
-`--color-warning` `#C8862A / #D49A45` · `--color-info` `#5577B8 / #7C9AD9`
+`--color-destructive` `#C93F3F / #E16868` · `--color-success` `#2F8A68 / #5BAE85`
+`--color-warning` `#B97922 / #D49A45` · `--color-info` `#4C70B7 / #86A2DF`
 
 > When you author a brand replacement, override **only** `--color-accent*` and
-> `--color-asterisk`. Keep the surface ramp; that's the visual signature.
+> `--color-asterisk` unless you are intentionally replacing the full visual
+> language. Keep the surface ramp; that is the Claude-like visual signature.
+
+### User bubble and rail
+
+| Token | Light | Dark | Used for |
+| --- | --- | --- | --- |
+| `--color-user-bg` | `#EFEEE5` | `#30302E` | User message bubble. |
+| `--color-user` | `#262522` | `#F3EFE7` | Text inside the user bubble. |
+| `--color-asterisk` | `#D97757` | `#D97757` | Brand glyph and streaming cursor accent. |
 
 ## Typography
 
@@ -75,8 +97,10 @@ dependency):
 | `text-3xl` | 30 | 38 |
 | `text-4xl` | 38 | 46 |
 
-Body copy is `text-md` on assistant messages, `text-base` everywhere else.
-Headings escalate one step at a time — never skip.
+Assistant messages intentionally use the serif family at 16px / 25px to match
+the reference reading texture. UI controls, user bubbles, navigation, and
+settings remain sans. Headings escalate one step at a time; do not use display
+scale inside compact panels.
 
 ## Radius
 
@@ -149,13 +173,13 @@ instant without per-component branches.
 
 ## Tokens in TypeScript
 
-`@oh/tokens` also exports a `tokens` object so build-time logic (e.g. canvas
-thumbnails, syntax-highlighter color resolution) can read the same source of
-truth without re-parsing CSS.
+`@oh/tokens` also exports a `tokens` object so build-time logic can read the
+same source of truth without re-parsing CSS.
 
 ```ts
 import { tokens } from '@oh/tokens';
 
-tokens.color.accent.light // "#c96f4a"
-tokens.radius.xl          // 18
+tokens.colors.light.accent // "#C96442"
+tokens.colors.light.bg     // "#FBF9F5"
+tokens.radius.xl           // "18px"
 ```

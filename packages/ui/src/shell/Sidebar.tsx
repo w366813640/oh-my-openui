@@ -35,7 +35,8 @@ export const Sidebar = forwardRef<HTMLDivElement, SidebarProps>(function Sidebar
       ref={ref}
       data-expanded={expanded ? 'true' : 'false'}
       className={cn(
-        'group/sidebar flex h-full flex-col select-none bg-[var(--color-surface-sunken)]',
+        'group/sidebar flex h-full flex-col select-none',
+        expanded ? 'bg-[var(--color-surface-sunken)]' : 'bg-[var(--color-bg)]',
         className,
       )}
     >
@@ -72,7 +73,8 @@ export function SidebarFooter({
   return (
     <div
       className={cn(
-        'app-no-drag border-t border-[var(--color-border)] bg-[var(--color-surface-sunken)] px-2 py-2',
+        'app-no-drag border-t border-[var(--color-border)] px-2 py-2',
+        'bg-[var(--color-bg)] group-data-[expanded=true]/sidebar:bg-[var(--color-surface-sunken)]',
         className,
       )}
     >
@@ -155,7 +157,7 @@ export function SidebarPrimaryAction({
             >
               {icon}
             </span>
-            <span className="text-[var(--color-text)]">{label}</span>
+            <span className="text-[var(--color-accent)]">{label}</span>
           </>
         ) : (
           <span
@@ -218,7 +220,7 @@ export function SidebarNavItem({
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
         expanded ? 'h-8 px-2 gap-2 text-[13px]' : 'h-8 w-8 mx-auto justify-center',
         active &&
-          'bg-[var(--color-surface-muted)] text-[var(--color-text)] shadow-[inset_0_0_0_1px_var(--color-border)]',
+          'bg-[var(--color-surface-muted)] text-[var(--color-text)]',
         !active && 'hover:bg-[var(--color-surface-muted)]',
         className,
       )}

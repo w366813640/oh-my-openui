@@ -17,15 +17,15 @@
           var prefers = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
           var resolved = stored === 'dark' || (stored === 'system' && prefers) || (!stored && prefers) ? 'dark' : 'light';
           document.documentElement.setAttribute('data-theme', resolved);
-          document.documentElement.style.background = resolved === 'dark' ? '#1F1E1B' : '#F7F3EA';
+          document.documentElement.style.background = resolved === 'dark' ? '#252623' : '#FBF9F5';
         } catch (_) {
           /* localStorage may be unavailable in private mode; the renderer recovers. */
         }
       })();
     </script>
     <style>
-      html, body { margin: 0; padding: 0; height: 100%; background: #F7F3EA; }
-      [data-theme="dark"] html, html[data-theme="dark"], html[data-theme="dark"] body { background: #1F1E1B; }
+      html, body { margin: 0; padding: 0; height: 100%; background: #FBF9F5; }
+      [data-theme="dark"] html, html[data-theme="dark"], html[data-theme="dark"] body { background: #252623; }
       #root { min-height: 100vh; }
     </style>
   </head>

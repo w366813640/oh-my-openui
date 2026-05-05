@@ -97,7 +97,7 @@ export function ArtifactPane({
   }, []);
 
   const effectiveWidth =
-    viewportWidth != null && viewportWidth <= 900 ? Math.max(0, viewportWidth - 48) : width;
+    viewportWidth != null && viewportWidth <= 900 ? Math.max(0, viewportWidth - 60) : width;
 
   const handlePointerDown = useCallback(
     (e: PointerEvent<HTMLDivElement>) => {

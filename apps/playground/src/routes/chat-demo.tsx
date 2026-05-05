@@ -302,7 +302,7 @@ function ChatDemoContent({
       }
       maxWidth={null}
     >
-      <div ref={threadRef} className="mx-auto w-full max-w-[720px] pb-32">
+      <div ref={threadRef} className="mx-auto w-full max-w-[720px] pb-44">
         <MessageList
           messages={messages}
           onCopy={(id) => console.log('copy', id)}

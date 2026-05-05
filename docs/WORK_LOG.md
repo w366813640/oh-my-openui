@@ -5,6 +5,78 @@ Persistent, append-only progress log for `oh-my-open-ui`. Use this as the
 
 ---
 
+## Polish round 10 — 2026-05-05 (Tue)
+
+**commit:** pending
+
+### Theme: Claude Web Oct 2025 color parity pass
+
+Reference screenshots live in:
+
+```
+Reference/Screenshot_Claude web Oct 2025/
+```
+
+#### Visual changes
+- Re-aligned light tokens to the reference palette:
+  `#FBF9F5` canvas, `#F5F4ED` sidebar layer, `#EFEEE6` muted fill,
+  `#EFEEE5` user bubble, `#C96442` terracotta accent, and `#E4B0A0`
+  peach send control.
+- Re-aligned dark tokens to the warm neutral reference ramp:
+  `#252623` canvas and `#30302E` raised surfaces.
+- Added `--color-accent-send`, `--color-accent-send-hover`, and
+  `--color-accent-send-text` so the composer send affordance can stay softer
+  than the primary brand accent.
+- Updated `auroraBrand` and `claudeTributeBrand` to the same terracotta ramp.
+- Changed collapsed shell rail width from 48px to 60px and made the collapsed
+  rail share the main canvas color.
+- Tuned Composer: white raised surface, 18px radius, taller text area, peach
+  send button, quieter toolbar divider.
+- Tuned Thread: no-border warm user bubble, black initials avatar, serif
+  assistant body copy.
+- Tuned WelcomeStage vertical offset so the empty state sits closer to the
+  Claude reference rhythm.
+- Increased chat/artifact bottom padding to keep the sticky composer from
+  covering code blocks and long assistant content.
+- Synchronized Electron startup chrome: BrowserWindow background, Win11
+  titlebar overlay, splash panel, and pre-React document paint now use the same
+  `#FBF9F5` / `#252623` Claude reference anchors.
+
+#### Documentation
+- Updated `docs/foundation.md`, `docs/brand.md`, `docs/patterns.md`, and
+  `docs/testing.md` to match the current implementation.
+- Added `docs/audits/claude-web-oct-2025-parity-2026-05-05.md` with extracted
+  color anchors, verification artifacts, and remaining gaps.
+
+#### Verification
+```bash
+pnpm --filter @oh/ui typecheck
+pnpm --filter @oh/playground typecheck
+pnpm --filter @oh/desktop typecheck
+```
+
+Final visual review screenshots:
+
+```
+.codex-review/final-welcome-light.png
+.codex-review/final-chat-light.png
+.codex-review/final-artifact-light.png
+.codex-review/final-settings-light.png
+.codex-review/final-welcome-dark.png
+.codex-review/final-chat-dark.png
+.codex-review/final-artifact-dark.png
+.codex-review/final-settings-dark.png
+```
+
+#### Open follow-up options
+- Add a first-class screenshot capture script instead of ad hoc Edge/CDP
+  snippets.
+- Expand demo fixtures so chats, projects, billing, connectors, and modal
+  states carry the same density as the reference app.
+- Run a mobile/narrow responsive pass after the desktop parity pass.
+
+---
+
 ## Polish round 9 — 2026-04-28 (Tue)
 
 **commit:** `7ce70fb`

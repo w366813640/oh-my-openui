@@ -13,7 +13,7 @@ import { cn } from '../utils';
 export function WelcomeStage({
   children,
   className,
-  topOffset = 96,
+  topOffset = 180,
 }: {
   children: ReactNode;
   className?: string;

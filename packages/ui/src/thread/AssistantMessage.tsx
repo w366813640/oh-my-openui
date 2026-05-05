@@ -79,7 +79,7 @@ export function AssistantMessage({
           defaultOpen={message.thinking.defaultOpen}
         />
       ) : null}
-      <div className="text-[15px] leading-[24px] text-[var(--color-text)] break-words">
+      <div className="font-serif text-[16px] leading-[25px] text-[var(--color-text)] break-words">
         {children ? (
           <div className="whitespace-pre-wrap">{children}</div>
         ) : stringContent ? (

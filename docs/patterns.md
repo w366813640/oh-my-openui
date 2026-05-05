@@ -10,22 +10,25 @@ Atoms wrapped over Radix:
 | Component | Variants / sizes | Notes |
 | --- | --- | --- |
 | `Button` | `primary`, `accent`, `ghost`, `outline`, `destructive` × `sm`, `md`, `lg` | Loading state swaps icon for spinning Asterisk. |
-| `IconButton` | `sm`, `md`, `lg` × `ghost` (default) / `solid` | Always tooltipped via `<Tooltipped>`. |
-| `Input` / `Textarea` | one variant | Bottom-only 1px accent rule on focus. |
+| `IconButton` | `sm`, `md`, `lg` × `ghost` (default) / `soft` / `outline` | Always provide an accessible label; wrap in `<Tooltipped>` when the icon is unfamiliar. |
+| `Input` / `Textarea` | one variant | Tokenized border + quiet accent halo on focus. |
 | `Tooltip` | top/right/bottom/left | 120ms delay, custom enter/leave keyframes. |
 | `DropdownMenu` / `ContextMenu` | check, sub-menu, shortcut hint | Shared `menu-in` / `menu-out` keyframes. |
 | `Tabs` | `underline`, `pill` | Pill is used by ArtifactPane preview/code. |
 | `Switch` | one variant | Spring on the thumb position. |
-| `Avatar` | `xs` … `xl` + status pip | Initials fallback with deterministic hue. |
-| `Badge` / `Chip` | `neutral`, `accent-soft`, `info`, `success`, `warning`, `destructive` | |
+| `Avatar` | `xs` … `lg` + status pip | Initials fallback; `tone="dark"` matches the black Claude initials avatar. |
+| `Badge` / `Chip` | `neutral`, `accent`, `project`, `success`, `warning`, `destructive` | |
 | `ScrollArea` | one variant | Sets up the three-stage scrollbar. |
 | `Toast` | `default`, `success`, `error` | `useToast()` hook. |
 | `Kbd` | one variant | Mono caps with raised-key shadow. |
-| `BrandMark` | sizes 14/18/24/36 + `motion: 'hover' \| 'thinking' \| 'streaming'` | The asterisk at the heart of every page. |
+| `BrandMark` | any pixel size + `motion: 'none' \| 'hover' \| 'idle-pulse' \| 'streaming'` | The asterisk at the heart of every page. |
 
 ## 2. Composer — `@oh/ui/composer`
 
-The Composer **is** the product. Single component, many slots:
+The Composer **is** the product. It is a white raised command surface with an
+18px corner radius, a soft umber shadow, and a separate peach send token
+(`--color-accent-send`) so the send affordance stays calmer than the primary
+terracotta brand mark.
 
 ```
 ┌────────────────────────────────────────────────────┐
@@ -42,7 +45,8 @@ The Composer **is** the product. Single component, many slots:
 ```
 
 States: `idle`, `focused`, `hasContent`, `sending` (asterisk spins),
-`disabled`. All driven by `props.status`, no internal state machine.
+`disabled`, and drag-over. All driven by props plus local focus / drag state,
+with no app-level state machine.
 
 Quick action chips are a sibling component (`<QuickActionChips />`) so you can
 hide them on dense pages.
@@ -63,8 +67,8 @@ Container = `<MessageList messages={…}>`. It dispatches each `Message` to:
 
 | Component | Renders |
 | --- | --- |
-| `<UserMessage>` | Right-side bubble (warm-grey), attachment chips above, initials avatar. |
-| `<AssistantMessage>` | No bubble — full bleed text + brand-mark line + reveal-on-hover actions row (Copy / Up / Down / Retry ▾). |
+| `<UserMessage>` | Warm-grey bubble (`--color-user-bg`), attachment chips above, black initials avatar. |
+| `<AssistantMessage>` | No bubble — serif full-bleed text + brand-mark line + reveal-on-hover actions row (Copy / Up / Down / Retry ▾). |
 | `<ArtifactCard>` | Inline preview block inside an assistant message; `onOpen` opens the right pane. |
 | `<ThinkingTrace>` | Collapsible "Thought for Ns" / pulsing "Thinking…" disclosure rendered above the body. |
 | `<MessageActions>` | The reveal-on-hover row (used by AssistantMessage internally). |
@@ -87,9 +91,9 @@ The `/chat-demo` route does exactly this with a token replay button.
 
 | Component | Job |
 | --- | --- |
-| `<AppShell>` | CSS Grid `[sidebar] [main] [artifact?]`, hosts the titlebar. |
+| `<AppShell>` | Flex shell `[sidebar] [main] [artifact?]`, hosts the titlebar. |
 | `<TitleBarControls>` | Custom Win11 close / max / min, with hover-red close. |
-| `<Sidebar>` (+ `SidebarHeader`, `SidebarBody`, `SidebarFooter`, `SidebarBrand`, `SidebarPrimaryAction`, `SidebarNavItem`, `SidebarLinkItem`, `SidebarSectionLabel`) | Two-state (48px ↔ 240px) with Framer Motion `layout`. |
+| `<Sidebar>` (+ `SidebarHeader`, `SidebarBody`, `SidebarFooter`, `SidebarBrand`, `SidebarPrimaryAction`, `SidebarNavItem`, `SidebarLinkItem`, `SidebarSectionLabel`) | Two-state (60px ↔ 240px) with Framer Motion `layout`. The collapsed rail shares the main canvas color; the expanded sidebar uses `--color-surface-sunken`. |
 | `<SidebarAccount>` | Bottom-of-sidebar account menu (settings, theme, language, sign out). |
 | `<SearchPalette>` | ⌘K command palette, fuzzy search + grouped items. |
 | `<ArtifactPane>` | Right-side slide-in pane with drag-resize handle, persistence, preview/code tabs. `useArtifactPane()` is a tiny hook for parents that own its open state. |
@@ -125,7 +129,7 @@ opens Terms over itself). Stack order = mount order.
 
 | Component | Purpose |
 | --- | --- |
-| `<WelcomeStage>` | Centers a stack of children (asterisk + greeting + composer + chips). Cross-fades on layout-id changes. |
+| `<WelcomeStage>` | Places the greeting/composer stack in the upper-middle of the canvas with generous empty space below. Cross-fades on layout-id changes. |
 | `<TimeAwareGreeting>` | Greets the user based on local time, pulled from the active brand's `greetingDictionary`. Supports `recency: 'new' \| 'returning' \| 'longabsent'`. |
 
 ## 8. i18n — `@oh/ui/i18n`

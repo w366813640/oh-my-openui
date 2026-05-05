@@ -11,8 +11,8 @@ font stack, and the greeting templates. Everything else cascades.
 
 | Brand | Palette | Used for |
 | --- | --- | --- |
-| `auroraBrand` | warm terracotta `#C96F4A` | The default; shipped in playground & Storybook. |
-| `claudeTributeBrand` | warm rust `#CC785C` | Local-only study brand to compare against reference screenshots. **Never ship publicly.** |
+| `auroraBrand` | Claude-aligned terracotta `#C96442` | The default; shipped in playground & Storybook. |
+| `claudeTributeBrand` | same terracotta ramp `#C96442` | Local-only study brand to compare against reference screenshots. **Never ship publicly.** |
 | `sageBrand` | sage green `#5E8B6A` | Proves the layer works on non-warm palettes. |
 | `indigoBrand` | slate indigo `#5A6FC4` | Developer-tool mood. |
 
@@ -73,8 +73,13 @@ function Root() {
 }
 ```
 
-That's it. The accent button, asterisk mark, send button glow, focus ring,
-selection highlight, and time-aware greeting will all switch at once.
+That's it. The accent button, asterisk mark, focus ring, selection highlight,
+and time-aware greeting will all switch at once.
+
+The composer send button is intentionally not brand-driven by default. It uses
+`--color-accent-send` / `--color-accent-send-hover`, a softer peach tint that
+matches the Claude reference screenshots. Override those only when a product
+brand needs its own send affordance.
 
 ### What `BrandProvider` actually does
 
@@ -96,6 +101,10 @@ look complete.
 
 The wrapper also defines a 320ms `background-color` / `color` transition so
 runtime brand swaps feel intentional, not abrupt.
+
+It does not currently write `--color-accent-send`; that token belongs to the
+theme layer because Claude's send control is visibly softer than the primary
+terracotta brand mark.
 
 ## Greeting dictionary
 

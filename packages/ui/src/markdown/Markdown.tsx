@@ -14,13 +14,13 @@ export interface MarkdownProps {
 const baseComponents: Components = {
   h1: (props) => (
     <h1
-      className="font-serif text-[26px] leading-[1.2] font-semibold tracking-[-0.01em] mt-7 mb-3.5 first:mt-0"
+      className="font-serif text-[26px] leading-[1.2] font-semibold mt-7 mb-3.5 first:mt-0"
       {...props}
     />
   ),
   h2: (props) => (
     <h2
-      className="font-serif text-[21px] leading-[1.25] font-semibold tracking-[-0.005em] mt-6 mb-2.5 first:mt-0"
+      className="font-serif text-[21px] leading-[1.25] font-semibold mt-6 mb-2.5 first:mt-0"
       {...props}
     />
   ),
@@ -113,7 +113,7 @@ const baseComponents: Components = {
 export const Markdown = memo(function Markdown({ children, className, components }: MarkdownProps) {
   return (
     <div
-      className={cn('markdown-body text-[15px] leading-[24px] text-[var(--color-text)]', className)}
+      className={cn('markdown-body text-[16px] leading-[25px] text-[var(--color-text)]', className)}
     >
       <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ ...baseComponents, ...components }}>
         {children}

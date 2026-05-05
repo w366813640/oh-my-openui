@@ -28,7 +28,7 @@ export function AppShell({
   sidebarExpanded = true,
   className,
 }: AppShellProps) {
-  const sidebarWidth = sidebarExpanded ? 240 : 48;
+  const sidebarWidth = sidebarExpanded ? 240 : 60;
 
   return (
     <div
@@ -45,7 +45,10 @@ export function AppShell({
 
       {/* Sidebar column */}
       <aside
-        className="relative z-20 flex-shrink-0 border-r border-[var(--color-border)] bg-[var(--color-surface-sunken)]"
+        className={cn(
+          'relative z-20 flex-shrink-0 border-r border-[var(--color-border)]',
+          sidebarExpanded ? 'bg-[var(--color-surface-sunken)]' : 'bg-[var(--color-bg)]',
+        )}
         style={{
           width: sidebarWidth,
           paddingTop: titlebarHeight,

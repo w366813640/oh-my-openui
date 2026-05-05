@@ -18,11 +18,11 @@ function createWindow() {
     minWidth: 880,
     minHeight: 560,
     show: false,
-    backgroundColor: nativeTheme.shouldUseDarkColors ? '#1F1E1B' : '#F7F3EA',
+    backgroundColor: nativeTheme.shouldUseDarkColors ? '#252623' : '#FBF9F5',
     titleBarStyle: 'hidden',
     titleBarOverlay: {
-      color: nativeTheme.shouldUseDarkColors ? '#1F1E1B' : '#F7F3EA',
-      symbolColor: nativeTheme.shouldUseDarkColors ? '#F1ECE2' : '#2B2926',
+      color: nativeTheme.shouldUseDarkColors ? '#252623' : '#FBF9F5',
+      symbolColor: nativeTheme.shouldUseDarkColors ? '#F3F0E8' : '#262522',
       height: 36,
     },
     webPreferences: {
@@ -77,8 +77,8 @@ function createWindow() {
     if (!mainWindow) return;
     const dark = nativeTheme.shouldUseDarkColors;
     mainWindow.setTitleBarOverlay({
-      color: dark ? '#1F1E1B' : '#F7F3EA',
-      symbolColor: dark ? '#F1ECE2' : '#2B2926',
+      color: dark ? '#252623' : '#FBF9F5',
+      symbolColor: dark ? '#F3F0E8' : '#262522',
       height: 36,
     });
     mainWindow.webContents.send('theme:system-changed', dark ? 'dark' : 'light');

@@ -17,8 +17,8 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary: [
-          'bg-[var(--color-text)] text-[var(--color-bg)] border border-[var(--color-text)]',
-          'shadow-[var(--shadow-xs)] hover:opacity-90 active:opacity-100',
+          'bg-[#141413] text-white border border-[#141413]',
+          'shadow-[var(--shadow-xs)] hover:bg-[#242421] hover:border-[#242421] active:bg-[#141413]',
         ],
         accent: [
           'bg-[var(--color-accent)] text-[var(--color-accent-foreground)] border border-transparent',
@@ -29,7 +29,7 @@ const buttonVariants = cva(
           'hover:bg-[var(--color-surface-muted)] active:bg-[var(--color-surface-sunken)]',
         ],
         outline: [
-          'bg-transparent text-[var(--color-text)] border border-[var(--color-border)]',
+          'bg-[var(--color-surface-raised)] text-[var(--color-text)] border border-[var(--color-border)]',
           'hover:bg-[var(--color-surface-muted)] hover:border-[var(--color-border-strong)]',
           'active:bg-[var(--color-surface-sunken)]',
         ],

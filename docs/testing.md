@@ -35,6 +35,39 @@ order whenever you finish a substantive change:
 | `/tokens` | Live design-token tour (color, radius, shadow, motion). |
 | `/motion` | Live preview of every motion variant + spring preset. |
 
+## Claude reference parity pass
+
+When the change is visual, compare the playground against:
+
+```
+Reference/Screenshot_Claude web Oct 2025/
+```
+
+Primary parity routes:
+
+| Route | Reference focus |
+| --- | --- |
+| `/` | Empty new-chat canvas, greeting placement, composer height, quick chips. |
+| `/chat-demo` | User bubble, black initials avatar, serif assistant copy, sticky composer. |
+| `/artifact-demo` | 60px icon rail, split-pane border, artifact toolbar, preview/code tabs. |
+| `/settings` | Two-pane settings density, selected nav fill, white card surface. |
+
+Current final review screenshots are generated under `.codex-review/`:
+
+```
+final-welcome-light.png
+final-chat-light.png
+final-artifact-light.png
+final-settings-light.png
+final-welcome-dark.png
+final-chat-dark.png
+final-artifact-dark.png
+final-settings-dark.png
+```
+
+These files are review artifacts, not product assets. Regenerate them after any
+token, shell, composer, thread, or settings change.
+
 ## Per-route checklist
 
 For each route:
@@ -48,6 +81,9 @@ For each route:
 - [ ] Sidebar collapse / expand animates without overlapping content.
 - [ ] Cmd/Ctrl+K opens SearchPalette; arrows + Enter selects an item.
 - [ ] Composer hover lifts shadow; focus draws accent halo + bottom rule.
+- [ ] Composer send button uses the peach send tint, not the darker brand accent.
+- [ ] Assistant messages render as serif reading copy; user bubbles remain sans.
+- [ ] Collapsed sidebar is 60px wide and visually blends with the main canvas.
 - [ ] Modals open with spring + backdrop blur; Escape closes; stacked
       modals layer correctly.
 

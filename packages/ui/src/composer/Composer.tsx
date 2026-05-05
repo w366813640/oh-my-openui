@@ -309,7 +309,7 @@ export const Composer = forwardRef<ComposerHandle, ComposerHostProps>(function C
         data-focused={focused ? 'true' : 'false'}
         data-dragover={dragOver ? 'true' : 'false'}
         className={cn(
-          'relative w-full rounded-[20px] bg-[var(--color-surface-raised)]',
+          'relative w-full rounded-[18px] bg-[var(--color-surface-raised)]',
           'border border-[var(--color-border)]',
           'shadow-[var(--shadow-composer)]',
           'transition-[box-shadow,border-color,background-color] duration-[180ms] ease-[var(--ease-standard)]',
@@ -339,8 +339,8 @@ export const Composer = forwardRef<ComposerHandle, ComposerHostProps>(function C
                 y="1"
                 width="calc(100% - 2px)"
                 height="calc(100% - 2px)"
-                rx="19"
-                ry="19"
+                rx="17"
+                ry="17"
                 fill="none"
                 stroke="var(--color-accent)"
                 strokeWidth="2"
@@ -372,7 +372,7 @@ export const Composer = forwardRef<ComposerHandle, ComposerHostProps>(function C
             onBlur={() => setFocused(false)}
             placeholder={isRotating ? '' : (placeholders[0] ?? '')}
             rows={1}
-            className="min-h-[24px] max-h-[260px] py-0"
+            className="min-h-[44px] max-h-[260px] py-0"
             disabled={disabled}
           />
           {/* Animated placeholder overlay (only when array variant is in use) */}
@@ -398,7 +398,7 @@ export const Composer = forwardRef<ComposerHandle, ComposerHostProps>(function C
         </div>
 
         {/* Bottom toolbar */}
-        <div className="mx-2 flex items-center gap-1 border-t border-[var(--color-border)] px-0 pt-2 pb-2">
+        <div className="mx-2 flex items-center gap-1 border-t border-transparent px-0 pt-2 pb-2">
           {/* Left: + menu */}
           <ComposerPlusMenu onPickFiles={() => fileInputRef.current?.click()} />
 
@@ -451,8 +451,8 @@ export const Composer = forwardRef<ComposerHandle, ComposerHostProps>(function C
               sending && onStop
                 ? 'bg-[var(--color-text)] text-[var(--color-bg)] shadow-[var(--shadow-xs)]'
                 : canSubmit
-                  ? 'bg-[var(--color-accent)] text-[var(--color-accent-foreground)] shadow-[var(--shadow-xs)] hover:bg-[var(--color-accent-hover)]'
-                  : 'bg-[var(--color-accent-soft)] text-[var(--color-accent)] opacity-70 cursor-not-allowed',
+                  ? 'bg-[var(--color-accent-send)] text-[var(--color-accent-send-text)] shadow-[var(--shadow-xs)] hover:bg-[var(--color-accent-send-hover)]'
+                  : 'bg-[var(--color-accent-send)] text-[var(--color-accent-send-text)] opacity-80 cursor-not-allowed',
             )}
           >
             <AnimatePresence mode="wait" initial={false}>
@@ -515,7 +515,7 @@ export const Composer = forwardRef<ComposerHandle, ComposerHostProps>(function C
               className={cn(
                 'pointer-events-none absolute inset-0 flex items-center justify-center',
                 'text-[13px] font-medium text-[var(--color-accent)]',
-                'bg-[var(--color-accent-soft)]/70 backdrop-blur-[1px] rounded-[20px]',
+                'bg-[var(--color-accent-soft)]/70 backdrop-blur-[1px] rounded-[18px]',
               )}
             >
               <Paperclip size={14} className="mr-1.5" /> {t('composer.dropToAttach')}

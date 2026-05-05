@@ -44,6 +44,9 @@
   --color-accent-hover: var(--color-accent-hover);
   --color-accent-soft: var(--color-accent-soft);
   --color-accent-foreground: var(--color-accent-text);
+  --color-accent-send: var(--color-accent-send);
+  --color-accent-send-hover: var(--color-accent-send-hover);
+  --color-accent-send-foreground: var(--color-accent-send-text);
 
   --color-destructive: var(--color-destructive);
   --color-destructive-soft: var(--color-destructive-soft);

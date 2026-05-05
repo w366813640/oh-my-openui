@@ -38,7 +38,7 @@ overlay and a startup splash; everything visible inside the window is React.
 5. A 5s hard fallback exists so a hanging renderer can never strand the user
    behind a splash.
 
-The splash uses brand tokens (`#F7F3EA` / `#1D1B17`, `#C96F4A` / `#D9825F`)
+The splash uses brand tokens (`#FBF9F5` / `#252623`, `#C96442` / `#D97757`)
 read directly from `nativeTheme.shouldUseDarkColors`, so dark-mode users see
 a dark splash without any flash.
 
@@ -48,8 +48,8 @@ a dark splash without any flash.
 new BrowserWindow({
   titleBarStyle: 'hidden',
   titleBarOverlay: {
-    color: '#F7F3EA',         // light bg
-    symbolColor: '#2B2926',    // light icons
+    color: '#FBF9F5',         // light bg
+    symbolColor: '#262522',    // light icons
     height: 36,
   },
   // …
@@ -104,7 +104,7 @@ head **before** the React bundle parses:
   var stored = localStorage.getItem('oh-ui-theme');
   …
   document.documentElement.setAttribute('data-theme', resolved);
-  document.documentElement.style.background = resolved === 'dark' ? '#1F1E1B' : '#F7F3EA';
+  document.documentElement.style.background = resolved === 'dark' ? '#252623' : '#FBF9F5';
 </script>
 ```
 
