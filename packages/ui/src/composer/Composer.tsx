@@ -298,9 +298,9 @@ export const Composer = forwardRef<ComposerHandle, ComposerHostProps>(function C
   return (
     <motion.div
       className={cn('w-full', className)}
-      initial={{ opacity: 0, y: 8 }}
+      initial={{ opacity: 0, y: 4 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.28, ease: [0.2, 0, 0, 1] }}
+      transition={{ duration: 0.24, ease: [0.2, 0, 0, 1] }}
     >
       <div
         onDragOver={handleDragOver}
@@ -312,12 +312,11 @@ export const Composer = forwardRef<ComposerHandle, ComposerHostProps>(function C
           'relative w-full rounded-[20px] bg-[var(--color-surface-raised)]',
           'border border-[var(--color-border)]',
           'shadow-[var(--shadow-composer)]',
-          'transition-[box-shadow,border-color,background-color,transform] duration-[200ms] ease-[var(--ease-spring)]',
+          'transition-[box-shadow,border-color,background-color] duration-[180ms] ease-[var(--ease-standard)]',
           'hover:border-[var(--color-border-strong)]',
-          /* On focus: lift slightly + accent border + accent halo shadow. */
+          /* On focus: a quiet keyline + low accent halo, without moving the surface. */
           'data-[focused=true]:shadow-[var(--shadow-composer-focus)]',
-          'data-[focused=true]:border-[var(--color-accent)]/45',
-          'data-[focused=true]:-translate-y-[1px]',
+          'data-[focused=true]:border-[var(--color-border-strong)]',
           'data-[dragover=true]:border-transparent',
           disabled && 'opacity-60 pointer-events-none',
         )}
@@ -607,9 +606,8 @@ function QuickActionButton({
           'inline-flex items-center gap-1.5 h-8 px-3 rounded-[10px]',
           'bg-[var(--color-surface-raised)] border border-[var(--color-border)] shadow-[var(--shadow-xs)]',
           'text-[12.5px] text-[var(--color-text)] font-medium',
-          'transition-[background-color,border-color,box-shadow,transform] duration-[140ms]',
+          'transition-[background-color,border-color,box-shadow] duration-[140ms]',
           'hover:bg-[var(--color-surface-muted)] hover:border-[var(--color-border-strong)]',
-          'hover:-translate-y-px',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
         )}
       >
