@@ -12,8 +12,8 @@ import {
 import type { Message } from '@oh/ui';
 import { createFileRoute } from '@tanstack/react-router';
 import { useMemo } from 'react';
-import { ArtifactPreviewSurface } from '../components/ArtifactPreviewSurface';
 import { AppFrame, PageTopbar } from '../components/AppFrame';
+import { ArtifactPreviewSurface } from '../components/ArtifactPreviewSurface';
 import { mockMessages, mockModelOptions } from '../mocks/data';
 
 export const Route = createFileRoute('/artifact-demo')({
