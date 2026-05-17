@@ -10,7 +10,6 @@ import {
 import type { ComponentType, ReactNode } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '../primitives/Avatar';
 import { Badge } from '../primitives/Badge';
-import { Kbd } from '../primitives/Kbd';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -19,6 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '../primitives/DropdownMenu';
+import { Kbd } from '../primitives/Kbd';
 import { cn } from '../utils';
 
 export interface SidebarAccountAction {

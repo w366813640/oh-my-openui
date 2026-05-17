@@ -138,7 +138,7 @@ export function SidebarPrimaryAction({
       <button
         type="button"
         onClick={onClick}
-          className={cn(
+        className={cn(
           'group relative flex h-8 w-full items-center rounded-[9px]',
           'transition-[background-color,color,box-shadow,transform] duration-[140ms]',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
@@ -219,8 +219,7 @@ export function SidebarNavItem({
         'transition-[background-color,color,box-shadow] duration-[120ms]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
         expanded ? 'h-8 px-2 gap-2 text-[13px]' : 'h-8 w-8 mx-auto justify-center',
-        active &&
-          'bg-[var(--color-surface-muted)] text-[var(--color-text)]',
+        active && 'bg-[var(--color-surface-muted)] text-[var(--color-text)]',
         !active && 'hover:bg-[var(--color-surface-muted)]',
         className,
       )}
@@ -321,8 +320,7 @@ export function SidebarLinkItem({
         'text-[12.5px] text-[var(--color-text-muted)] hover:text-[var(--color-text)]',
         'transition-[background-color,color,box-shadow] duration-[120ms] hover:bg-[var(--color-surface-muted)]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
-        active &&
-          'bg-[var(--color-surface-muted)] text-[var(--color-text)]',
+        active && 'bg-[var(--color-surface-muted)] text-[var(--color-text)]',
       )}
     >
       <span className="flex-1 text-left truncate">{label}</span>

@@ -39,14 +39,14 @@ export function ArtifactPreviewSurface({
               key={label}
               className={[
                 'py-5',
-                idx === 0 ? '' : 'border-l border-[var(--color-border)] pl-5 max-[560px]:border-l-0 max-[560px]:border-t max-[560px]:pl-0',
+                idx === 0
+                  ? ''
+                  : 'border-l border-[var(--color-border)] pl-5 max-[560px]:border-l-0 max-[560px]:border-t max-[560px]:pl-0',
                 idx < metrics.length - 1 ? 'pr-5' : '',
               ].join(' ')}
             >
               <div className="text-[11px] text-[var(--color-text-subtle)]">{label}</div>
-              <div className="mt-1 text-[17px] font-semibold text-[var(--color-text)]">
-                {value}
-              </div>
+              <div className="mt-1 text-[17px] font-semibold text-[var(--color-text)]">{value}</div>
               <div className="text-[11px] text-[var(--color-text-muted)]">{meta}</div>
             </div>
           ))}

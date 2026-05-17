@@ -37,11 +37,10 @@ jobs:
       - name: Typecheck (all workspaces)
         run: pnpm -r typecheck
 
-      - name: Lint (biome)
-        # Pre-existing CRLF / LF mismatch tracked in audit P2-D8; do not fail
-        # the build on it yet. Once .gitattributes is normalised (P2-D8) flip
-        # to fail-fast.
-        run: pnpm exec biome check . || true
+            - name: Lint (biome)
+              # P2-D8 closed in round 11: .gitattributes normalises line endings,
+              # repo is clean. Fails fast on any introduced format / lint error.
+              run: pnpm exec biome check .
 
       - name: Unit tests (@oh/ui)
         run: pnpm --filter @oh/ui test

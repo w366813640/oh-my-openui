@@ -30,10 +30,10 @@ describe('axe smoke — primitives', () => {
 
   it('Input with a label has no a11y violations', async () => {
     const { container } = render(
-      <label>
-        Name
-        <Input placeholder="Type here" />
-      </label>,
+      <>
+        <label htmlFor="a11y-name">Name</label>
+        <Input id="a11y-name" placeholder="Type here" />
+      </>,
     );
     expect(await axe(container)).toHaveNoViolations();
   });

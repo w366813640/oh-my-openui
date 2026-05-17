@@ -123,7 +123,9 @@ function ProjectDetailPage() {
                 </ul>
               </ProjectRailCard>
               <ProjectRailCard title="Open risks">
-                <ProjectRailEmpty>No unresolved visual regressions in this project.</ProjectRailEmpty>
+                <ProjectRailEmpty>
+                  No unresolved visual regressions in this project.
+                </ProjectRailEmpty>
               </ProjectRailCard>
             </>
           }
