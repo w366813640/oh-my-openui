@@ -1,22 +1,25 @@
 import { BrowserWindow, nativeTheme } from 'electron';
+import { type DesktopBrand, loadDesktopBrand } from './brand';
 
 /**
  * Lightweight branded splash. Renders an inline HTML data: URL so it can show
- * within ~50ms — no preload bundle required. The asterisk uses brand-tribute
- * colors (warm amber) and a custom CSS keyframe so the user perceives "the
- * app is starting" before the renderer's JS bundle is parsed.
+ * within ~50ms — no preload bundle required. Colors come from
+ * `apps/desktop/brand.config.json` so forkers can repaint the chrome without
+ * editing TypeScript.
  *
  * The splash window is frameless, transparent, always-on-top during startup,
  * and lifts itself when the main window emits `did-finish-load`.
  */
 
-function inlineSplashHtml(dark: boolean): string {
-  const bg = dark ? '#252623' : '#FBF9F5';
+function inlineSplashHtml(dark: boolean, brand: DesktopBrand): string {
+  const bg = dark ? brand.splash.backgroundDark : brand.splash.background;
+  const text = dark ? brand.splash.foregroundDark : brand.splash.foreground;
+  const accent = dark ? brand.splash.accentDark : brand.splash.accent;
+  /* Surfaces / borders / muted text stay derived (one step lifted from bg)
+   * so brand authors only have to pick three colors. */
   const surface = dark ? '#30302E' : '#FFFFFF';
   const border = dark ? '#42423D' : '#DFDDD6';
-  const text = dark ? '#F3F0E8' : '#262522';
   const muted = dark ? '#C5BFB4' : '#6F6A62';
-  const accent = dark ? '#D97757' : '#C96442';
 
   return `<!doctype html>
 <html lang="en">
@@ -46,7 +49,7 @@ function inlineSplashHtml(dark: boolean): string {
       width: 44px; height: 44px;
       animation: spin 1.6s linear infinite;
       transform-origin: 50% 50%;
-      filter: drop-shadow(0 4px 10px rgba(${dark ? '217,119,87' : '201,100,66'}, 0.30));
+      filter: drop-shadow(0 4px 10px ${accent}55);
     }
     .mark path { fill: ${accent}; }
     .label { color: ${muted}; letter-spacing: 0.04em; text-transform: uppercase; font-size: 11px; }
@@ -86,6 +89,7 @@ export interface SplashHandle {
 
 export function showSplash(): SplashHandle {
   const dark = nativeTheme.shouldUseDarkColors;
+  const brand = loadDesktopBrand();
   const splash = new BrowserWindow({
     width: 360,
     height: 240,
@@ -108,7 +112,7 @@ export function showSplash(): SplashHandle {
     },
   });
 
-  const html = inlineSplashHtml(dark);
+  const html = inlineSplashHtml(dark, brand);
   splash.loadURL(`data:text/html;charset=utf-8,${encodeURIComponent(html)}`);
 
   splash.once('ready-to-show', () => splash.show());

@@ -1,6 +1,7 @@
 import { Asterisk } from '@oh/icons';
 import { motion, useReducedMotion } from 'motion/react';
 import type { CSSProperties, ReactNode } from 'react';
+import { useBrandGlyph } from '../theme/useBrandGlyph';
 import { cn } from '../utils';
 
 export interface BrandMarkProps {
@@ -37,8 +38,11 @@ export function BrandMark({
   ariaLabel = 'Brand',
 }: BrandMarkProps) {
   const reduced = useReducedMotion();
-
-  const inner = glyph ?? <Asterisk size={size} />;
+  /* Pull the active brand glyph if the consumer wrapped the tree with
+   * <BrandProvider>. Falls back to the default Asterisk so the component
+   * still works in isolation (Storybook, primitives playground, tests). */
+  const brandGlyph = useBrandGlyph({ size });
+  const inner = glyph ?? brandGlyph ?? <Asterisk size={size} />;
 
   const motionProps: Record<string, unknown> = (() => {
     if (reduced || variant === 'none') return {};

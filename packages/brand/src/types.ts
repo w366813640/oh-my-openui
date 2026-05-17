@@ -41,4 +41,34 @@ export interface BrandTheme {
   disclaimer?: ReactNode;
   /** Default placeholder copy for the Composer. */
   composerPlaceholder?: string;
+  /**
+   * Optional desktop-host metadata. Used by the Electron main process to
+   * paint the splash window and Win11 titlebar overlay in your brand
+   * palette. Live values are read from `apps/desktop/brand.config.json`
+   * by the main process — this type is the contract.
+   */
+  desktop?: BrandDesktopConfig;
+}
+
+export interface BrandDesktopConfig {
+  /** Splash window inline-painted while the React renderer is booting. */
+  splash?: {
+    /** Background fill (light surface tone). */
+    background?: string;
+    /** Foreground tone for the wordmark/brand glyph. */
+    foreground?: string;
+    /** Accent color for the brand glyph stroke. */
+    accent?: string;
+    /** Same fields again for the dark variant. Defaults flip from light. */
+    backgroundDark?: string;
+    foregroundDark?: string;
+    accentDark?: string;
+  };
+  /** Win11 titleBarOverlay paint. The OS draws min/max/close in these tones. */
+  titlebar?: {
+    lightBg?: string;
+    lightSymbol?: string;
+    darkBg?: string;
+    darkSymbol?: string;
+  };
 }

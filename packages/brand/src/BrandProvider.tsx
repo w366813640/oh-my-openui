@@ -1,4 +1,11 @@
-import { type CSSProperties, type ReactNode, createContext, useContext, useMemo } from 'react';
+import {
+  type CSSProperties,
+  type ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+} from 'react';
 import { AuroraLogo } from './AuroraLogo';
 import type { BrandTheme } from './types';
 
@@ -106,6 +113,21 @@ export function BrandProvider({ brand = auroraBrand, children }: BrandProviderPr
     if (f?.mono) style['--font-mono'] = f.mono;
     return style as CSSProperties;
   }, [brand]);
+
+  /* Mirror the brand glyph onto `window.__ohBrand` so layers below
+   * @oh/brand (like @oh/ui's BrandMark) can pick up the logo without an
+   * import cycle. Cleared on unmount so SSR / multiple providers behave.
+   * The matching global type augmentation lives in @oh/ui (useBrandGlyph). */
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const w = window as unknown as {
+      __ohBrand?: { logo?: ReactNode; logoCompact?: ReactNode };
+    };
+    w.__ohBrand = { logo: brand.logo, logoCompact: brand.logoCompact };
+    return () => {
+      if (w.__ohBrand) w.__ohBrand = undefined;
+    };
+  }, [brand.logo, brand.logoCompact]);
 
   /**
    * Wrap in a non-`contents` element so the CSS variables actually cascade.

@@ -1,0 +1,18 @@
+{
+  "$schema": "./brand.config.schema.json",
+  "_doc": "Brand palette consumed by the Electron main process for the splash window and Win11 titlebar overlay. Renderer brand swap is handled by <BrandProvider>; this file only touches what the OS chrome paints. Fields are optional -- omit to inherit the Claude reference defaults.",
+  "splash": {
+    "background": "#fbf9f5",
+    "foreground": "#252623",
+    "accent": "#c96442",
+    "backgroundDark": "#252623",
+    "foregroundDark": "#f3f0e8",
+    "accentDark": "#d97757"
+  },
+  "titlebar": {
+    "lightBg": "#fbf9f5",
+    "lightSymbol": "#262522",
+    "darkBg": "#252623",
+    "darkSymbol": "#f3f0e8"
+  }
+}

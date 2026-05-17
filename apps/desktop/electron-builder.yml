@@ -8,6 +8,7 @@ directories:
 files:
   - dist/main/**/*
   - "package.json"
+  - "brand.config.json"
   - "!**/*.map"
   - "!**/{.DS_Store,.gitignore,.editorconfig}"
 

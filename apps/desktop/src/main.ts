@@ -1,5 +1,6 @@
 import path from 'node:path';
 import { BrowserWindow, app, ipcMain, nativeTheme, shell } from 'electron';
+import { type DesktopBrand, loadDesktopBrand } from './brand';
 import { type SplashHandle, showSplash } from './splash';
 import { maybeRegisterAutoUpdater } from './updater';
 
@@ -10,19 +11,27 @@ const baseDir = __dirname;
 
 let mainWindow: BrowserWindow | null = null;
 let splash: SplashHandle | null = null;
+let desktopBrand: DesktopBrand | null = null;
+
+function getBrand(): DesktopBrand {
+  if (!desktopBrand) desktopBrand = loadDesktopBrand();
+  return desktopBrand;
+}
 
 function createWindow() {
+  const brand = getBrand();
+  const dark = nativeTheme.shouldUseDarkColors;
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 820,
     minWidth: 880,
     minHeight: 560,
     show: false,
-    backgroundColor: nativeTheme.shouldUseDarkColors ? '#252623' : '#FBF9F5',
+    backgroundColor: dark ? brand.titlebar.darkBg : brand.titlebar.lightBg,
     titleBarStyle: 'hidden',
     titleBarOverlay: {
-      color: nativeTheme.shouldUseDarkColors ? '#252623' : '#FBF9F5',
-      symbolColor: nativeTheme.shouldUseDarkColors ? '#F3F0E8' : '#262522',
+      color: dark ? brand.titlebar.darkBg : brand.titlebar.lightBg,
+      symbolColor: dark ? brand.titlebar.darkSymbol : brand.titlebar.lightSymbol,
       height: 36,
     },
     webPreferences: {
@@ -75,13 +84,14 @@ function createWindow() {
 
   nativeTheme.on('updated', () => {
     if (!mainWindow) return;
-    const dark = nativeTheme.shouldUseDarkColors;
+    const brand = getBrand();
+    const isDark = nativeTheme.shouldUseDarkColors;
     mainWindow.setTitleBarOverlay({
-      color: dark ? '#252623' : '#FBF9F5',
-      symbolColor: dark ? '#F3F0E8' : '#262522',
+      color: isDark ? brand.titlebar.darkBg : brand.titlebar.lightBg,
+      symbolColor: isDark ? brand.titlebar.darkSymbol : brand.titlebar.lightSymbol,
       height: 36,
     });
-    mainWindow.webContents.send('theme:system-changed', dark ? 'dark' : 'light');
+    mainWindow.webContents.send('theme:system-changed', isDark ? 'dark' : 'light');
   });
 }
 
