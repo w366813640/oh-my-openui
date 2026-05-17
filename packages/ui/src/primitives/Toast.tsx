@@ -57,7 +57,9 @@ export const ToastRoot = forwardRef<ElementRef<typeof ToastPrimitive.Root>, Toas
         type={resolvedType}
         className={cn(
           'group pointer-events-auto relative flex w-full items-start gap-3 rounded-[13px] border p-3.5 pr-8',
-          'shadow-[var(--shadow-popover)] backdrop-blur-[3px]',
+          /* P2-B4: bump shadow from popover -> modal so the toast lifts
+           * convincingly off the warm `#FBF9F5` light bg. */
+          'shadow-[var(--shadow-modal)] backdrop-blur-[3px]',
           'origin-bottom-right',
           /* Open: spring-in from the right (the viewport corner) */
           'data-[state=open]:animate-[toast-in_280ms_var(--ease-spring)_forwards]',

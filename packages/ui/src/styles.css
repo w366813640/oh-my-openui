@@ -269,6 +269,24 @@
   }
 }
 
+/* Skeleton shimmer (Skeleton primitive). Honors prefers-reduced-motion
+ * via a static fallback so reduced-motion users still see a clear
+ * placeholder color but no movement. */
+@keyframes skeleton-pan {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [style*="skeleton-pan"] {
+    animation: none !important;
+    background-position: 50% 0 !important;
+  }
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;

@@ -1,0 +1,32 @@
+# Normalise text files to LF on commit, regardless of the contributor's
+# `core.autocrlf` setting. This fixes the 159 noisy biome errors that show
+# up when Windows clones (which default to autocrlf=true) check files out
+# as CRLF but the in-repo blobs are stored as LF.
+#
+# Tracked in audit P2-D8.
+
+* text=auto eol=lf
+
+# Binary / lock files explicitly opted out so Git doesn't try to re-line-end
+# them on checkout.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.ico  binary
+*.icns binary
+*.woff binary
+*.woff2 binary
+*.ttf  binary
+*.otf  binary
+*.pdf  binary
+*.7z   binary
+*.zip  binary
+*.tar  binary
+*.gz   binary
+*.bin  binary
+
+# Lock files are LF in the canonical store but treat them as text so
+# normal diff/blame still works.
+pnpm-lock.yaml text eol=lf

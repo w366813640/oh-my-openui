@@ -21,6 +21,25 @@ function getBrand(): DesktopBrand {
 function createWindow() {
   const brand = getBrand();
   const dark = nativeTheme.shouldUseDarkColors;
+
+  /* P2-C3 -- Win11 acrylic backgroundMaterial.
+   *
+   * Electron 42's BrowserWindow accepts a `backgroundMaterial` option on
+   * Win11; on Win10 or any other platform the option is ignored
+   * silently. We default to 'acrylic' for a soft frosted titlebar feel
+   * that matches Fluent 2. Users can opt out by setting
+   * OH_BG_MATERIAL=none in their env (useful for older GPUs or remote
+   * desktop scenarios where compositing is expensive).
+   *
+   * Note: When acrylic is active, `backgroundColor` should be a
+   * transparent ARGB hex (#00rrggbb) so the system blur shows through;
+   * however electron-builder's NSIS install needs an opaque fallback
+   * during the first paint, so we keep the brand color as the fallback
+   * and accept a brief solid-color frame before the desktop composites.
+   */
+  const bgMaterial = process.env.OH_BG_MATERIAL ?? 'acrylic';
+  const useAcrylic = process.platform === 'win32' && bgMaterial !== 'none' && bgMaterial !== '';
+
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 820,
@@ -28,6 +47,9 @@ function createWindow() {
     minHeight: 560,
     show: false,
     backgroundColor: dark ? brand.titlebar.darkBg : brand.titlebar.lightBg,
+    ...(useAcrylic
+      ? { backgroundMaterial: bgMaterial as 'auto' | 'none' | 'mica' | 'acrylic' | 'tabbed' }
+      : {}),
     titleBarStyle: 'hidden',
     titleBarOverlay: {
       color: dark ? brand.titlebar.darkBg : brand.titlebar.lightBg,

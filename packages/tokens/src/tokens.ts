@@ -8,9 +8,9 @@
 export const lightColors = {
   bg: '#FBF9F5',
   surface: '#FFFFFF',
-  surfaceMuted: '#EFEEE6',
+  surfaceMuted: '#EAE9E0',
   surfaceRaised: '#FFFFFF',
-  surfaceSunken: '#F5F4ED',
+  surfaceSunken: '#F2F1E9',
   text: '#262522',
   textMuted: '#6F6A62',
   textSubtle: '#7A7568',

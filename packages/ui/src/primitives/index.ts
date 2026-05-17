@@ -11,6 +11,7 @@ export * from './Input';
 export * from './Kbd';
 export * from './Popover';
 export * from './ScrollArea';
+export * from './Skeleton';
 export * from './Switch';
 export * from './Tabs';
 export * from './Toast';

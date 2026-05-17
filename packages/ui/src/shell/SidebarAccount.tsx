@@ -10,6 +10,7 @@ import {
 import type { ComponentType, ReactNode } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from '../primitives/Avatar';
 import { Badge } from '../primitives/Badge';
+import { Kbd } from '../primitives/Kbd';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -47,7 +48,7 @@ export interface SidebarAccountProps {
 }
 
 const DEFAULT_ACTIONS: SidebarAccountAction[] = [
-  { id: 'settings', label: 'Settings', icon: Settings, shortcut: '⌘,' },
+  { id: 'settings', label: 'Settings', icon: Settings, shortcut: '⌘ ,' },
   { id: 'language', label: 'Language', icon: Languages },
   { id: 'help', label: 'Get help', icon: HelpCircle },
   { id: 'upgrade', label: 'Upgrade plan', icon: Sparkles },
@@ -154,11 +155,7 @@ export function SidebarAccount({
                   />
                 ) : null}
                 <span className="flex-1">{action.label}</span>
-                {action.shortcut ? (
-                  <span className="text-[11px] text-[var(--color-text-subtle)] tabular-nums">
-                    {action.shortcut}
-                  </span>
-                ) : null}
+                {action.shortcut ? <Kbd className="ml-auto">{action.shortcut}</Kbd> : null}
               </DropdownMenuItem>
             </div>
           );

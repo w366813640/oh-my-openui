@@ -35,6 +35,7 @@ import {
 } from '../primitives/DropdownMenu';
 import { IconButton } from '../primitives/IconButton';
 import { Textarea } from '../primitives/Input';
+import { Kbd } from '../primitives/Kbd';
 import { Tooltipped } from '../primitives/Tooltip';
 import { cn } from '../utils';
 import { AttachmentChip } from './AttachmentChip';
@@ -447,8 +448,25 @@ export const Composer = forwardRef<ComposerHandle, ComposerHostProps>(function C
           {/* Pass-through left toolbar slot */}
           {toolbarLeft}
 
-          {/* Spacer */}
-          <div className="flex-1" />
+          {/* Spacer with keyboard hint (P2-B1) -- collapses on narrow widths
+              so the toolbar stays readable. ⌘↵ Send / ⇧↵ Newline. */}
+          <div className="flex-1 flex items-center justify-end pr-2">
+            <span
+              className={cn(
+                'hidden text-[11px] text-[var(--color-text-subtle)] tracking-tight',
+                'min-[480px]:inline-flex items-center gap-1',
+              )}
+              aria-hidden="true"
+            >
+              <Kbd>⌘</Kbd>
+              <Kbd>↵</Kbd>
+              <span>Send</span>
+              <span className="opacity-60">·</span>
+              <Kbd>⇧</Kbd>
+              <Kbd>↵</Kbd>
+              <span>Newline</span>
+            </span>
+          </div>
 
           {/* Right: model picker + send */}
           <ModelPicker models={models} value={modelId} onChange={updateModel} />
@@ -541,9 +559,25 @@ export const Composer = forwardRef<ComposerHandle, ComposerHostProps>(function C
         </AnimatePresence>
       </div>
 
-      {/* Quick action chips below the composer */}
+      {/* Quick action chips below the composer (P2-A2: toolbar + arrow nav) */}
       {quickActions && quickActions.length > 0 ? (
         <motion.div
+          role="toolbar"
+          aria-label="Composer quick actions"
+          onKeyDown={(e) => {
+            if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+            const root = e.currentTarget;
+            const chips = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-quick-chip]'));
+            const active = document.activeElement as HTMLElement | null;
+            const idx = chips.findIndex((c) => c === active);
+            if (idx < 0) return;
+            e.preventDefault();
+            const next =
+              e.key === 'ArrowRight'
+                ? (idx + 1) % chips.length
+                : (idx - 1 + chips.length) % chips.length;
+            chips[next]?.focus();
+          }}
           className="mt-3 flex flex-wrap items-center justify-center gap-2 px-2"
           initial="hidden"
           animate="visible"
@@ -616,9 +650,13 @@ function QuickActionButton({
   };
   return (
     <Tooltipped label={action.description} side="top">
-      <button
+      <motion.button
         type="button"
+        data-quick-chip
         onClick={onClick}
+        whileHover={{ y: -1 }}
+        whileTap={{ y: 0 }}
+        transition={{ duration: 0.18, ease: [0.2, 0, 0, 1] }}
         className={cn(
           'inline-flex items-center gap-1.5 h-8 px-3 rounded-[10px]',
           'bg-[var(--color-surface-raised)] border border-[var(--color-border)] shadow-[var(--shadow-xs)]',
@@ -634,7 +672,7 @@ function QuickActionButton({
           </span>
         ) : null}
         {action.label}
-      </button>
+      </motion.button>
     </Tooltipped>
   );
 }

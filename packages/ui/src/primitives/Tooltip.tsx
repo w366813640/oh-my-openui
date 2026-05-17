@@ -40,7 +40,9 @@ export function Tooltipped({
   label,
   children,
   side = 'top',
-  delayDuration = 200,
+  /* 250ms feels Claude-like: fast enough to surface intent without feeling
+   * twitchy. Override per-call when a longer dwell makes sense. */
+  delayDuration = 250,
   asChild = true,
 }: {
   label: ReactNode;
