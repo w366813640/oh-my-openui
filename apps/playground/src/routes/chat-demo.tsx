@@ -1,6 +1,8 @@
 import { CodeIcon, MessageSquare, RefreshCw, Share, Sparkles, Wrench } from '@oh/icons';
 import {
   ArtifactPane,
+  AssistantMessage,
+  type AssistantMessageData,
   Button,
   CodeBlock,
   Composer,
@@ -9,6 +11,7 @@ import {
   MessageList,
   SelectionToolbar,
   ThreadDisclaimer,
+  ToolCallBlock,
   useArtifactPane,
   useToast,
 } from '@oh/ui';
@@ -21,6 +24,47 @@ import { mockMessages, mockModelOptions } from '../mocks/data';
 export const Route = createFileRoute('/chat-demo')({
   component: ChatDemo,
 });
+
+const TOOL_DEMO_MESSAGE: AssistantMessageData = {
+  id: 'a-tools-demo',
+  role: 'assistant',
+  content: '',
+};
+
+function ToolCallDemoMessage() {
+  return (
+    <AssistantMessage message={TOOL_DEMO_MESSAGE} hideActions>
+      <div className="font-serif text-[16px] leading-[25px] text-[var(--color-text)]">
+        <p>To answer that, I'll quickly check the codebase and read the matching config.</p>
+        <ToolCallBlock
+          title="code.search"
+          kind="code"
+          subtitle='"electron-builder.yml"'
+          status="done"
+        >
+          {`apps/desktop/electron-builder.yml
+  3 matches; first at line 1`}
+        </ToolCallBlock>
+        <ToolCallBlock
+          title="apply_patch"
+          kind="file"
+          subtitle="electron-builder.yml"
+          status="done"
+          defaultOpen
+        >
+          {`@@ -8,6 +8,7 @@ files:
+   - dist/main/**/*
+   - "package.json"
++  - "brand.config.json"`}
+        </ToolCallBlock>
+        <p className="mt-2">
+          `brand.config.json` now ships inside the packaged app, so the splash and Win11 titlebar
+          paint with your brand at runtime.
+        </p>
+      </div>
+    </AssistantMessage>
+  );
+}
 
 const PET_SOURCE = `import { useEffect, useState } from 'react';
 import { Avatar, Stats } from './internal';
@@ -308,7 +352,12 @@ function ChatDemoContent({
           onCopy={(id) => console.log('copy', id)}
           onRetry={(id) => console.log('retry', id)}
           onFeedback={(id, k) => console.log('fb', id, k)}
-          footer={<ThreadDisclaimer />}
+          footer={
+            <>
+              <ToolCallDemoMessage />
+              <ThreadDisclaimer />
+            </>
+          }
         />
       </div>
       <SelectionToolbar

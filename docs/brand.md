@@ -147,6 +147,67 @@ The default Aurora glyph is an eight-rayed asterisk built procedurally
 Provide both `logo` (24px target) and `logoCompact` (18px target). The narrow
 icon rail uses the compact one.
 
+### Automatic glyph pickup in `BrandMark`
+
+As of round 11, `<BrandMark>` from `@oh/ui` consumes the active brand glyph
+automatically when wrapped in `<BrandProvider>`:
+
+```tsx
+<BrandProvider brand={myBrand}>
+  <BrandMark size={22} />     // uses myBrand.logo
+  <BrandMark size={18} />     // uses myBrand.logoCompact (size ≤ 20)
+  <BrandMark size={22} glyph={<CustomMark />} />  // explicit override
+</BrandProvider>
+```
+
+Behind the scenes `BrandProvider` mirrors `{logo, logoCompact}` onto
+`window.__ohBrand`, and `BrandMark` reads it via a tiny `useBrandGlyph`
+helper. There is **no import dependency** from `@oh/ui` on `@oh/brand`,
+so the component library remains brand-agnostic. Outside a provider (in
+Storybook or tests) `BrandMark` falls back to the built-in eight-rayed
+asterisk.
+
+## Desktop chrome (splash + Win11 titlebar)
+
+The Electron main process cannot read React contexts, so its brand
+palette ships as a small JSON file at `apps/desktop/brand.config.json`:
+
+```json
+{
+  "splash": {
+    "background": "#fbf9f5",
+    "foreground": "#252623",
+    "accent": "#c96442",
+    "backgroundDark": "#252623",
+    "foregroundDark": "#f3f0e8",
+    "accentDark": "#d97757"
+  },
+  "titlebar": {
+    "lightBg": "#fbf9f5",
+    "lightSymbol": "#262522",
+    "darkBg": "#252623",
+    "darkSymbol": "#f3f0e8"
+  }
+}
+```
+
+Fields are all optional — missing entries inherit the Claude reference
+defaults defined in `apps/desktop/src/brand.ts` (`DEFAULT_DESKTOP_BRAND`).
+`electron-builder.yml` lists this file under `files:` so it ships inside
+the packaged app (`asar`).
+
+Forking checklist (≤ 30 min for a new brand):
+
+1. Define your `BrandTheme` in `packages/brand/src/profiles/<myBrand>.ts`
+   with `logo`, `logoCompact`, `palette`, and (optionally) `fonts`,
+   `composerPlaceholder`, `disclaimer`, `greetings`.
+2. Wrap the renderer entry with `<BrandProvider brand={myBrand}>`. All
+   `<BrandMark>` instances pick up the glyph automatically.
+3. Copy your brand colors into `apps/desktop/brand.config.json` so the
+   splash and Win11 titlebar overlay match.
+4. (Optional) Add the new brand to `BrandSwitcher` for the playground
+   Settings demo.
+
 ## Brand notice
 
 The `claude-tribute` brand exists for **local visual study**, intentionally

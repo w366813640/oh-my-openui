@@ -16,6 +16,7 @@ import {
   AppShell,
   BrandMark,
   DefaultPlanBadge,
+  SidebarDrawerTrigger,
   I18nProvider,
   Kbd,
   type Locale,
@@ -80,6 +81,7 @@ export function AppFrame({
 function FrameShell({ children, artifact }: { children: ReactNode; artifact?: ReactNode }) {
   const { expanded } = useSidebarState();
   const { open: searchOpen, setOpen: setSearchOpen } = useCommandKToggle();
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const navigate = useNavigate();
 
   const searchItems = useMemo<SearchPaletteItem[]>(
@@ -136,10 +138,21 @@ function FrameShell({ children, artifact }: { children: ReactNode; artifact?: Re
     <>
       <TitleBarControls />
       <AppShell
-        sidebar={<AppSidebar onOpenSearch={() => setSearchOpen(true)} />}
+        sidebar={
+          <AppSidebar
+            onOpenSearch={() => {
+              setSearchOpen(true);
+              setDrawerOpen(false);
+            }}
+            onNavigate={() => setDrawerOpen(false)}
+          />
+        }
         sidebarExpanded={expanded}
+        sidebarDrawerOpen={drawerOpen}
+        onSidebarDrawerChange={setDrawerOpen}
         artifact={artifact}
       >
+        <DrawerHamburgerHost open={drawerOpen} onOpenChange={setDrawerOpen} />
         {children}
       </AppShell>
       <SearchPalette
@@ -152,7 +165,32 @@ function FrameShell({ children, artifact }: { children: ReactNode; artifact?: Re
   );
 }
 
-function AppSidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
+function DrawerHamburgerHost({
+  open,
+  onOpenChange,
+}: {
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
+  /* Renders only at xs (<600px) per SidebarDrawerTrigger's default rule.
+   * Placed absolutely under the titlebar so it sits in the corner without
+   * shifting page-level topbar layout. */
+  return (
+    <div className="pointer-events-none absolute left-2 top-9 z-30">
+      <div className="pointer-events-auto">
+        <SidebarDrawerTrigger open={open} onOpenChange={onOpenChange} />
+      </div>
+    </div>
+  );
+}
+
+function AppSidebar({
+  onOpenSearch,
+  onNavigate,
+}: {
+  onOpenSearch: () => void;
+  onNavigate?: () => void;
+}) {
   const { expanded, toggle } = useSidebarState();
   const { mode, setMode, resolved } = useTheme();
   const { t, locale, setLocale } = useI18n();
@@ -164,8 +202,14 @@ function AppSidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
   return (
     <Sidebar expanded={expanded}>
       <SidebarHeader>
-        <div className={expanded ? 'flex items-center justify-between' : 'flex h-8 items-center justify-center'}>
-          {expanded ? <SidebarBrand expanded={expanded} logo={brand.logo} name={brand.name} /> : null}
+        <div
+          className={
+            expanded ? 'flex items-center justify-between' : 'flex h-8 items-center justify-center'
+          }
+        >
+          {expanded ? (
+            <SidebarBrand expanded={expanded} logo={brand.logo} name={brand.name} />
+          ) : null}
           <button
             type="button"
             onClick={toggle}
@@ -176,7 +220,13 @@ function AppSidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
           </button>
         </div>
 
-        <SidebarPrimaryAction expanded={expanded} onClick={() => navigate({ to: '/' as never })} />
+        <SidebarPrimaryAction
+          expanded={expanded}
+          onClick={() => {
+            navigate({ to: '/' as never });
+            onNavigate?.();
+          }}
+        />
 
         <SidebarNavItem
           icon={Search}
@@ -193,21 +243,30 @@ function AppSidebar({ onOpenSearch }: { onOpenSearch: () => void }) {
           label={t('chats')}
           expanded={expanded}
           active={currentPath === '/chats'}
-          onClick={() => navigate({ to: '/chats' as never })}
+          onClick={() => {
+            navigate({ to: '/chats' as never });
+            onNavigate?.();
+          }}
         />
         <SidebarNavItem
           icon={FolderOpen}
           label={t('projects')}
           expanded={expanded}
           active={currentPath.startsWith('/projects')}
-          onClick={() => navigate({ to: '/projects' as never })}
+          onClick={() => {
+            navigate({ to: '/projects' as never });
+            onNavigate?.();
+          }}
         />
         <SidebarNavItem
           icon={Sparkles}
           label={t('artifacts')}
           expanded={expanded}
           active={currentPath === '/artifact-demo'}
-          onClick={() => navigate({ to: '/artifact-demo' as never })}
+          onClick={() => {
+            navigate({ to: '/artifact-demo' as never });
+            onNavigate?.();
+          }}
         />
 
         {expanded ? (

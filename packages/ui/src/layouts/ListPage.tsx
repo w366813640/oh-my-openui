@@ -1,8 +1,10 @@
 import { FolderOpen, Plus, Search, Trash2 } from '@oh/icons';
-import { type ReactNode, useState } from 'react';
+import { type ReactNode, useRef, useState } from 'react';
 import { Button } from '../primitives/Button';
 import { Input } from '../primitives/Input';
+import { Kbd } from '../primitives/Kbd';
 import { cn } from '../utils';
+import { useListKeyboardNav } from './useListKeyboardNav';
 
 export interface ListPageRow {
   id: string;
@@ -33,6 +35,11 @@ export interface ListPageLayoutProps {
   onSelectedIdsChange?: (ids: string[]) => void;
   /** Multi-select bulk actions. */
   bulkActions?: { label: string; icon?: ReactNode; onClick: () => void; destructive?: boolean }[];
+  /**
+   * Hide the inline keyboard hint ("↑ ↓ or j / k to navigate · Enter to open").
+   * Defaults to `false` so the hint appears once the list has rows.
+   */
+  hideKeyboardHint?: boolean;
   className?: string;
 }
 
@@ -47,6 +54,7 @@ export function ListPageLayout({
   selectedIds = [],
   onSelectedIdsChange,
   bulkActions,
+  hideKeyboardHint,
   className,
 }: ListPageLayoutProps) {
   const [query, setQuery] = useState('');
@@ -54,6 +62,26 @@ export function ListPageLayout({
     ? rows.filter((r) => String(r.title).toLowerCase().includes(query.toLowerCase()))
     : rows;
   const inSelectMode = selectable && (selectedIds.length > 0 || onSelectedIdsChange);
+
+  /* Linear-style j/k navigation. The hook attaches a keydown listener on
+   * the wrapper, looks up rows via `data-list-row`, and only fires when
+   * the active element is one of those rows -- the search Input keeps
+   * its native behavior. */
+  const listScopeRef = useRef<HTMLDivElement>(null);
+  useListKeyboardNav({
+    scopeRef: listScopeRef,
+    onActivate: (id) => {
+      const row = filtered.find((r) => r.id === id);
+      row?.onClick?.();
+    },
+    onToggleSelect: selectable
+      ? (id) => {
+          if (!onSelectedIdsChange) return;
+          if (selectedIds.includes(id)) onSelectedIdsChange(selectedIds.filter((x) => x !== id));
+          else onSelectedIdsChange([...selectedIds, id]);
+        }
+      : undefined,
+  });
 
   const toggleAllSelected = () => {
     if (!onSelectedIdsChange) return;
@@ -68,7 +96,7 @@ export function ListPageLayout({
   };
 
   return (
-    <div className={cn('w-full max-w-[680px] mx-auto px-6 py-8', className)}>
+    <div ref={listScopeRef} className={cn('w-full max-w-[680px] mx-auto px-6 py-8', className)}>
       <header className="flex items-center justify-between gap-3 mb-4">
         <h1 className="text-[24px] font-serif text-[var(--color-text)]">{title}</h1>
         {primaryAction ? (
@@ -154,6 +182,8 @@ export function ListPageLayout({
           <li key={row.id}>
             <button
               type="button"
+              data-list-row
+              data-list-id={row.id}
               onClick={row.onClick}
               className={cn(
                 'group/row w-full text-left rounded-[12px] border border-[var(--color-border)] bg-[var(--color-surface)]',
@@ -203,6 +233,32 @@ export function ListPageLayout({
         <div className="text-center py-16">
           <FolderOpen size={32} className="mx-auto mb-3 text-[var(--color-text-subtle)]" />
           <p className="text-[13px] text-[var(--color-text-muted)]">{emptyMessage}</p>
+        </div>
+      ) : null}
+
+      {!hideKeyboardHint && filtered.length > 1 ? (
+        <div
+          className={cn(
+            'mt-4 flex items-center justify-end gap-2',
+            'text-[11.5px] text-[var(--color-text-subtle)]',
+          )}
+          aria-hidden="true"
+        >
+          <Kbd>j</Kbd>
+          <Kbd>k</Kbd>
+          <span>or</span>
+          <Kbd>↑</Kbd>
+          <Kbd>↓</Kbd>
+          <span>to navigate ·</span>
+          <Kbd>Enter</Kbd>
+          <span>to open</span>
+          {selectable ? (
+            <>
+              <span>·</span>
+              <Kbd>x</Kbd>
+              <span>to select</span>
+            </>
+          ) : null}
         </div>
       ) : null}
     </div>

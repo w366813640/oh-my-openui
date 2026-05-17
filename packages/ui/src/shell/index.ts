@@ -5,3 +5,4 @@ export * from './Sidebar';
 export * from './SidebarAccount';
 export * from './TitleBar';
 export * from './useSidebarState';
+export * from './useViewport';

@@ -73,4 +73,10 @@ export {
   Lock,
   Filter,
   Brain,
+  Terminal,
+  FileCode,
+  Database,
+  Globe2,
+  CheckCircle2,
+  AlertTriangle,
 } from 'lucide-react';

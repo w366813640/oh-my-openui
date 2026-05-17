@@ -5,5 +5,6 @@ export * from './Citations';
 export * from './MessageList';
 export * from './SelectionToolbar';
 export * from './ThinkingTrace';
+export * from './ToolCallBlock';
 export * from './UserMessage';
 export * from './types';
