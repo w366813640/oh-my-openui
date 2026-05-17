@@ -1,5 +1,5 @@
 import { Brain, ChevronDown } from '@oh/icons';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import { useEffect, useState } from 'react';
 import { cn } from '../utils';
 

@@ -1,5 +1,5 @@
 import { Copy, MessageSquare, Sparkles, Wrench } from '@oh/icons';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import { type ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { Tooltipped } from '../primitives/Tooltip';
 import { cn } from '../utils';

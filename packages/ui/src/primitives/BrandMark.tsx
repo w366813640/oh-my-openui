@@ -1,5 +1,5 @@
 import { Asterisk } from '@oh/icons';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion } from 'motion/react';
 import type { CSSProperties, ReactNode } from 'react';
 import { cn } from '../utils';
 

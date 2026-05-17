@@ -1,4 +1,4 @@
-import type { Variants } from 'framer-motion';
+import type { Variants } from 'motion/react';
 import { durations, easings, springs } from './springs';
 
 /** Plain fade — hide/show overlays, backdrops. */

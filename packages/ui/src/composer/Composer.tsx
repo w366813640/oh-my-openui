@@ -10,7 +10,7 @@ import {
   Sliders,
   Square,
 } from '@oh/icons';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import {
   type ChangeEvent,
   type ClipboardEvent,

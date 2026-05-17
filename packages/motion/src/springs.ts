@@ -1,4 +1,4 @@
-import type { Transition } from 'framer-motion';
+import type { Transition } from 'motion/react';
 
 /**
  * Pre-tuned spring presets matching the design language.

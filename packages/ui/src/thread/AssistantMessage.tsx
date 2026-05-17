@@ -1,6 +1,6 @@
 import { ChevronDown, Copy, RefreshCw, ThumbsDown, ThumbsUp } from '@oh/icons';
 import { StreamingShimmer } from '@oh/motion';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import type { ReactNode } from 'react';
 import { Markdown } from '../markdown';
 import { BrandMark } from '../primitives/BrandMark';

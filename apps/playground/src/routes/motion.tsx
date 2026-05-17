@@ -2,7 +2,7 @@ import { Asterisk } from '@oh/icons';
 import { StreamingShimmer, durations, springs } from '@oh/motion';
 import { Button, MainArea } from '@oh/ui';
 import { createFileRoute } from '@tanstack/react-router';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { useState } from 'react';
 import { AppFrame, PlaygroundNav } from '../components/AppFrame';
 

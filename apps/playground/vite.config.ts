@@ -46,7 +46,8 @@ export default defineConfig({
         manualChunks(id) {
           if (!id.includes('node_modules')) return undefined;
           // React core stays in the main entry — splitting it just adds a waterfall.
-          if (id.includes('framer-motion')) return 'vendor-motion';
+          if (id.includes('/node_modules/motion/') || id.includes('\\node_modules\\motion\\'))
+            return 'vendor-motion';
           if (id.includes('@radix-ui')) return 'vendor-radix';
           if (id.includes('lucide-react')) return 'vendor-icons';
           if (id.includes('@tanstack')) return 'vendor-router';

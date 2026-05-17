@@ -1,6 +1,6 @@
 import { ArrowRight, MessageSquare, Search, Sparkles, X } from '@oh/icons';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import { type ReactNode, useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import { useI18n } from '../i18n/I18nProvider';
 import { Kbd } from '../primitives/Kbd';

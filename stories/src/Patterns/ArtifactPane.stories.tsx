@@ -20,7 +20,7 @@ const meta: Meta<typeof ArtifactPane> = {
 export default meta;
 type Story = StoryObj<typeof ArtifactPane>;
 
-const SAMPLE_CODE = `import { motion } from 'framer-motion';
+const SAMPLE_CODE = `import { motion } from 'motion/react';
 
 export function CodingPet({ mood }: { mood: 'happy' | 'stressed' | 'wired' }) {
   return (

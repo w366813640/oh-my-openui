@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { Children, type ReactNode, isValidElement } from 'react';
 import { cn } from '../utils';
 

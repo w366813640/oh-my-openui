@@ -1,6 +1,6 @@
 import { ExternalLink, Globe } from '@oh/icons';
 import * as Popover from '@radix-ui/react-popover';
-import { motion } from 'framer-motion';
+import { motion } from 'motion/react';
 import { cn } from '../utils';
 import type { MessageCitation } from './types';
 

@@ -1,6 +1,6 @@
 import { CodeIcon, Copy, Eye, RefreshCw, X } from '@oh/icons';
 import * as TabsPrimitive from '@radix-ui/react-tabs';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import {
   type MouseEvent,
   type PointerEvent,

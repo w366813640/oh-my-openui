@@ -1,5 +1,5 @@
 import { Asterisk, FolderOpen, Layout, MessageSquare, Plus, Search, Sparkles } from '@oh/icons';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import {
   type ComponentType,
   type MouseEvent,
