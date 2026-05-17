@@ -42,13 +42,72 @@ Persistent, append-only progress log for `oh-my-open-ui`. Use this as the
 - **P2** — Repo CRLF/LF normalization (`core.autocrlf=true` vs biome `lineEnding: lf`).
 - **P3** — Document Developer Mode requirement for NSIS install build (already added to `docs/electron.md`).
 
-### Phase 2 — Comprehensive UI/UX audit (in progress)
+### Phase 2 — Comprehensive UI/UX audit (DONE)
 
-See `docs/audits/2026-05-17-comprehensive-review.md` and `.trellis/tasks/05-17-upgrade-electron-ui-review/research/*` for review frameworks (Claude parity, Nielsen, WCAG 2.2 AA, HIG, Fluent 2, competitor scan, scaffolding/library DX).
+See `docs/audits/2026-05-17-comprehensive-review.md` (4 lenses: Claude parity, Nielsen + WCAG 2.2 AA + HIG + Fluent 2, competitor scan, scaffolding/library DX) and `.trellis/tasks/05-17-upgrade-electron-ui-review/research/*`.
 
-### Phase 3 — Targeted fixes (pending)
+### Phase 3 — Targeted fixes (DONE)
 
-Will land P0 (accessibility regressions) → P1 (parity gaps) → P2 (DX polish) as separate sub-commits on this branch.
+#### P0 — Blocking accessibility regressions
+- **P0-A1** New `--color-border-interactive` token (light `#A6A399` / dark `#7A7770`, 3:1) applied to `Input`, `IconButton.outline`, `Button.outline`, `Composer` container, `ModelPicker` hover. `--color-border` retained for decorative separators.
+- **P0-A2** Light `--color-text-subtle` darkened from `#918C83` (3.4:1) to `#7A7568` (5.0:1) → WCAG 1.4.3 AA.
+- **P0-A3** `Composer` textarea exposes the rotating placeholder via both native `placeholder` and `aria-label`, with i18n keys `composer.label` / `composer.attach` (EN + ZH).
+- **P0-A4** `--color-ring` alpha 0.42 → 0.85 (light), 0.58 → 0.85 (dark) → focus ring clears 1.4.11 with margin.
+
+#### P1 — High value
+- **P1-A1** `ArtifactPane` resize handle: `role="separator"`, `aria-orientation="vertical"`, `aria-valuemin/max/now`, `aria-label` mentions arrow keys.
+- **P1-A2** Global `*:focus-visible { scroll-margin-bottom: 96px; scroll-margin-top: 64px }` for 2.4.11 (focus not obscured).
+- **P1-A3** `ToastRoot` maps `tone="destructive"` → Radix `type="foreground"` (assertive aria-live); others stay polite.
+- **P1-B1** Responsive shell: new `useViewport()` (xs <600 / sm 600-959 / md ≥960) + `AppShell.sidebarMode='auto'`. At xs the sidebar pops out of layout as an animated drawer; `<SidebarDrawerTrigger>` renders only at xs by default.
+- **P1-B2** Dark `--color-surface-raised` lifted `#30302E` → `#36352F` for visible card / composer lift.
+- **P1-C1** New `useListKeyboardNav()` hook + Linear-style `j / k / ArrowUp / ArrowDown / Home / End / Enter / x` cycling. Wired into `ListPageLayout` with an inline `<Kbd>` hint.
+- **P1-C2** New `<ToolCallBlock>` thread primitive (running / done / error states, collapsible body). Storybook + chat-demo route render the new component.
+- **P1-D1** Vitest 4 baseline in `@oh/ui` (happy-dom + Testing Library + user-event). 33 cases across 7 files.
+- **P1-D2** `jest-axe` smoke tests with 0 violations after P0 — confirms a11y baseline is preserved as code evolves.
+- **P1-D3** `<BrandMark>` from `@oh/ui` consumes the active brand glyph automatically (via `window.__ohBrand` mirror set by `BrandProvider`); no import cycle between `@oh/ui` and `@oh/brand`.
+- **P1-D4** `apps/desktop/brand.config.json` repaints the Electron splash window and Win11 titlebar overlay from a JSON file at app start; schema lives in `BrandTheme.desktop` (`@oh/brand`).
+- **P1-D5** New `docs/accessibility.md` (token strategy, axe baseline, keyboard map, manual smoke checklist).
+- **P1-D6** `docs/brand.md` extended with automatic-glyph + desktop chrome sections + 4-step fork checklist.
+- **P1-D7** GitHub Actions CI (`.github/workflows/ci.yml`): typecheck + biome check + vitest + `pnpm -r build` on push/PR; Electron packaging deliberately excluded.
+
+#### P2 — Polish
+- **P2-A1** Light surface ladder tightened: `surface-sunken` `#F5F4ED` → `#F2F1E9`, `surface-muted` `#EFEEE6` → `#EAE9E0`.
+- **P2-A2** Composer quick-action chips: `role="toolbar"` with Arrow-Left / Right cycling.
+- **P2-B1** Composer toolbar shows muted `⌘↵ Send · ⇧↵ Newline` keyboard hint at ≥480px.
+- **P2-B4** Tooltipped default `delayDuration` 200 → 250 ms (Claude-feel). Toast shadow `popover` → `modal` for visible lift on light bg.
+- **P2-B5** New `<Skeleton>`, `<ListSkeleton>`, `<ComposerSkeleton>`, `<ChatSkeleton>` primitives. `chats` route shows ListSkeleton for 280ms on cold load.
+- **P2-C3** Win11 `backgroundMaterial: 'acrylic'` on Electron 42, opt-out via `OH_BG_MATERIAL=none`.
+- **P2-C4** 4 Storybook stories under `Patterns/Skeleton`.
+- **P2-D3** `SidebarAccount` shortcuts render as `<Kbd>` for consistency.
+- **P2-D4** Quick-action chip 1px hover lift (`whileHover={y: -1}`).
+- **P2-D6** New `CHANGELOG.md` (Keep-a-Changelog format) — round 11 entry mirrors this section.
+- **P2-D8** `.gitattributes` normalises to `eol=lf`; `git rm --cached -r .` + `reset --hard` re-extracted the tree with LF; `biome check --write` cleaned 12 long-standing format / import-organize issues; CI biome step flipped from `|| true` to fail-fast.
+
+#### Deferred to round 12 (tracked in audit §5.4)
+P2-C1 inline citations · P2-C2 greeting per-locale · P2-D1 system accent opt-in · P2-D2 SearchPalette context-aware sort · P2-D5 `<StatusBand>` · P2-D7 Playwright e2e.
+
+### Phase 4 — Final regression (DONE)
+
+| Gate                              | Result |
+|---|---|
+| `pnpm -r typecheck`               | Pass |
+| `pnpm exec biome check .`         | **0 errors** (was 159 at the start of the round) |
+| `pnpm --filter @oh/ui test`       | **33/33 pass**, 7 test files, 4 axe scans, 0 violations |
+| `pnpm -r build`                   | Pass — `vendor-motion-*.js` 126 kB / 41 kB gzip; renderer + main + Storybook all green |
+| Smoke (Electron 42 packaged)      | `oh-my-open-ui.exe` boots ✓, splash paints from `brand.config.json` ✓, Win11 titlebar overlay matches brand ✓, acrylic backdrop active ✓ |
+| `pnpm --filter @oh/desktop run package` | Re-validated against `ELECTRON_MIRROR=npmmirror.com` (China network); winCodeSign NSIS step still requires Windows Developer Mode (pre-existing, documented) |
+
+### Commits on `chore/electron-42-and-ui-audit`
+
+1. Phase 1 Electron upgrade + motion migration (3 commits as per user request)
+2. `feat(audit): docs/audits/2026-05-17-comprehensive-review.md` (P2 in plan)
+3. `a11y(p0): WCAG 1.4.11 / 2.4.7 token bumps + composer placeholder accessible name`
+4. `a11y+visual(p1): ArtifactPane separator values, focus-not-obscured, toast aria-live, dark surface lift`
+5. `chore(tests+ci): vitest baseline, jest-axe smoke, github actions CI (P1-D1/D2/D7)`
+6. `feat(brand): brand-aware BrandMark + desktop brand.config.json (P1-D3/D4)`
+7. `feat(p1): tool-call block, list j/k nav, responsive shell, docs (P1-C1/C2/B1/D5/D6)`
+8. `feat(p2): polish wave -- skeletons, composer hints, acrylic, kbd, ladders`
+9. `chore(ci): biome auto-fixes after gitattributes renormalize + flip CI fail-fast (P2-D8)`
 
 ---
 
