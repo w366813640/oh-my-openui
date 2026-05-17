@@ -1,0 +1,14 @@
+{"file": ".trellis/spec/desktop/frontend/index.md", "reason": "桌面端代码质量约定"}
+{"file": ".trellis/spec/playground/frontend/index.md", "reason": "playground 代码质量约定"}
+{"file": ".trellis/spec/ui/frontend/index.md", "reason": "@oh/ui 代码质量约定"}
+{"file": ".trellis/spec/motion/frontend/index.md", "reason": "@oh/motion 代码质量约定"}
+{"file": ".trellis/spec/tokens/frontend/index.md", "reason": "tokens 代码质量约定（避免硬编码 hex / 直接破坏 token 体系）"}
+{"file": ".trellis/spec/brand/frontend/index.md", "reason": "brand 代码质量约定"}
+{"file": ".trellis/spec/guides/code-reuse-thinking-guide.md", "reason": "评审改进检查：是否绕过已有抽象造成重复"}
+{"file": ".trellis/spec/guides/cross-layer-thinking-guide.md", "reason": "Electron 主进程 ↔ preload ↔ 渲染端 跨层一致性检查"}
+{"file": ".trellis/tasks/05-17-upgrade-electron-ui-review/research/electron-upgrade-survey.md", "reason": "smoke checklist、回滚条件、配套依赖兼容性的检查依据"}
+{"file": ".trellis/tasks/05-17-upgrade-electron-ui-review/research/ui-ux-review-frameworks.md", "reason": "评审报告每章对应的验收 checklist"}
+{"file": "docs/electron.md", "reason": "桌面端预期行为基线（splash → titlebar → IPC → packaging）"}
+{"file": "docs/testing.md", "reason": "smoke 测试约定"}
+{"file": "docs/foundation.md", "reason": "token 系统对照（评审/修复不应破坏既有令牌体系）"}
+{"file": "docs/patterns.md", "reason": "九大组件家族契约 — 评审改进不应破坏 prop 表面"}

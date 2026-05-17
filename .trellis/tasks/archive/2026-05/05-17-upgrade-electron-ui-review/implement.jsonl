@@ -1,0 +1,19 @@
+{"file": ".trellis/spec/desktop/frontend/index.md", "reason": "Electron 主进程/preload 升级的开发约定入口（apps/desktop）"}
+{"file": ".trellis/spec/playground/frontend/index.md", "reason": "渲染端 playground 路由开发约定"}
+{"file": ".trellis/spec/ui/frontend/index.md", "reason": "@oh/ui 组件库开发约定（评审改进会大量动这里）"}
+{"file": ".trellis/spec/motion/frontend/index.md", "reason": "framer-motion → motion 12 迁移涉及 @oh/motion"}
+{"file": ".trellis/spec/tokens/frontend/index.md", "reason": "评审会涉及 token 调整（颜色/动效）"}
+{"file": ".trellis/spec/brand/frontend/index.md", "reason": "评审脚手架视角章节涉及 brand 替换面"}
+{"file": ".trellis/spec/guides/index.md", "reason": "通用思维指南入口"}
+{"file": ".trellis/spec/guides/code-reuse-thinking-guide.md", "reason": "评审改进难免重复 polish round 已修复的模式，避免重写"}
+{"file": ".trellis/spec/guides/cross-layer-thinking-guide.md", "reason": "Electron 主进程 ↔ preload ↔ 渲染端 是典型跨层场景"}
+{"file": ".trellis/tasks/05-17-upgrade-electron-ui-review/research/electron-upgrade-survey.md", "reason": "Electron 33→42 升级路径、破坏点、配套依赖、执行步骤、回滚条件"}
+{"file": ".trellis/tasks/05-17-upgrade-electron-ui-review/research/ui-ux-review-frameworks.md", "reason": "评审四章（Claude parity / Nielsen+WCAG+HIG+Fluent2 / 竞品 / 脚手架）的 checklist"}
+{"file": ".trellis/tasks/05-17-upgrade-electron-ui-review/research/competitor-chat-ui-2026.md", "reason": "竞品对比镜头的素材与差异化定位结论"}
+{"file": "docs/audits/ui-polish-2026-05-04.md", "reason": "上次 UI 评审 10 条原始发现 — 避免重复结论"}
+{"file": "docs/audits/claude-web-oct-2025-parity-2026-05-05.md", "reason": "上次 Claude parity 实施回合 — 评审需基于这版状态做增量"}
+{"file": "docs/WORK_LOG.md", "reason": "项目演进史（polish round 1~10），包括 round 9 未做项菜单（CI/fork-template/tool-call/性能/a11y）"}
+{"file": "docs/architecture.md", "reason": "脚手架视角章节需要对照架构边界（packages / providers / 依赖图）"}
+{"file": "docs/foundation.md", "reason": "tokens/typography/radius/shadow/motion 评审基线"}
+{"file": "docs/patterns.md", "reason": "九大组件家族 — 评审需逐家族过一遍"}
+{"file": "docs/electron.md", "reason": "桌面端 boot 流程、IPC、packaging、smoke checklist — 升级回归基线"}
