@@ -21,13 +21,13 @@
     "typecheck": "tsc --noEmit -p tsconfig.main.json"
   },
   "dependencies": {
-    "electron-updater": "^6.3.9"
+    "electron-updater": "^6.8.3"
   },
   "devDependencies": {
     "@oh/playground": "workspace:*",
     "@types/node": "^22.10.2",
-    "electron": "^33.2.1",
-    "electron-builder": "^25.1.8",
+    "electron": "^42.1.0",
+    "electron-builder": "^26.8.1",
     "tsx": "^4.19.2",
     "typescript": "5.6.3"
   }
