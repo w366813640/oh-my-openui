@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Quality (typecheck + lint + test + build)
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.9
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck (all workspaces)
+        run: pnpm -r typecheck
+
+      - name: Lint (biome)
+        # Pre-existing CRLF / LF mismatch tracked in audit P2-D8; do not fail
+        # the build on it yet. Once .gitattributes is normalised (P2-D8) flip
+        # to fail-fast.
+        run: pnpm exec biome check . || true
+
+      - name: Unit tests (@oh/ui)
+        run: pnpm --filter @oh/ui test
+
+      - name: Build (packages + playground + storybook + desktop main+renderer)
+        # Electron-builder packaging is intentionally NOT in CI:
+        #   - downloads ~150 MB Electron binary
+        #   - winCodeSign extraction needs Windows Developer Mode
+        # Both are documented in docs/electron.md. Use the manual
+        # `pnpm --filter @oh/desktop run package` on a developer machine
+        # before publishing a release.
+        run: pnpm -r build

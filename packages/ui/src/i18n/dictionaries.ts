@@ -52,6 +52,7 @@ export const enDictionary: Dictionary = {
   'composer.research': 'Research',
   'composer.dropToAttach': 'Drop to attach',
   'composer.modelPicker': 'Model',
+  'composer.label': 'Message composer',
 
   // Search palette
   'search.placeholder': 'Search anything…',
@@ -133,6 +134,7 @@ export const zhDictionary: Dictionary = {
   'composer.research': '研究',
   'composer.dropToAttach': '松手即可附加',
   'composer.modelPicker': '模型',
+  'composer.label': '消息编辑器',
 
   'search.placeholder': '搜索任何内容……',
   'search.empty': '暂无结果',

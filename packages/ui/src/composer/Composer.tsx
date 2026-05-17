@@ -370,6 +370,9 @@ export const Composer = forwardRef<ComposerHandle, ComposerHostProps>(function C
             onPaste={handlePaste}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
+            /* Stable accessible name for the textarea; the visible placeholder
+             * is decorative copy that can rotate. */
+            aria-label={t('composer.label')}
             /* Always set a native placeholder so screen readers have an accessible
              * name. When the visible rotating overlay is active we hide the native
              * placeholder text visually but keep it in the DOM (no aria-hidden on
@@ -514,6 +517,7 @@ export const Composer = forwardRef<ComposerHandle, ComposerHostProps>(function C
           multiple
           onChange={handleFileInput}
           className="sr-only"
+          aria-label={t('composer.attach')}
         />
 
         {/* Drag overlay hint */}

@@ -13,6 +13,7 @@
     "lint": "biome check .",
     "format": "biome format --write .",
     "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
     "playground": "pnpm --filter @oh/playground dev",
     "desktop:dev": "pnpm --filter @oh/desktop dev",
     "desktop:build": "pnpm --filter @oh/desktop build",
