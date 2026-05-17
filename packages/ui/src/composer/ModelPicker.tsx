@@ -38,7 +38,7 @@ export function ModelPicker({ models, value, onChange, disabled, size = 'md' }: 
           'inline-flex items-center gap-1 rounded-[8px] border border-transparent',
           'text-[var(--color-text-muted)] hover:text-[var(--color-text)]',
           'transition-[background-color,border-color,color] duration-[120ms]',
-          'hover:border-[var(--color-border)] hover:bg-[var(--color-surface-muted)]',
+          'hover:border-[var(--color-border-interactive)] hover:bg-[var(--color-surface-muted)]',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)]',
           size === 'sm' && 'h-7 px-2 text-[12px]',
           size === 'md' && 'h-8 px-2 text-[12.5px]',

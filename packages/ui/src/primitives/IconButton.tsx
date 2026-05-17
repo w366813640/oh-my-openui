@@ -21,7 +21,7 @@ const variantMap = {
   soft:
     'border border-transparent bg-[var(--color-surface-muted)] hover:border-[var(--color-border)] hover:bg-[var(--color-surface-sunken)]',
   outline:
-    'bg-transparent border border-[var(--color-border)] hover:bg-[var(--color-surface-muted)] hover:border-[var(--color-border-strong)]',
+    'bg-transparent border border-[var(--color-border-interactive)] hover:bg-[var(--color-surface-muted)] hover:border-[var(--color-border-strong)]',
 };
 
 export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(function IconButton(

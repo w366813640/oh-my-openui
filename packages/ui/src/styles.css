@@ -39,6 +39,7 @@
 
   --color-border: var(--color-border);
   --color-border-strong: var(--color-border-strong);
+  --color-border-interactive: var(--color-border-interactive);
 
   --color-accent: var(--color-accent);
   --color-accent-hover: var(--color-accent-hover);

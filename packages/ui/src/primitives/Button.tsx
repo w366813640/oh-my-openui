@@ -29,7 +29,7 @@ const buttonVariants = cva(
           'hover:bg-[var(--color-surface-muted)] active:bg-[var(--color-surface-sunken)]',
         ],
         outline: [
-          'bg-[var(--color-surface-raised)] text-[var(--color-text)] border border-[var(--color-border)]',
+          'bg-[var(--color-surface-raised)] text-[var(--color-text)] border border-[var(--color-border-interactive)]',
           'hover:bg-[var(--color-surface-muted)] hover:border-[var(--color-border-strong)]',
           'active:bg-[var(--color-surface-sunken)]',
         ],

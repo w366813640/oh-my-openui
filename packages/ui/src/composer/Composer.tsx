@@ -310,7 +310,7 @@ export const Composer = forwardRef<ComposerHandle, ComposerHostProps>(function C
         data-dragover={dragOver ? 'true' : 'false'}
         className={cn(
           'relative w-full rounded-[18px] bg-[var(--color-surface-raised)]',
-          'border border-[var(--color-border)]',
+          'border border-[var(--color-border-interactive)]',
           'shadow-[var(--shadow-composer)]',
           'transition-[box-shadow,border-color,background-color] duration-[180ms] ease-[var(--ease-standard)]',
           'hover:border-[var(--color-border-strong)]',
@@ -370,9 +370,22 @@ export const Composer = forwardRef<ComposerHandle, ComposerHostProps>(function C
             onPaste={handlePaste}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
-            placeholder={isRotating ? '' : (placeholders[0] ?? '')}
+            /* Always set a native placeholder so screen readers have an accessible
+             * name. When the visible rotating overlay is active we hide the native
+             * placeholder text visually but keep it in the DOM (no aria-hidden on
+             * the textarea itself). */
+            placeholder={
+              isRotating
+                ? (placeholders[placeholderIdx] ?? placeholders[0] ?? '')
+                : (placeholders[0] ?? '')
+            }
             rows={1}
-            className="min-h-[44px] max-h-[260px] py-0"
+            className={cn(
+              'min-h-[44px] max-h-[260px] py-0',
+              /* When the animated overlay is mounted, hide the static native
+               * placeholder so users do not see two stacked placeholders. */
+              showOverlayPlaceholder && 'placeholder:opacity-0',
+            )}
             disabled={disabled}
           />
           {/* Animated placeholder overlay (only when array variant is in use) */}
