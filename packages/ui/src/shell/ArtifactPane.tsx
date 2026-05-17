@@ -169,7 +169,10 @@ export function ArtifactPane({
           <div
             role="separator"
             aria-orientation="vertical"
-            aria-label="Resize artifact panel"
+            aria-label="Resize artifact panel (use Arrow Left or Right)"
+            aria-valuemin={minWidth}
+            aria-valuemax={maxWidth}
+            aria-valuenow={Math.round(effectiveWidth)}
             tabIndex={0}
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
@@ -182,7 +185,6 @@ export function ArtifactPane({
               'group/handle absolute left-0 top-0 bottom-0 z-10',
               'w-2 -ml-1 cursor-col-resize',
               'flex items-center justify-center',
-              'focus-visible:outline-none',
             )}
           >
             <motion.span

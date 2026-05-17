@@ -51,7 +51,7 @@
   --color-bg: #252623;
   --color-surface: #30302e;
   --color-surface-muted: #383834;
-  --color-surface-raised: #30302e;
+  --color-surface-raised: #36352f;
   --color-surface-sunken: #1c1c1a;
 
   --color-text: #f3f0e8;
@@ -91,7 +91,7 @@
     --color-bg: #252623;
     --color-surface: #30302e;
     --color-surface-muted: #383834;
-    --color-surface-raised: #30302e;
+    --color-surface-raised: #36352f;
     --color-surface-sunken: #1c1c1a;
     --color-text: #f3f0e8;
     --color-text-muted: #c5bfb4;

@@ -45,10 +45,16 @@ const toneClasses: Record<ToastTone, string> = {
 };
 
 export const ToastRoot = forwardRef<ElementRef<typeof ToastPrimitive.Root>, ToastRootProps>(
-  function ToastRoot({ className, tone = 'neutral', ...props }, ref) {
+  function ToastRoot({ className, tone = 'neutral', type, ...props }, ref) {
+    /* WCAG 4.1.3 — destructive toasts are assertive (announce immediately,
+     * interrupt SR); neutral/success/warning stay polite (queue behind any
+     * in-progress announcement). Consumer can still override via prop. */
+    const resolvedType: 'foreground' | 'background' =
+      type ?? (tone === 'destructive' ? 'foreground' : 'background');
     return (
       <ToastPrimitive.Root
         ref={ref}
+        type={resolvedType}
         className={cn(
           'group pointer-events-auto relative flex w-full items-start gap-3 rounded-[13px] border p-3.5 pr-8',
           'shadow-[var(--shadow-popover)] backdrop-blur-[3px]',

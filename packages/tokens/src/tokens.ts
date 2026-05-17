@@ -38,7 +38,7 @@ export const darkColors = {
   bg: '#252623',
   surface: '#30302E',
   surfaceMuted: '#383834',
-  surfaceRaised: '#30302E',
+  surfaceRaised: '#36352F',
   surfaceSunken: '#1C1C1A',
   text: '#F3F0E8',
   textMuted: '#C5BFB4',

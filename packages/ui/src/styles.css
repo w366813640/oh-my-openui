@@ -220,6 +220,15 @@
     box-shadow: 0 0 0 1px var(--color-ring), 0 0 0 4px
       color-mix(in srgb, var(--color-ring) 22%, transparent);
   }
+
+  /* WCAG 2.4.11 (Focus not obscured, Minimum) — keep the focused element
+   * fully visible above whatever sticky composer / topbar sits on top of
+   * the scroll viewport. Page-level fixed bars set their own height via
+   * --shell-sticky-bottom-offset (composer ≈ 96px). */
+  *:focus-visible {
+    scroll-margin-bottom: var(--shell-sticky-bottom-offset, 96px);
+    scroll-margin-top: var(--shell-sticky-top-offset, 64px);
+  }
   /* Native form controls keep their outline so we don't lose accessibility
    * cues on platforms where box-shadow is overridden by the host. */
   input:focus-visible,
