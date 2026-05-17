@@ -48,7 +48,8 @@ async function main() {
   const renderer = spawn(pnpmCmd, ['dev'], {
     cwd: playgroundRoot,
     env: { ...process.env, FORCE_COLOR: '1' },
-    shell: false,
+    // Node 22 (CVE-2024-27980) refuses to spawn .cmd/.bat without shell:true on Windows.
+    shell: isWindows,
   });
   streamProcess('renderer', '32', renderer);
   renderer.on('exit', (code) => {
@@ -62,7 +63,7 @@ async function main() {
   await new Promise<void>((resolve, reject) => {
     const tsc = spawn(npxCmd, ['tsc', '-p', 'tsconfig.main.json'], {
       cwd: desktopRoot,
-      shell: false,
+      shell: isWindows,
     });
     streamProcess('main-tsc', '33', tsc);
     tsc.on('exit', (code) => (code === 0 ? resolve() : reject(new Error(`tsc exit ${code}`))));
