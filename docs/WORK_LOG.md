@@ -5,6 +5,53 @@ Persistent, append-only progress log for `oh-my-open-ui`. Use this as the
 
 ---
 
+## Round 11 — 2026-05-17 (Sun) — Electron 42 + motion 12 + UI/UX audit
+
+**commit:** pending
+**branch:** `chore/electron-42-and-ui-audit`
+**baseline tag:** `pre-electron-42-upgrade` (rollback point)
+**task dir:** `.trellis/tasks/05-17-upgrade-electron-ui-review/`
+
+### Phase 1 — Runtime upgrade (DONE)
+
+#### Electron 33 → 42 (`apps/desktop`)
+- `electron`: `33.2.1` → `42.1.0` (Chromium 136 / Node 22.x)
+- `electron-builder`: `25.1.8` → `26.8.1`
+- `electron-updater`: `6.3.9` → `6.8.3`
+- No code changes required in `main.ts` / `preload.ts` / `splash.ts` / `updater.ts` — all APIs we touch (BrowserWindow + titleBarOverlay, ipcMain, nativeTheme, autoUpdater) are still supported in 42.
+- macOS 11 support dropped (now requires 12+). Documented in `docs/electron.md`.
+
+#### framer-motion 11 → motion 12 (renderer)
+- `framer-motion@^11.15.0` → `motion@^12.38.0` in `packages/motion`, `packages/ui`, `apps/playground`.
+- Migrated every `from 'framer-motion'` import → `from 'motion/react'` across `packages/motion/src/{PageTransition,springs,variants}.tsx`, `packages/ui/src/{composer,modals,primitives,shell,thread,welcome}/**`, `apps/playground/src/routes/motion.tsx`, `stories/src/Patterns/ArtifactPane.stories.tsx`.
+- Updated Vite manualChunks: `vendor-motion` now matches `motion` (was `framer-motion`).
+
+#### Verification
+
+| Gate | Result |
+|---|---|
+| `pnpm -r typecheck` | Pass |
+| `pnpm exec biome check .` | 159 pre-existing CRLF errors (zero new from upgrade — Windows `core.autocrlf=true` vs LF index; logged as P2 chore) |
+| `pnpm --filter @oh/desktop build` | Pass (main TS + Vite renderer) |
+| `pnpm -r build` (packages + stories) | Pass — `vendor-motion-*.js` ≈ 126 kB / 41 kB gzip (chunk works) |
+| `pnpm --filter @oh/desktop run package` | `release/win-unpacked/oh-my-open-ui.exe` produced — `VersionInfo.FileVersion = 42.1.0`, 216 MB. NSIS installer (`.Setup.exe`) blocked by winCodeSign symlink permission (pre-existing Windows non-admin limit — see `docs/electron.md`). |
+| Smoke launch | `oh-my-open-ui.exe` boots, 100 MB main RSS, 3 child processes (GPU/Renderer/Utility). |
+
+#### Pre-existing follow-ups surfaced
+
+- **P2** — Repo CRLF/LF normalization (`core.autocrlf=true` vs biome `lineEnding: lf`).
+- **P3** — Document Developer Mode requirement for NSIS install build (already added to `docs/electron.md`).
+
+### Phase 2 — Comprehensive UI/UX audit (in progress)
+
+See `docs/audits/2026-05-17-comprehensive-review.md` and `.trellis/tasks/05-17-upgrade-electron-ui-review/research/*` for review frameworks (Claude parity, Nielsen, WCAG 2.2 AA, HIG, Fluent 2, competitor scan, scaffolding/library DX).
+
+### Phase 3 — Targeted fixes (pending)
+
+Will land P0 (accessibility regressions) → P1 (parity gaps) → P2 (DX polish) as separate sub-commits on this branch.
+
+---
+
 ## Polish round 10 — 2026-05-05 (Tue)
 
 **commit:** pending

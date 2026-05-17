@@ -1,8 +1,13 @@
 # Desktop runtime
 
-`apps/desktop` is a small Electron 33 host that loads `apps/playground` as
+`apps/desktop` is a small Electron 42 host that loads `apps/playground` as
 its renderer. The desktop layer **owns no UI** beyond the Win11 titlebar
 overlay and a startup splash; everything visible inside the window is React.
+
+> **Runtime versions** — Electron `42.1.0` (Chromium 136 / Node 22.x),
+> `electron-builder@26.8.1`, `electron-updater@6.8.3`. Upgraded from Electron
+> 33 on 2026-05-17; see `docs/audits/2026-05-17-comprehensive-review.md` for
+> migration notes. macOS 11 is no longer supported (Electron 38+ requirement).
 
 ## Process layout
 
@@ -132,8 +137,29 @@ Runs:
 3. `electron-builder --win nsis` reads `electron-builder.yml`, copies the
    renderer + main bundle into `release/win-unpacked/`, and produces:
    - `release/oh-my-open-ui-Setup-0.1.0-x64.exe` (~84 MB NSIS installer).
-   - `release/win-unpacked/oh-my-open-ui.exe` (~188 MB unpacked binary, runs
-     without install).
+   - `release/win-unpacked/oh-my-open-ui.exe` (~216 MB unpacked binary on
+     Electron 42, runs without install).
+
+### China-network mirrors
+
+If `github.com` is unreachable, point the binary downloader at an Aliyun
+mirror **before** running `package` — both Electron itself and the
+`electron-builder` auxiliary binaries (winCodeSign, NSIS) honour env vars:
+
+```powershell
+$env:ELECTRON_MIRROR='https://npmmirror.com/mirrors/electron/'
+$env:ELECTRON_BUILDER_BINARIES_MIRROR='https://npmmirror.com/mirrors/electron-builder-binaries/'
+pnpm --filter @oh/desktop run package
+```
+
+### Windows non-admin caveat
+
+`winCodeSign-2.6.0.7z` contains symlinks for the bundled darwin OpenSSL libs.
+On Windows without **Developer Mode** (Settings → Privacy → For developers →
+Developer Mode) or admin rights, 7-Zip cannot create those symlinks and the
+NSIS installer step fails — `release/win-unpacked/oh-my-open-ui.exe` is
+still produced and runnable, only the `.Setup.exe` installer is missing.
+Enable Developer Mode once per machine to silence this.
 
 `electron-builder.yml` highlights:
 
